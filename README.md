@@ -1,9 +1,20 @@
 # ATP Tennis Daily
 
-ATP Tennis Daily is a Codex-driven workspace for producing a daily HTML edition centered on the current ATP singles card from Svenska Spel.
-The public-facing page title should be `Tennis Daily`.
+ATP Tennis Daily is the internal project and repo for the public page `Tennis Daily`.
+
+The project produces one daily HTML edition focused on the current ATP singles card from Svenska Spel and publishes it to:
+
+- `https://tennis-daily.egelberg.se`
 
 The goal is not to build a generic tennis news page or a pure odds screen. The workflow starts from the live match card, then enriches each matchup with ATP database history, head-to-head context, form, overall level, event-surface context, and current reporting such as injuries or recent withdrawals.
+
+## Public Identity
+
+- internal project / repo name: `ATP Tennis Daily`
+- public site name: `Tennis Daily`
+- public URL: `https://tennis-daily.egelberg.se`
+
+This split is intentional. The codebase keeps the longer technical name, while the rendered page should simply present itself as `Tennis Daily`.
 
 ## What This Project Is For
 
@@ -12,7 +23,7 @@ The goal is not to build a generic tennis news page or a pure odds screen. The w
 - exclude doubles, WTA, and Challenger matches
 - combine bookmaker pricing with ATP database context
 - use current web reporting for injury and availability context that the database does not contain
-- present the result in a readable newspaper-style layout
+- present the result in a readable daily-edition layout
 
 ## Runtime Backend
 
@@ -39,12 +50,18 @@ The edition should be built in this order:
 The page is intentionally static:
 
 - `template.html` is the base layout file
+- `preview.html` is a local design sandbox and is not required for runtime
 - `editions/YYYY-MM-DD.html` stores the dated edition
 - `editions/latest.html` stores the current edition
 
 The design is meant to stay focused on the match list itself. It should still work well on both desktop and mobile.
 The generated HTML can also carry the dominant surface theme in a fully self-contained way and follow the viewer's light/dark system preference without needing any external app runtime.
 Match titles should prefer ATP-service SVG flags rather than emoji flags.
+
+At publish time:
+
+- `editions/` is mirrored to the public web directory
+- `editions/latest.html` is also copied to the site root as `index.html`
 
 ## Quick Prompts
 
@@ -128,8 +145,51 @@ Internally, `run.sh` sends the short command `atp-tennis-daily-scan` to Codex. T
 `atp-tennis-daily-scan` should also use the documented ATP service endpoints directly. It should not probe `https://tennis.egelberg.se/`, inspect the frontend app, or scrape bundled JavaScript assets just to rediscover endpoints that are already part of the project memory.
 To keep Pi scans stable, `atp-tennis-daily-scan` should keep tool output compact. It should prefer filtered endpoint reads and small excerpts over dumping full HTML, full JSON payloads, or large schema responses into the session.
 In the `Odds` block, `atp-tennis-daily-scan` should show `Tennis Abstract` rather than a generated `Codex` line. Do not shorten that label to `TA` in the rendered page. Show `Svenska Spel`, `Tennis Abstract`, and `Vitel`, and if edge is shown place it inline after the odds in the same cell, for example `1.43 (-2%)`, rounded to whole percentages with no decimals. Do not render separate edge rows. `Spelidé` should follow the inline `Tennis Abstract` edge first, while `Vitel` remains a secondary experimental comparison. Avoid unexplained shorthand like `pp` in user-facing output. Keep full player names in the main match title, but use player surnames rather than first names in odds-table headers and in `Spelidé`.
+In the `Head-to-head` block, `atp-tennis-daily-scan` should prefer the existing compact table style when previous meetings exist. Show date, tournament, surface, and a readable result line with winner and score. Fall back to a short prose note only when there are no relevant previous meetings.
 
 For the Pi runner, `run.sh` should use `codex exec --sandbox danger-full-access` rather than `--full-auto`. In practice, the narrower nested sandbox can block DNS or outbound HTTP for `tennis.egelberg.se` and Svenska Spel-backed feeds even when plain shell networking works on the machine.
+
+## Deployment
+
+Current production layout on `pi-kato`:
+
+- repo clone:
+  - `/home/pi/atp-tennis-daily`
+- published site root:
+  - `/var/www/html/tennis-daily`
+- current edition at runtime:
+  - `/var/www/html/tennis-daily/index.html`
+- dated/public archive files:
+  - `/var/www/html/tennis-daily/editions/`
+
+The domain `tennis-daily.egelberg.se` is served by Apache and should simply display the latest published edition.
+
+## Scheduling
+
+The project runs independently of the older scanner project.
+
+Current PM2 setup on `pi-kato`:
+
+- process name: `atp-tennis-daily`
+- script: `/home/pi/atp-tennis-daily/run.sh`
+- args: `--publish --daily 09:00`
+- timezone intent: `Europe/Stockholm`
+
+That means the public site should refresh automatically every day at `09:00` Swedish time, while manual runs can still be done with:
+
+```bash
+cd /home/pi/atp-tennis-daily
+./run.sh --publish
+```
+
+## Separation From The Old Project
+
+This project is meant to stand on its own.
+
+- do not depend on `tennis-scanner-daily` at runtime
+- do not publish into the old webroot
+- do not reuse the old PM2 process
+- keep this repo, webroot, and domain independent so the old project can be retired later without affecting `Tennis Daily`
 
 ## Change Log
 
@@ -138,3 +198,4 @@ For the Pi runner, `run.sh` should use `codex exec --sandbox danger-full-access`
 - 2026-04-07: Added compact-output rules for `atp-tennis-daily-scan` so Pi scans do not bloat the nested Codex session with full HTML, payload, or schema dumps.
 - 2026-04-07: Documented the actual endpoint payload shapes from `tennis.egelberg.se`, especially the live contracts for `/api/oddset`, `/api/player/lookup`, `/api/players/odds`, `/api/players/head-to-head`, `/api/events/calendar`, and `/api/query`.
 - 2026-04-07: Removed the inherited user-mode versus developer-mode split from this project and simplified command handling to one workflow.
+- 2026-04-09: Detached the project from `tennis-scanner-daily`, renamed the public page to `Tennis Daily`, published it at `https://tennis-daily.egelberg.se`, and added an independent PM2 job for daily `09:00` publishing.

@@ -60,6 +60,7 @@ Each match section should usually contain:
 - `Spelbild`
 - `Form och historik`
 - `Head-to-head` when relevant
+- when previous meetings exist, `Head-to-head` should prefer a compact results table with date, tournament, surface, and score rather than only a prose summary
 - `Odds` as a full-width primary block rather than a cramped side-column block
 - `Skador och dagsläge` when relevant
 - `Marknad och modell` when relevant
@@ -79,6 +80,7 @@ Each match section should usually contain:
 - prefer ATP SVG flags over emoji
 - render those flags as circular `background-image` slots
 - keep mobile readability strong
+- in `Head-to-head`, prefer the existing compact table style when there are actual previous meetings to show
 - in the `Odds` block, show `Svenska Spel`, `Tennis Abstract`, and `Vitel` when the data supports it
 - if edge is shown, place it inline after the odds in the same cell, for example `1.43 (-2%)`
 - round displayed edge to whole percentages with no decimals
