@@ -69,6 +69,8 @@ Each match section should usually contain:
 ## Presentation Rules
 
 - the page should feel calm, readable, and match-focused
+- keep the masthead in a restrained broadsheet direction rather than an oversized poster look
+- the current preferred title treatment is `Newsreader` with a slightly reduced scale, so the wordmark feels editorial rather than dominant
 - do not make any single surface the master narrative of the whole page
 - let the current event surface act as matchup context
 - keep labels plain rather than decorative
