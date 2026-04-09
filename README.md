@@ -1,6 +1,7 @@
 # ATP Tennis Daily
 
 ATP Tennis Daily is a Codex-driven workspace for producing a daily HTML edition centered on the current ATP singles card from Svenska Spel.
+The public-facing page title should be `Tennis Daily`.
 
 The goal is not to build a generic tennis news page or a pure odds screen. The workflow starts from the live match card, then enriches each matchup with ATP database history, head-to-head context, form, overall level, event-surface context, and current reporting such as injuries or recent withdrawals.
 

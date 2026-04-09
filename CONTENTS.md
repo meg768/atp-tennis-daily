@@ -1,4 +1,4 @@
-# ATP Tennis Daily Contents
+# Tennis Daily Contents
 
 ## Purpose
 
@@ -6,7 +6,7 @@ This file stores the editorial brief for what the edition should contain, how it
 
 ## Editorial Intent
 
-- publish a daily HTML page called `ATP Tennis Daily`
+- publish a daily HTML page called `Tennis Daily`
 - cover all ATP singles matches currently listed on the Svenska Spel card exposed by `https://tennis.egelberg.se/api/oddset`
 - exclude doubles, WTA, and Challenger
 - use `https://tennis.egelberg.se` as the statistical backbone
@@ -45,7 +45,7 @@ For each match, include as much of this as the sources support:
 
 Use this order:
 
-1. `ATP Tennis Daily`
+1. `Tennis Daily`
 2. date line
 3. one section per match
 
