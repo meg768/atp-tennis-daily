@@ -1,0 +1,139 @@
+# ATP Tennis Daily
+
+ATP Tennis Daily is a Codex-driven workspace for producing a daily HTML edition centered on the current ATP singles card from Svenska Spel.
+
+The goal is not to build a generic tennis news page or a pure odds screen. The workflow starts from the live match card, then enriches each matchup with ATP database history, head-to-head context, form, overall level, event-surface context, and current reporting such as injuries or recent withdrawals.
+
+## What This Project Is For
+
+- publish one daily HTML edition for the current ATP singles card
+- cover all ATP singles matches on the Svenska Spel card
+- exclude doubles, WTA, and Challenger matches
+- combine bookmaker pricing with ATP database context
+- use current web reporting for injury and availability context that the database does not contain
+- present the result in a readable newspaper-style layout
+
+## Runtime Backend
+
+In normal runtime, this project should talk to the hosted ATP HTTP service directly.
+
+- the ATP service is the real backend dependency
+- the intended runtime base URL is `https://tennis.egelberg.se`
+
+## Core Workflow
+
+The edition should be built in this order:
+
+1. Fetch the current ATP singles card from the Svenska Spel-backed ATP feed
+2. Resolve tournament and surface context
+3. Enrich each match with ATP rankings, head-to-head, form, and model context from the hosted ATP service
+4. Check current web reporting for injuries, withdrawals, absences, or other material updates
+5. Write one HTML edition in Swedish
+6. Save it to both:
+   - `editions/YYYY-MM-DD.html`
+   - `editions/latest.html`
+
+## HTML Edition
+
+The page is intentionally static:
+
+- `template.html` is the base layout file
+- `editions/YYYY-MM-DD.html` stores the dated edition
+- `editions/latest.html` stores the current edition
+
+The design is meant to stay focused on the match list itself. It should still work well on both desktop and mobile.
+The generated HTML can also carry the dominant surface theme in a fully self-contained way and follow the viewer's light/dark system preference without needing any external app runtime.
+Match titles should prefer ATP-service SVG flags rather than emoji flags.
+
+## Quick Prompts
+
+Typical prompts in this workspace:
+
+- `scan`
+- `generate today's edition`
+- `refresh the html`
+- `help`
+
+Expected behavior:
+
+- `scan` or `generate today's edition` should update the local HTML edition files
+- a normal scan should not create extra helper scripts or new project source files
+- `help` should explain how the match list is sourced and how the edition is assembled
+- this project uses one command model only; there is no separate user-mode versus developer-mode command split
+
+## Sources
+
+Normal source mix:
+
+- Svenska Spel for the current ATP singles card and bookmaker odds
+- `https://tennis.egelberg.se` for rankings, head-to-head, schedule context, model odds, and read-only SQL access
+- ATP Tour and tournament pages for official context
+- Reuters and other reliable reporting for current injury and availability news
+
+Important interpretation rule:
+
+- do not treat clay, hard, or grass as the default narrative lens of the whole edition
+- use the actual event surface as matchup context when relevant
+- if the ATP dataset offers useful overall or surface-specific ELO/rating signals, they are valid supporting evidence and may be shown in the edition
+
+## ATP Service Endpoints
+
+The ATP service documents itself now.
+
+- `GET /api/meta/endpoints`
+  Returns machine-readable metadata for the service endpoints, including method, params, query usage, and payload notes.
+
+- `GET /api/meta/schema.sql`
+  Returns the raw database schema SQL, including comments, functions, procedures, and DDL context.
+
+For this project, treat those two metadata endpoints as the canonical documentation layer rather than maintaining a second full endpoint reference here.
+
+## ATP Service Notes
+
+- canonical base URL: `https://tennis.egelberg.se`
+- scanner-relevant core endpoints:
+  `GET /api/oddset`
+  `GET /api/player/lookup`
+  `GET /api/players/odds?playerA=...&playerB=...`
+  `GET /api/tennis-abstract/odds?playerA=...&playerB=...&surface=...`
+  `GET /api/players/head-to-head?playerA=...&playerB=...`
+  `GET /api/events/calendar`
+  `POST /api/query`
+- canonical service docs:
+  `GET /api/meta/endpoints`
+  `GET /api/meta/schema.sql`
+- `/api/query` is read-only by design, but it still exposes broad database reads and should stay private
+- if we want the exact same config locally and on the Pi, the scanner should target these HTTP endpoints directly
+
+## Automation
+
+The repo includes a `run.sh` runner for scans.
+
+- `./run.sh`
+  Runs one scan and exits.
+
+- `./run.sh --publish`
+  Runs one scan, publishes `editions/` to the web root, and exits.
+
+- `./run.sh --daily 09:00`
+  Waits for the next `09:00` in `Europe/Stockholm`, then runs once per day at that time.
+
+- `./run.sh --publish --daily 09:00`
+  Publishes after each daily run and keeps the process alive inside PM2.
+
+Internally, `run.sh` sends the short command `atp-tennis-daily-scan` to Codex. That means scan behavior should normally be changed in the project memory rather than by editing a long embedded shell prompt.
+`atp-tennis-daily-scan` is meant to execute the scan directly in the active Codex session. It must not call `run.sh` again or start a nested runner process.
+`atp-tennis-daily-scan` should stay narrowly focused during a live scan: read `template.html` and `editions/latest.html`, fetch the current card and player context from `https://tennis.egelberg.se`, add current reporting for the specific matches on the card, then write the two edition files. It should avoid broad repo searching or wandering through unrelated historical files during a normal scan.
+`atp-tennis-daily-scan` should also use the documented ATP service endpoints directly. It should not probe `https://tennis.egelberg.se/`, inspect the frontend app, or scrape bundled JavaScript assets just to rediscover endpoints that are already part of the project memory.
+To keep Pi scans stable, `atp-tennis-daily-scan` should keep tool output compact. It should prefer filtered endpoint reads and small excerpts over dumping full HTML, full JSON payloads, or large schema responses into the session.
+In the `Odds` block, `atp-tennis-daily-scan` should show `Tennis Abstract` rather than a generated `Codex` line. Do not shorten that label to `TA` in the rendered page. Show `Svenska Spel`, `Tennis Abstract`, and `Vitel`, and if edge is shown place it inline after the odds in the same cell, for example `1.43 (-2%)`, rounded to whole percentages with no decimals. Do not render separate edge rows. `Spelidé` should follow the inline `Tennis Abstract` edge first, while `Vitel` remains a secondary experimental comparison. Avoid unexplained shorthand like `pp` in user-facing output. Keep full player names in the main match title, but use player surnames rather than first names in odds-table headers and in `Spelidé`.
+
+For the Pi runner, `run.sh` should use `codex exec --sandbox danger-full-access` rather than `--full-auto`. In practice, the narrower nested sandbox can block DNS or outbound HTTP for `tennis.egelberg.se` and Svenska Spel-backed feeds even when plain shell networking works on the machine.
+
+## Change Log
+
+- 2026-04-06: Initial project scaffold added with project memory, HTML template, and edition workflow.
+- 2026-04-07: Locked `atp-tennis-daily-scan` to the documented ATP endpoints so Pi scans do not waste time rediscovering APIs from the hosted frontend bundle.
+- 2026-04-07: Added compact-output rules for `atp-tennis-daily-scan` so Pi scans do not bloat the nested Codex session with full HTML, payload, or schema dumps.
+- 2026-04-07: Documented the actual endpoint payload shapes from `tennis.egelberg.se`, especially the live contracts for `/api/oddset`, `/api/player/lookup`, `/api/players/odds`, `/api/players/head-to-head`, `/api/events/calendar`, and `/api/query`.
+- 2026-04-07: Removed the inherited user-mode versus developer-mode split from this project and simplified command handling to one workflow.

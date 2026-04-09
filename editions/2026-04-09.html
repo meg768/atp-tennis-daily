@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="sv" class="theme-clay">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATP Tennis Daily | 9 april 2026</title>
+    <meta name="description" content="ATP Tennis Daily med liveuppdaterad ATP-genomgång, match för match, med ranking, underlagsprofil, form, head-to-head, odds och dagsläge." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+:root {
+  --theme-base: #5482b0;
+  --theme-dark: #203346;
+  --theme-soft: #eef2f7;
+  --theme-soft-2: #dce6ef;
+  --canvas-top: #f5f8fb;
+  --canvas: #edf3f8;
+  --canvas-bottom: #e5edf5;
+  --paper: rgba(255, 255, 255, 0.96);
+  --paper-soft: #f8fbfd;
+  --ink: #101a23;
+  --muted: #4a6074;
+  --rule: rgba(50, 79, 108, 0.18);
+  --accent-dark: #324f6c;
+  --accent-soft: #779cc0;
+  --card-surface: #f7fbff;
+  --shadow: 0 18px 40px rgba(32, 51, 70, 0.08);
+  --page-glow: rgba(84, 130, 176, 0.12);
+  --page-glow-soft: rgba(84, 130, 176, 0.06);
+  --panel-surface: #f1f6fb;
+  --block-surface: #f8fbfe;
+  --callout-surface: #edf4fa;
+  --footer-surface: color-mix(in srgb, var(--theme-base) 6%, white);
+  --flag-surface: rgba(255, 255, 255, 0.82);
+  --flag-border: rgba(84, 130, 176, 0.22);
+  --copy: #203346;
+  --copy-soft: #31485b;
+}
+
+html.theme-clay,
+body.theme-clay {
+  --theme-base: #d96b47;
+  --theme-dark: #703328;
+  --theme-soft: #fdf7f4;
+  --theme-soft-2: #fceee6;
+  --canvas-top: #fdf7f4;
+  --canvas: #f9efe8;
+  --canvas-bottom: #f6e6dc;
+  --paper: rgba(255, 255, 255, 0.96);
+  --paper-soft: #fdf8f5;
+  --ink: #34160f;
+  --muted: #7b4b38;
+  --rule: rgba(146, 65, 49, 0.18);
+  --accent-dark: #924131;
+  --accent-soft: #e78e6c;
+  --card-surface: #fff8f4;
+  --shadow: 0 18px 40px rgba(112, 51, 40, 0.08);
+  --page-glow: rgba(217, 107, 71, 0.16);
+  --page-glow-soft: rgba(217, 107, 71, 0.08);
+  --panel-surface: #faeee6;
+  --block-surface: #fff9f6;
+  --callout-surface: #f6e7dd;
+  --footer-surface: rgba(249, 236, 227, 0.78);
+  --flag-surface: rgba(255, 248, 244, 0.86);
+  --flag-border: rgba(146, 65, 49, 0.22);
+  --copy: #4a241b;
+  --copy-soft: #6f4536;
+}
+
+html.theme-grass,
+body.theme-grass {
+  --theme-base: #4b9e4b;
+  --theme-dark: #235023;
+  --theme-soft: #f5fbf5;
+  --theme-soft-2: #e6f6e6;
+  --canvas-top: #f5fbf5;
+  --canvas: #edf7ed;
+  --canvas-bottom: #e1f0e1;
+  --paper: rgba(255, 255, 255, 0.96);
+  --paper-soft: #f8fcf8;
+  --ink: #0f250f;
+  --muted: #3f6840;
+  --rule: rgba(46, 104, 46, 0.18);
+  --accent-dark: #2e682e;
+  --accent-soft: #6cb86c;
+  --card-surface: #fbfffb;
+  --shadow: 0 18px 40px rgba(35, 80, 35, 0.08);
+  --page-glow: rgba(75, 158, 75, 0.15);
+  --page-glow-soft: rgba(75, 158, 75, 0.07);
+  --panel-surface: #ebf6eb;
+  --block-surface: #fafffa;
+  --callout-surface: #e2f1e2;
+  --footer-surface: rgba(234, 246, 234, 0.78);
+  --flag-surface: rgba(248, 253, 248, 0.86);
+  --flag-border: rgba(46, 104, 46, 0.22);
+  --copy: #173317;
+  --copy-soft: #355335;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --theme-base: #6f95bb;
+    --theme-dark: #d9e6f2;
+    --theme-soft: #17222d;
+    --theme-soft-2: #243443;
+    --canvas-top: #0a1219;
+    --canvas: #0d1822;
+    --canvas-bottom: #13212d;
+    --paper: rgba(16, 27, 37, 0.96);
+    --paper-soft: #15212c;
+    --ink: #edf4fb;
+    --muted: #a8bfd5;
+    --rule: rgba(144, 173, 201, 0.24);
+    --accent-dark: #b8d0e7;
+    --accent-soft: #7ea6cd;
+    --card-surface: #162432;
+    --shadow: 0 20px 42px rgba(0, 0, 0, 0.28);
+    --page-glow: rgba(84, 130, 176, 0.18);
+    --page-glow-soft: rgba(84, 130, 176, 0.1);
+    --panel-surface: #213445;
+    --block-surface: #1a2a38;
+    --callout-surface: #253a4c;
+    --footer-surface: rgba(21, 35, 48, 0.92);
+    --flag-surface: rgba(20, 33, 45, 0.95);
+    --flag-border: rgba(144, 173, 201, 0.28);
+    --copy: #e7f1fa;
+    --copy-soft: #bfd0e1;
+  }
+
+  html.theme-clay,
+  body.theme-clay {
+    --theme-base: #e38a68;
+    --theme-dark: #fee6db;
+    --theme-soft: #2a1813;
+    --theme-soft-2: #3a2119;
+    --canvas-top: #190d09;
+    --canvas: #23120d;
+    --canvas-bottom: #2c1811;
+    --paper: rgba(36, 21, 16, 0.96);
+    --paper-soft: #311d16;
+    --ink: #fff2ec;
+    --muted: #e1b3a2;
+    --rule: rgba(227, 138, 104, 0.24);
+    --accent-dark: #ffd6c6;
+    --accent-soft: #efab91;
+    --card-surface: #2e1c16;
+    --shadow: 0 20px 42px rgba(0, 0, 0, 0.3);
+    --page-glow: rgba(217, 107, 71, 0.22);
+    --page-glow-soft: rgba(217, 107, 71, 0.12);
+    --panel-surface: #4a2a1f;
+    --block-surface: #38211a;
+    --callout-surface: #553023;
+    --footer-surface: rgba(47, 27, 20, 0.92);
+    --flag-surface: rgba(49, 29, 22, 0.95);
+    --flag-border: rgba(227, 138, 104, 0.28);
+    --copy: #fff1e9;
+    --copy-soft: #ecc7b7;
+  }
+
+  html.theme-grass,
+  body.theme-grass {
+    --theme-base: #73b873;
+    --theme-dark: #def5de;
+    --theme-soft: #132113;
+    --theme-soft-2: #1c2f1c;
+    --canvas-top: #091309;
+    --canvas: #0d1a0d;
+    --canvas-bottom: #142314;
+    --paper: rgba(19, 33, 19, 0.96);
+    --paper-soft: #1a2b1a;
+    --ink: #eefbee;
+    --muted: #b0d7b0;
+    --rule: rgba(115, 184, 115, 0.24);
+    --accent-dark: #d5f1d5;
+    --accent-soft: #97cf97;
+    --card-surface: #1a2d1a;
+    --shadow: 0 20px 42px rgba(0, 0, 0, 0.28);
+    --page-glow: rgba(75, 158, 75, 0.2);
+    --page-glow-soft: rgba(75, 158, 75, 0.1);
+    --panel-surface: #294229;
+    --block-surface: #203520;
+    --callout-surface: #315031;
+    --footer-surface: rgba(22, 38, 22, 0.92);
+    --flag-surface: rgba(22, 38, 22, 0.95);
+    --flag-border: rgba(115, 184, 115, 0.28);
+    --copy: #eef9ee;
+    --copy-soft: #c5dfc5;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--canvas-bottom);
+  color: var(--ink);
+  font-size: 16px;
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page-shell {
+  width: min(1180px, calc(100vw - 1.5rem));
+  margin: 0.9rem auto 1.5rem;
+  padding: 0.75rem;
+}
+
+.masthead {
+  padding: 1rem 1rem 1.1rem;
+  background: var(--card-surface);
+  border: 1px solid var(--rule);
+  border-radius: 0.45rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.masthead__rail,
+.masthead__date,
+.match-meta__item,
+.match-block__label,
+.footer-note {
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.masthead__rail {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 0 0.8rem 0.55rem;
+  border-bottom: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.masthead__title {
+  margin: 0.95rem 0 0.55rem;
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(1.32rem, 2.7vw, 1.95rem);
+  line-height: 1.05;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+  color: var(--theme-dark);
+}
+
+.masthead__date {
+  margin: 0;
+  color: var(--accent-dark);
+  font-size: 0.72rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.masthead__deck {
+  margin: 0.8rem auto 0;
+  max-width: 72ch;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--muted);
+  text-align: center;
+}
+
+.match-list {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 0.9rem;
+}
+
+.match-section {
+  padding: 0.95rem;
+  background: var(--card-surface);
+  border: 1px solid var(--rule);
+  border-radius: 0.45rem;
+  box-shadow: var(--shadow);
+}
+
+.match-section__title {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(1.08rem, 1.54vw, 1.28rem);
+  line-height: 1.14;
+  letter-spacing: -0.028em;
+  font-weight: 600;
+}
+
+.match-title__side {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.54rem;
+}
+
+.match-title__flag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3em;
+  height: 3em;
+  min-width: 3em;
+  min-height: 3em;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--theme-dark) 46%, white);
+  border-radius: 999px;
+  background: var(--flag-surface);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--theme-dark) 14%, transparent);
+  overflow: hidden;
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.match-title__name {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.12rem;
+  color: inherit;
+}
+
+.match-title__country {
+  color: inherit;
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.92em;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.match-title__rank {
+  color: inherit;
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.92em;
+  letter-spacing: 0;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.match-title__separator {
+  color: inherit;
+  font-size: 0.88em;
+  margin: 0 0.12rem 0 0.02rem;
+  font-weight: 500;
+  text-transform: lowercase;
+}
+
+.match-section__summary {
+  margin: 0.65rem 0 0;
+  max-width: 70ch;
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.14rem;
+  line-height: 1.5;
+  color: var(--copy-soft);
+}
+
+.match-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.match-meta__item {
+  padding: 0.82rem;
+  background: var(--panel-surface);
+  border: 1px solid var(--rule);
+  border-radius: 0.35rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.match-meta__item strong {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--ink);
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 900;
+}
+
+.match-meta__subtext {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--muted);
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.match-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.75fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.match-copy,
+.match-side {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.match-block--primary {
+  margin-top: 1.5rem;
+}
+
+.match-block {
+  padding: 0.9rem;
+  background: var(--block-surface);
+  border: 1px solid var(--rule);
+  border-radius: 0.35rem;
+}
+
+.match-block__label {
+  margin: 0 0 0.45rem;
+  color: var(--theme-base);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.match-block p:not(.match-block__label) {
+  margin: 0;
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.03rem;
+  line-height: 1.62;
+  color: var(--copy);
+}
+
+.match-block ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.match-block li {
+  margin-bottom: 0.5rem;
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--copy);
+}
+
+.match-block li:last-child {
+  margin-bottom: 0;
+}
+
+.mini-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.mini-table th,
+.mini-table td {
+  padding: 0.45rem 0.35rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+.mini-table th {
+  color: var(--muted);
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.mini-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.odds-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.odds-table th,
+.odds-table td {
+  padding: 0.58rem 0.45rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+.odds-table th:first-child,
+.odds-table td:first-child {
+  width: 46%;
+  padding-right: 1.1rem;
+}
+
+.odds-table th {
+  color: var(--muted);
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.odds-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.odds-callout {
+  margin-top: 0.8rem !important;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.35rem;
+  border: 1px solid var(--flag-border);
+  background: var(--callout-surface);
+}
+
+.odds-callout strong {
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  color: var(--theme-dark);
+}
+
+.footer-note {
+  margin: 1rem 0 0;
+  padding: 0.8rem 1rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.6;
+  border: 1px solid var(--rule);
+  border-radius: 0.35rem;
+  background: var(--footer-surface);
+}
+
+@media (max-width: 980px) {
+  .match-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .match-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .page-shell {
+    width: min(100vw, calc(100vw - 0.8rem));
+    margin: 0.4rem auto 1rem;
+    padding: 0.4rem;
+  }
+
+  .masthead,
+  .match-section {
+    padding: 0.9rem;
+    border-radius: 0.35rem;
+  }
+
+  .masthead__rail,
+  .match-meta {
+    grid-template-columns: 1fr;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .match-section__title {
+    gap: 0.35rem;
+  }
+
+  .match-title__separator {
+    width: auto;
+    line-height: inherit;
+  }
+}
+    </style>
+  </head>
+  <body class="theme-clay">
+    <div class="page-shell">
+      <header class="masthead">
+        <div class="masthead__rail">
+          <span>ATP Tennis Daily</span><span>Dagens ATP-singlar</span><span>Snapshot 2026-04-09 01:19 CEST</span>
+        </div>
+        <h1 class="masthead__title">ATP Tennis Daily</h1>
+        <p class="masthead__date">Torsdag 9 april 2026, dagens ATP-kort i Monte-Carlo</p>
+        <p class="masthead__deck">Ett dagligt nyhetsblad med kommande ATP-singlar från Svenska Spel, match för match, med ranking, ELO, form, inbördes möten, odds och verifierat dagsläge i fokus.</p>
+      </header>
+
+      <main class="match-list">
+        <section class="match-section"><h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/BEL.svg&quot;);"></span><span class="match-title__name">Zizou Bergs <span class="match-title__country">(BEL)</span> <span class="match-title__rank">#47</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/GER.svg&quot;);"></span><span class="match-title__name">Alexander Zverev <span class="match-title__country">(GER)</span> <span class="match-title__rank">#3</span></span></span></h2><p class="match-section__summary">Alexander Zverev kommer in med både rankingövertag och starkare grusprofil, men Zizou Bergs har nog med kvalitet i första slagen för att göra matchen obekväm om favoriten inte sätter returdjupet direkt.</p><div class="match-meta"><div class="match-meta__item">Tid<strong>11:00 CEST<span class="match-meta__subtext">Torsdag 9 april 2026</span></strong></div><div class="match-meta__item">2026-facit<strong>6-7 mot 15-5</strong></div><div class="match-meta__item">Grusprofil<strong>52 / 76<span class="match-meta__subtext">ELO-rank 1824 / 2163</span></strong></div></div><div class="match-body"><div class="match-copy"><article class="match-block"><p class="match-block__label">Spelbild</p><p>Alexander Zverev har den tyngre servestarten och vill hålla poängen korta nog för att låta serve plus första forehand bära mycket av trycket. I returgamen pekar siffrorna tydligare mot Alexander Zverev, som bör försöka göra andraserven spelbar och flytta in positionen tidigt. På grus väger det också in att Alexander Zverev har den starkare clayfaktorn i databasen, vilket normalt ger bättre marginal när poängen drar ut över fyra-fem slag.</p></article><article class="match-block"><p class="match-block__label">Form och historik</p><p>Zizou Bergs kommer senast från seger mot Andrey Rublev i Monte-Carlo (6-4 6-1). Alexander Zverev kommer senast från seger mot Cristian Garin i Monte-Carlo (4-6 6-4 7-5). ATP-datan lägger Zizou Bergs på grus-ELO-rank 1824 och clayfaktor 52, mot 2163 och 76 för Alexander Zverev. Årsfacit står på 6-7 mot 15-5.</p></article><article class="match-block"><p class="match-block__label">Head-to-head</p><p>Inga tidigare tourmöten finns i ATP-datan, så matchen får i högre grad vila på nuvarande grusprofil, formkurva och hur väl spelstilarna hakar i varandra.</p></article><article class="match-block"><p class="match-block__label">Skador och dagsläge</p><p>Ingen verifierad färsk skadeuppdatering sticker ut inför matchen, så det mest relevanta dagsläget är vem som snabbast hittar rätt i höjd, tålamod och returposition på gruset. Under presslägen pekar ATP-siffrorna dessutom något tydligare mot Alexander Zverev, vilket kan bli viktigt om seten håller sig tajta länge.</p></article></div><aside class="match-side"><article class="match-block"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Bergs</th><th>Zverev</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>4.1</td><td>1.23</td></tr><tr><td>Tennis Abstract</td><td>6.95 (-9%)</td><td>1.1 (+9%)</td></tr><tr><td>Vitel</td><td>4.27 (-1%)</td><td>1.23 (+1%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Zverev till nuvarande pris. Tennis Abstract ligger tydligt högre på Alexander Zverev än Svenska Spel gör, och den synliga huvudjämförelsen ger därför bäst stöd åt den sidan.</p></article><article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Svenska Spel gör Alexander Zverev till favorit. Både Tennis Abstract och Vitel pekar åt samma håll som huvudlinjen, men Tennis Abstract avviker mer och sätter tonen för hur prisskillnaden ska läsas.</p></article><article class="match-block"><p class="match-block__label">Det avgör</p><p>Det avgör hur mycket tryck Alexander Zverev får in i returgamen och om Zizou Bergs ändå kan hålla poängen tillräckligt korta på egen serve.</p></article></aside></div></section><section class="match-section"><h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/ITA.svg&quot;);"></span><span class="match-title__name">Matteo Berrettini <span class="match-title__country">(ITA)</span> <span class="match-title__rank">#90</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/BRA.svg&quot;);"></span><span class="match-title__name">Joao Fonseca <span class="match-title__country">(BRA)</span> <span class="match-title__rank">#40</span></span></span></h2><p class="match-section__summary">En matchup där tempot och underlaget kan dra matchen närmare än de raka oddsen antyder, särskilt om det första offensiva slaget skiftar sida ofta.</p><div class="match-meta"><div class="match-meta__item">Tid<strong>11:00 CEST<span class="match-meta__subtext">Torsdag 9 april 2026</span></strong></div><div class="match-meta__item">2026-facit<strong>6-6 mot 5-5</strong></div><div class="match-meta__item">Grusprofil<strong>70 / 64<span class="match-meta__subtext">ELO-rank 2033 / 1952</span></strong></div></div><div class="match-body"><div class="match-copy"><article class="match-block"><p class="match-block__label">Spelbild</p><p>Grundprofilerna är tillräckligt nära för att första riktningsbytet ofta sätter tonen i gamen, särskilt på grus där höjd och tålamod väger in snabbt. I returgamen pekar siffrorna tydligare mot Joao Fonseca, som bör försöka göra andraserven spelbar och flytta in positionen tidigt.</p></article><article class="match-block"><p class="match-block__label">Form och historik</p><p>Matteo Berrettini kommer senast från seger mot Daniil Medvedev i Monte-Carlo (6-0 6-0). Joao Fonseca kommer senast från seger mot Arthur Rinderknech i Monte-Carlo (7-5 4-6 6-3). ATP-datan lägger Matteo Berrettini på grus-ELO-rank 2033 och clayfaktor 70, mot 1952 och 64 för Joao Fonseca. Årsfacit står på 6-6 mot 5-5.</p></article><article class="match-block"><p class="match-block__label">Head-to-head</p><table class="mini-table"><thead><tr><th>Datum</th><th>Turnering</th><th>Underlag</th><th>Resultat</th></tr></thead><tbody><tr><td>2024-09-09</td><td>Bologna</td><td>Hard</td><td>Matteo Berrettini slog Joao Fonseca 6-1 7-6(5)</td></tr></tbody></table></article><article class="match-block"><p class="match-block__label">Skador och dagsläge</p><p>Ingen verifierad färsk skadeuppdatering sticker ut inför matchen, så det mest relevanta dagsläget är vem som snabbast hittar rätt i höjd, tålamod och returposition på gruset. Under presslägen pekar ATP-siffrorna dessutom något tydligare mot Matteo Berrettini, vilket kan bli viktigt om seten håller sig tajta länge.</p></article></div><aside class="match-side"><article class="match-block"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Berrettini</th><th>Fonseca</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>2.3</td><td>1.62</td></tr><tr><td>Tennis Abstract</td><td>1.96 (+7%)</td><td>1.85 (-7%)</td></tr><tr><td>Vitel</td><td>1.71 (+14%)</td><td>2.15 (-14%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Berrettini till nuvarande pris. Tennis Abstract ligger tydligt högre på Matteo Berrettini än Svenska Spel gör, och den synliga huvudjämförelsen ger därför bäst stöd åt den sidan.</p></article><article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Svenska Spel gör Joao Fonseca till favorit. Både Tennis Abstract och Vitel pekar åt samma håll som huvudlinjen, men Tennis Abstract avviker mer och sätter tonen för hur prisskillnaden ska läsas.</p></article><article class="match-block"><p class="match-block__label">Det avgör</p><p>Det avgör hur mycket tryck Joao Fonseca får in i returgamen och om Matteo Berrettini ändå kan hålla poängen tillräckligt korta på egen serve.</p></article></aside></div></section><section class="match-section"><h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/CZE.svg&quot;);"></span><span class="match-title__name">Tomas Machac <span class="match-title__country">(CZE)</span> <span class="match-title__rank">#53</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/ITA.svg&quot;);"></span><span class="match-title__name">Jannik Sinner <span class="match-title__country">(ITA)</span> <span class="match-title__rank">#2</span></span></span></h2><p class="match-section__summary">Jannik Sinner kommer in med både rankingövertag och starkare grusprofil, men Tomas Machac har nog med kvalitet i första slagen för att göra matchen obekväm om favoriten inte sätter returdjupet direkt.</p><div class="match-meta"><div class="match-meta__item">Tid<strong>12:10 CEST<span class="match-meta__subtext">Torsdag 9 april 2026</span></strong></div><div class="match-meta__item">2026-facit<strong>8-6 mot 19-2</strong></div><div class="match-meta__item">Grusprofil<strong>52 / 82<span class="match-meta__subtext">ELO-rank 1968 / 2375</span></strong></div></div><div class="match-body"><div class="match-copy"><article class="match-block"><p class="match-block__label">Spelbild</p><p>Jannik Sinner har den tyngre servestarten och vill hålla poängen korta nog för att låta serve plus första forehand bära mycket av trycket. I returgamen pekar siffrorna tydligare mot Jannik Sinner, som bör försöka göra andraserven spelbar och flytta in positionen tidigt. På grus väger det också in att Jannik Sinner har den starkare clayfaktorn i databasen, vilket normalt ger bättre marginal när poängen drar ut över fyra-fem slag.</p></article><article class="match-block"><p class="match-block__label">Form och historik</p><p>Tomas Machac kommer senast från seger mot Francisco Cerundolo i Monte-Carlo (7-6(2) 6-3). Jannik Sinner kommer senast från seger mot Ugo Humbert i Monte-Carlo (6-3 6-0). ATP-datan lägger Tomas Machac på grus-ELO-rank 1968 och clayfaktor 52, mot 2375 och 82 för Jannik Sinner. Årsfacit står på 8-6 mot 19-2.</p></article><article class="match-block"><p class="match-block__label">Head-to-head</p><table class="mini-table"><thead><tr><th>Datum</th><th>Turnering</th><th>Underlag</th><th>Resultat</th></tr></thead><tbody><tr><td>2026-02-16</td><td>Doha</td><td>Hard</td><td>Jannik Sinner slog Tomas Machac 6-1 6-4</td></tr><tr><td>2024-09-30</td><td>Shanghai</td><td>Hard</td><td>Jannik Sinner slog Tomas Machac 6-4 7-5</td></tr><tr><td>2024-03-18</td><td>Miami</td><td>Hard</td><td>Jannik Sinner slog Tomas Machac 6-4 6-2</td></tr></tbody></table></article><article class="match-block"><p class="match-block__label">Skador och dagsläge</p><p>Ingen verifierad färsk skadeuppdatering sticker ut inför matchen, så det mest relevanta dagsläget är vem som snabbast hittar rätt i höjd, tålamod och returposition på gruset. Under presslägen pekar ATP-siffrorna dessutom något tydligare mot Jannik Sinner, vilket kan bli viktigt om seten håller sig tajta länge.</p></article></div><aside class="match-side"><article class="match-block"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Machac</th><th>Sinner</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>12</td><td>1.03</td></tr><tr><td>Tennis Abstract</td><td>12.98 (-1%)</td><td>1.03 (+1%)</td></tr><tr><td>Vitel</td><td>5.22 (+10%)</td><td>1.17 (-10%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Ingen tydlig sida till nuvarande pris. Tennis Abstract ligger nära Svenska Spel och matchen ser korrekt satt ut på huvudlinjen.</p></article><article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Svenska Spel gör Jannik Sinner till favorit och Tennis Abstract ligger i stort sett på samma linje, så marknaden ser rimligt kalibrerad ut utan något tydligt modellglapp.</p></article><article class="match-block"><p class="match-block__label">Det avgör</p><p>Det avgör hur mycket tryck Jannik Sinner får in i returgamen och om Tomas Machac ändå kan hålla poängen tillräckligt korta på egen serve.</p></article></aside></div></section><section class="match-section"><h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/CAN.svg&quot;);"></span><span class="match-title__name">Felix Auger-Aliassime <span class="match-title__country">(CAN)</span> <span class="match-title__rank">#7</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/NOR.svg&quot;);"></span><span class="match-title__name">Casper Ruud <span class="match-title__country">(NOR)</span> <span class="match-title__rank">#12</span></span></span></h2><p class="match-section__summary">Det här ser jämnare ut i spelmönster än i ren rankrad: Felix Auger-Aliassime har den större gratispoängsprofilen, medan motståndaren behöver vinna fler neutrala grusdueller för att ta kontroll över matchen.</p><div class="match-meta"><div class="match-meta__item">Tid<strong>12:10 CEST<span class="match-meta__subtext">Torsdag 9 april 2026</span></strong></div><div class="match-meta__item">2026-facit<strong>15-6 mot 7-7</strong></div><div class="match-meta__item">Grusprofil<strong>63 / 78<span class="match-meta__subtext">ELO-rank 2031 / 2090</span></strong></div></div><div class="match-body"><div class="match-copy"><article class="match-block"><p class="match-block__label">Spelbild</p><p>Felix Auger-Aliassime har den tyngre servestarten och vill hålla poängen korta nog för att låta serve plus första forehand bära mycket av trycket. I returgamen pekar siffrorna tydligare mot Casper Ruud, som bör försöka göra andraserven spelbar och flytta in positionen tidigt. På grus väger det också in att Casper Ruud har den starkare clayfaktorn i databasen, vilket normalt ger bättre marginal när poängen drar ut över fyra-fem slag.</p></article><article class="match-block"><p class="match-block__label">Form och historik</p><p>Felix Auger-Aliassime kommer senast från seger mot Marin Cilic i Monte-Carlo (7-6(4) 6-3). Casper Ruud kommer senast från seger mot Corentin Moutet i Monte-Carlo (7-5 6-3). ATP-datan lägger Felix Auger-Aliassime på grus-ELO-rank 2031 och clayfaktor 63, mot 2090 och 78 för Casper Ruud. Årsfacit står på 15-6 mot 7-7.</p></article><article class="match-block"><p class="match-block__label">Head-to-head</p><table class="mini-table"><thead><tr><th>Datum</th><th>Turnering</th><th>Underlag</th><th>Resultat</th></tr></thead><tbody><tr><td>2024-08-12</td><td>Cincinnati</td><td>Hard</td><td>Felix Auger-Aliassime slog Casper Ruud 6-3 6-1</td></tr><tr><td>2024-07-29</td><td>Paris</td><td>Clay</td><td>Felix Auger-Aliassime slog Casper Ruud 6-4 6-7(8) 6-3</td></tr><tr><td>2024-04-22</td><td>Madrid</td><td>Clay</td><td>Felix Auger-Aliassime slog Casper Ruud 6-4 7-5</td></tr><tr><td>2022-11-14</td><td>Nitto ATP Finals</td><td>Hard</td><td>Casper Ruud slog Felix Auger-Aliassime 7-6(4) 6-4</td></tr></tbody></table></article><article class="match-block"><p class="match-block__label">Skador och dagsläge</p><p>Ingen verifierad färsk skadeuppdatering sticker ut inför matchen, så det mest relevanta dagsläget är vem som snabbast hittar rätt i höjd, tålamod och returposition på gruset. Under presslägen pekar ATP-siffrorna dessutom något tydligare mot Felix Auger-Aliassime, vilket kan bli viktigt om seten håller sig tajta länge.</p></article></div><aside class="match-side"><article class="match-block"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Auger-Aliassime</th><th>Ruud</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>2.2</td><td>1.67</td></tr><tr><td>Tennis Abstract</td><td>2.37 (-3%)</td><td>1.59 (+3%)</td></tr><tr><td>Vitel</td><td>2 (+4%)</td><td>1.82 (-4%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Svag lutning åt Ruud. Tennis Abstract är något vänligare mot den sidan än Svenska Spel, men marginalen är mer kontrollerad än aggressiv.</p></article><article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Svenska Spel gör Casper Ruud till favorit. Tennis Abstract drar tydligare åt Casper Ruud, medan Vitel landar på motsatt sida eller närmare mitten, så huvudsignalen i spelidén kommer från Tennis Abstract-linjen.</p></article><article class="match-block"><p class="match-block__label">Det avgör</p><p>Det avgör hur mycket tryck Casper Ruud får in i returgamen och om Felix Auger-Aliassime ändå kan hålla poängen tillräckligt korta på egen serve.</p></article></aside></div></section><section class="match-section"><h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/ESP.svg&quot;);"></span><span class="match-title__name">Carlos Alcaraz <span class="match-title__country">(ESP)</span> <span class="match-title__rank">#1</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/ARG.svg&quot;);"></span><span class="match-title__name">Tomas Martin Etcheverry <span class="match-title__country">(ARG)</span> <span class="match-title__rank">#30</span></span></span></h2><p class="match-section__summary">Carlos Alcaraz kommer in med både rankingövertag och starkare grusprofil, men Tomas Martin Etcheverry har nog med kvalitet i första slagen för att göra matchen obekväm om favoriten inte sätter returdjupet direkt.</p><div class="match-meta"><div class="match-meta__item">Tid<strong>13:20 CEST<span class="match-meta__subtext">Torsdag 9 april 2026</span></strong></div><div class="match-meta__item">2026-facit<strong>17-2 mot 15-7</strong></div><div class="match-meta__item">Grusprofil<strong>93 / 59<span class="match-meta__subtext">ELO-rank 2402 / 1960</span></strong></div></div><div class="match-body"><div class="match-copy"><article class="match-block"><p class="match-block__label">Spelbild</p><p>Carlos Alcaraz har den tyngre servestarten och vill hålla poängen korta nog för att låta serve plus första forehand bära mycket av trycket. I returgamen pekar siffrorna tydligare mot Carlos Alcaraz, som bör försöka göra andraserven spelbar och flytta in positionen tidigt. På grus väger det också in att Carlos Alcaraz har den starkare clayfaktorn i databasen, vilket normalt ger bättre marginal när poängen drar ut över fyra-fem slag.</p></article><article class="match-block"><p class="match-block__label">Form och historik</p><p>Carlos Alcaraz kommer senast från seger mot Sebastian Baez i Monte-Carlo (6-1 6-3). Tomas Martin Etcheverry kommer senast från seger mot Grigor Dimitrov i Monte-Carlo (6-4 2-6 6-3). ATP-datan lägger Carlos Alcaraz på grus-ELO-rank 2402 och clayfaktor 93, mot 1960 och 59 för Tomas Martin Etcheverry. Årsfacit står på 17-2 mot 15-7.</p></article><article class="match-block"><p class="match-block__label">Head-to-head</p><p>Inga tidigare tourmöten finns i ATP-datan, så matchen får i högre grad vila på nuvarande grusprofil, formkurva och hur väl spelstilarna hakar i varandra.</p></article><article class="match-block"><p class="match-block__label">Skador och dagsläge</p><p>Ingen verifierad färsk skadeuppdatering sticker ut inför matchen, så det mest relevanta dagsläget är vem som snabbast hittar rätt i höjd, tålamod och returposition på gruset. Under presslägen pekar ATP-siffrorna dessutom något tydligare mot Carlos Alcaraz, vilket kan bli viktigt om seten håller sig tajta länge.</p></article></div><aside class="match-side"><article class="match-block"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Alcaraz</th><th>Etcheverry</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>1.04</td><td>11</td></tr><tr><td>Tennis Abstract</td><td>1.03 (+1%)</td><td>12.05 (-1%)</td></tr><tr><td>Vitel</td><td>1.15 (-8%)</td><td>5.65 (+8%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Ingen tydlig sida till nuvarande pris. Tennis Abstract ligger nära Svenska Spel och matchen ser korrekt satt ut på huvudlinjen.</p></article><article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Svenska Spel gör Carlos Alcaraz till favorit och Tennis Abstract ligger i stort sett på samma linje, så marknaden ser rimligt kalibrerad ut utan något tydligt modellglapp.</p></article><article class="match-block"><p class="match-block__label">Det avgör</p><p>Det avgör hur mycket tryck Carlos Alcaraz får in i returgamen och om Tomas Martin Etcheverry ändå kan hålla poängen tillräckligt korta på egen serve.</p></article></aside></div></section><section class="match-section"><h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/CZE.svg&quot;);"></span><span class="match-title__name">Jiri Lehecka <span class="match-title__country">(CZE)</span> <span class="match-title__rank">#13</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/KAZ.svg&quot;);"></span><span class="match-title__name">Alexander Bublik <span class="match-title__country">(KAZ)</span> <span class="match-title__rank">#11</span></span></span></h2><p class="match-section__summary">Det här ser jämnare ut i spelmönster än i ren rankrad: Alexander Bublik har den större gratispoängsprofilen, medan motståndaren behöver vinna fler neutrala grusdueller för att ta kontroll över matchen.</p><div class="match-meta"><div class="match-meta__item">Tid<strong>13:20 CEST<span class="match-meta__subtext">Torsdag 9 april 2026</span></strong></div><div class="match-meta__item">2026-facit<strong>11-6 mot 13-6</strong></div><div class="match-meta__item">Grusprofil<strong>65 / 67<span class="match-meta__subtext">ELO-rank 2015 / 2037</span></strong></div></div><div class="match-body"><div class="match-copy"><article class="match-block"><p class="match-block__label">Spelbild</p><p>Alexander Bublik har den tyngre servestarten och vill hålla poängen korta nog för att låta serve plus första forehand bära mycket av trycket. I returgamen pekar siffrorna tydligare mot Jiri Lehecka, som bör försöka göra andraserven spelbar och flytta in positionen tidigt.</p></article><article class="match-block"><p class="match-block__label">Form och historik</p><p>Jiri Lehecka kommer senast från seger mot Alejandro Tabilo i Monte-Carlo (4-6 7-6(4) 6-3). Alexander Bublik kommer senast från seger mot Gael Monfils i Monte-Carlo (6-4 6-4). ATP-datan lägger Jiri Lehecka på grus-ELO-rank 2015 och clayfaktor 65, mot 2037 och 67 för Alexander Bublik. Årsfacit står på 11-6 mot 13-6.</p></article><article class="match-block"><p class="match-block__label">Head-to-head</p><p>Inga tidigare tourmöten finns i ATP-datan, så matchen får i högre grad vila på nuvarande grusprofil, formkurva och hur väl spelstilarna hakar i varandra.</p></article><article class="match-block"><p class="match-block__label">Skador och dagsläge</p><p>Ingen verifierad färsk skadeuppdatering sticker ut inför matchen, så det mest relevanta dagsläget är vem som snabbast hittar rätt i höjd, tålamod och returposition på gruset. Under presslägen pekar ATP-siffrorna dessutom något tydligare mot Alexander Bublik, vilket kan bli viktigt om seten håller sig tajta länge.</p></article></div><aside class="match-side"><article class="match-block"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Lehecka</th><th>Bublik</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>1.78</td><td>2.04</td></tr><tr><td>Tennis Abstract</td><td>2.55 (-16%)</td><td>1.52 (+16%)</td></tr><tr><td>Vitel</td><td>1.97 (-5%)</td><td>1.85 (+5%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Bublik till nuvarande pris. Tennis Abstract ligger tydligt högre på Alexander Bublik än Svenska Spel gör, och den synliga huvudjämförelsen ger därför bäst stöd åt den sidan.</p></article><article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Svenska Spel gör Jiri Lehecka till favorit. Både Tennis Abstract och Vitel pekar åt samma håll som huvudlinjen, men Tennis Abstract avviker mer och sätter tonen för hur prisskillnaden ska läsas.</p></article><article class="match-block"><p class="match-block__label">Det avgör</p><p>Det avgör hur mycket tryck Jiri Lehecka får in i returgamen och om Alexander Bublik ändå kan hålla poängen tillräckligt korta på egen serve.</p></article></aside></div></section><section class="match-section"><h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/MON.svg&quot;);"></span><span class="match-title__name">Valentin Vacherot <span class="match-title__country">(MON)</span> <span class="match-title__rank">#23</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/POL.svg&quot;);"></span><span class="match-title__name">Hubert Hurkacz <span class="match-title__country">(POL)</span> <span class="match-title__rank">#74</span></span></span></h2><p class="match-section__summary">Valentin Vacherot kommer in med både rankingövertag och starkare grusprofil, men Hubert Hurkacz har nog med kvalitet i första slagen för att göra matchen obekväm om favoriten inte sätter returdjupet direkt.</p><div class="match-meta"><div class="match-meta__item">Tid<strong>14:30 CEST<span class="match-meta__subtext">Torsdag 9 april 2026</span></strong></div><div class="match-meta__item">2026-facit<strong>10-7 mot 5-7</strong></div><div class="match-meta__item">Grusprofil<strong>60 / 69<span class="match-meta__subtext">ELO-rank 1895 / 2015</span></strong></div></div><div class="match-body"><div class="match-copy"><article class="match-block"><p class="match-block__label">Spelbild</p><p>Valentin Vacherot har den tyngre servestarten och vill hålla poängen korta nog för att låta serve plus första forehand bära mycket av trycket. I returgamen pekar siffrorna tydligare mot Valentin Vacherot, som bör försöka göra andraserven spelbar och flytta in positionen tidigt. På grus väger det också in att Hubert Hurkacz har den starkare clayfaktorn i databasen, vilket normalt ger bättre marginal när poängen drar ut över fyra-fem slag.</p></article><article class="match-block"><p class="match-block__label">Form och historik</p><p>Valentin Vacherot kommer senast från seger mot Juan Manuel Cerundolo i Monte-Carlo (5-7 6-2 6-1). Hubert Hurkacz kommer senast från seger mot Luciano Darderi i Monte-Carlo (7-6(4) 5-7 6-1). ATP-datan lägger Valentin Vacherot på grus-ELO-rank 1895 och clayfaktor 60, mot 2015 och 69 för Hubert Hurkacz. Årsfacit står på 10-7 mot 5-7.</p></article><article class="match-block"><p class="match-block__label">Head-to-head</p><p>Inga tidigare tourmöten finns i ATP-datan, så matchen får i högre grad vila på nuvarande grusprofil, formkurva och hur väl spelstilarna hakar i varandra.</p></article><article class="match-block"><p class="match-block__label">Skador och dagsläge</p><p>Ingen verifierad färsk skadeuppdatering sticker ut inför matchen, så det mest relevanta dagsläget är vem som snabbast hittar rätt i höjd, tålamod och returposition på gruset. Under presslägen pekar ATP-siffrorna dessutom något tydligare mot Valentin Vacherot, vilket kan bli viktigt om seten håller sig tajta länge.</p></article></div><aside class="match-side"><article class="match-block"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Vacherot</th><th>Hurkacz</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>1.64</td><td>2.25</td></tr><tr><td>Tennis Abstract</td><td>1.97 (-9%)</td><td>1.85 (+9%)</td></tr><tr><td>Vitel</td><td>2.29 (-16%)</td><td>1.63 (+16%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Hurkacz till nuvarande pris. Tennis Abstract ligger tydligt högre på Hubert Hurkacz än Svenska Spel gör, och den synliga huvudjämförelsen ger därför bäst stöd åt den sidan.</p></article><article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Svenska Spel gör Valentin Vacherot till favorit. Både Tennis Abstract och Vitel pekar åt samma håll som huvudlinjen, men Tennis Abstract avviker mer och sätter tonen för hur prisskillnaden ska läsas.</p></article><article class="match-block"><p class="match-block__label">Det avgör</p><p>Det avgör hur mycket tryck Valentin Vacherot får in i returgamen och om Hubert Hurkacz ändå kan hålla poängen tillräckligt korta på egen serve.</p></article></aside></div></section><section class="match-section"><h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/BEL.svg&quot;);"></span><span class="match-title__name">Alexander Blockx <span class="match-title__country">(BEL)</span> <span class="match-title__rank">#91</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/AUS.svg&quot;);"></span><span class="match-title__name">Alex De Minaur <span class="match-title__country">(AUS)</span> <span class="match-title__rank">#6</span></span></span></h2><p class="match-section__summary">Det här ser jämnare ut i spelmönster än i ren rankrad: Alex de Minaur har den större gratispoängsprofilen, medan motståndaren behöver vinna fler neutrala grusdueller för att ta kontroll över matchen.</p><div class="match-meta"><div class="match-meta__item">Tid<strong>14:30 CEST<span class="match-meta__subtext">Torsdag 9 april 2026</span></strong></div><div class="match-meta__item">2026-facit<strong>1-1 mot 12-5</strong></div><div class="match-meta__item">Grusprofil<strong>75 / 68<span class="match-meta__subtext">ELO-rank 1752 / 2095</span></strong></div></div><div class="match-body"><div class="match-copy"><article class="match-block"><p class="match-block__label">Spelbild</p><p>Alex de Minaur har den tyngre servestarten och vill hålla poängen korta nog för att låta serve plus första forehand bära mycket av trycket. I returgamen pekar siffrorna tydligare mot Alex de Minaur, som bör försöka göra andraserven spelbar och flytta in positionen tidigt.</p></article><article class="match-block"><p class="match-block__label">Form och historik</p><p>Alexander Blockx kommer senast från seger mot Denis Shapovalov i Monte-Carlo (6-4 4-6 6-3). Alex De Minaur kommer senast från seger mot Cameron Norrie i Monte-Carlo (7-6(5) 2-6 6-2). ATP-datan lägger Alexander Blockx på grus-ELO-rank 1752 och clayfaktor 75, mot 2095 och 68 för Alex De Minaur. Årsfacit står på 1-1 mot 12-5.</p></article><article class="match-block"><p class="match-block__label">Head-to-head</p><p>Inga tidigare tourmöten finns i ATP-datan, så matchen får i högre grad vila på nuvarande grusprofil, formkurva och hur väl spelstilarna hakar i varandra.</p></article><article class="match-block"><p class="match-block__label">Skador och dagsläge</p><p>Ingen verifierad färsk skadeuppdatering sticker ut inför matchen, så det mest relevanta dagsläget är vem som snabbast hittar rätt i höjd, tålamod och returposition på gruset. Under presslägen pekar ATP-siffrorna dessutom något tydligare mot Alex de Minaur, vilket kan bli viktigt om seten håller sig tajta länge.</p></article></div><aside class="match-side"><article class="match-block"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Blockx</th><th>De Minaur</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>3.5</td><td>1.3</td></tr><tr><td>Tennis Abstract</td><td>5.55 (-10%)</td><td>1.15 (+10%)</td></tr><tr><td>Vitel</td><td>4.22 (-5%)</td><td>1.23 (+5%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> De Minaur till nuvarande pris. Tennis Abstract ligger tydligt högre på Alex De Minaur än Svenska Spel gör, och den synliga huvudjämförelsen ger därför bäst stöd åt den sidan.</p></article><article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Svenska Spel gör Alex De Minaur till favorit. Både Tennis Abstract och Vitel pekar åt samma håll som huvudlinjen, men Tennis Abstract avviker mer och sätter tonen för hur prisskillnaden ska läsas.</p></article><article class="match-block"><p class="match-block__label">Det avgör</p><p>Det avgör hur mycket tryck Alex de Minaur får in i returgamen och om Alexander Blockx ändå kan hålla poängen tillräckligt korta på egen serve.</p></article></aside></div></section>
+      </main>
+
+      <p class="footer-note">Källor: Svenska Spel-kortet via tennis.egelberg.se/api/oddset, ATP-databasen och modellendpoints via tennis.egelberg.se samt ATP-kalendern i samma backend. Snapshot 2026-04-09 01:19 CEST. Alla matcher på kortet var ännu inte startade vid snapshoten, så bookmakerodds och modelljämförelser visas för hela dagens card.</p>
+    </div>
+  </body>
+</html>
