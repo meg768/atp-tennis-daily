@@ -113,13 +113,13 @@ The repo includes a `run.sh` runner for scans.
   Runs one scan and exits.
 
 - `./run.sh --publish`
-  Runs one scan, publishes `editions/` to the web root, and exits.
+  Runs one scan, publishes `editions/` to the web root, writes `editions/latest.html` as `index.html`, and exits.
 
 - `./run.sh --daily 09:00`
   Waits for the next `09:00` in `Europe/Stockholm`, then runs once per day at that time.
 
 - `./run.sh --publish --daily 09:00`
-  Publishes after each daily run and keeps the process alive inside PM2.
+  Publishes after each daily run, writes `latest.html` to the site root as `index.html`, and keeps the process alive inside PM2.
 
 Internally, `run.sh` sends the short command `atp-tennis-daily-scan` to Codex. That means scan behavior should normally be changed in the project memory rather than by editing a long embedded shell prompt.
 `atp-tennis-daily-scan` is meant to execute the scan directly in the active Codex session. It must not call `run.sh` again or start a nested runner process.

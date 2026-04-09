@@ -87,6 +87,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - `run.sh --publish` is optional
 - `run.sh --daily HH:MM` enables the long-lived daily schedule in `Europe/Stockholm`
 - `run.sh` should call `atp-tennis-daily-scan` rather than embedding a long literal prompt
+- when `run.sh --publish` is used, publish dated files under `editions/` and also mirror `editions/latest.html` to the site root as `index.html`
 
 ## Restart Reliability
 

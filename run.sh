@@ -3,7 +3,7 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 SCAN_COMMAND="atp-tennis-daily-scan"
-PUBLISH_DIR="/var/www/html/atp-tennis-daily"
+PUBLISH_DIR="/var/www/html/tennis-daily"
 TIMEZONE="Europe/Stockholm"
 PUBLISH=false
 DAILY_TIME=""
@@ -90,7 +90,9 @@ run_scan() {
 
   if [[ "$PUBLISH" == "true" ]]; then
     mkdir -p "$PUBLISH_DIR"
-    rsync -az --delete "$REPO_DIR/editions/" "$PUBLISH_DIR/"
+    mkdir -p "$PUBLISH_DIR/editions"
+    rsync -az --delete "$REPO_DIR/editions/" "$PUBLISH_DIR/editions/"
+    cp "$REPO_DIR/editions/latest.html" "$PUBLISH_DIR/index.html"
   fi
 }
 
