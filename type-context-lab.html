@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tennis Daily | Type Context Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya:wght@700&family=Archivo+Narrow:wght@700;800&family=Bodoni+Moda:opsz,wght@6..96,700&family=Cormorant+Garamond:wght@600;700&family=DM+Serif+Display:ital@0;1&family=Domine:wght@700&family=Fraunces:opsz,wght@9..144,700&family=Libre+Baskerville:wght@400;700&family=Libre+Franklin:wght@600;700;800&family=Merriweather:wght@700&family=Newsreader:opsz,wght@6..72,600;700&family=Prata&family=Public+Sans:wght@700;800&family=Source+Sans+3:wght@700;800&family=Source+Serif+4:opsz,wght@8..60,700&family=Spectral:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-top: #f4f7fa;
+        --bg-bottom: #dfe8f0;
+        --paper: rgba(255, 255, 255, 0.96);
+        --ink: #162432;
+        --muted: #5c7184;
+        --rule: rgba(50, 79, 108, 0.14);
+        --accent: #324f6c;
+        --accent-soft: #8ea9c4;
+        --warm: #f6efe4;
+        --shadow: 0 18px 40px rgba(22, 36, 50, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 1rem;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(255, 255, 255, 0.86), transparent 32%),
+          linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+        font-family: "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      .page {
+        width: min(1240px, 100%);
+        margin: 0 auto;
+      }
+
+      .intro {
+        margin-bottom: 1rem;
+        padding: 1rem 1.15rem;
+        border: 1px solid var(--rule);
+        border-radius: 0.6rem;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .intro__eyebrow {
+        margin: 0 0 0.35rem;
+        color: var(--muted);
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .intro h1 {
+        margin: 0;
+        font-size: clamp(1.45rem, 3vw, 2.2rem);
+        line-height: 1.1;
+      }
+
+      .intro p {
+        margin: 0.6rem 0 0;
+        max-width: 72ch;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .specimen {
+        overflow: hidden;
+        border: 1px solid var(--rule);
+        border-radius: 0.65rem;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .specimen__meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.85rem 1rem;
+        border-bottom: 1px solid var(--rule);
+        color: var(--muted);
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .hero {
+        padding: 1rem;
+        background: linear-gradient(180deg, #f8fbfd, #edf3f8);
+      }
+
+      .hero__rail {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.9rem;
+        padding-bottom: 0.65rem;
+        border-bottom: 1px solid currentColor;
+        color: var(--muted);
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .hero__kicker {
+        margin: 0 0 0.45rem;
+        color: var(--muted);
+        font-size: 0.74rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .hero__title {
+        margin: 0;
+        color: var(--ink);
+        font-size: clamp(2.45rem, 5vw, 4.5rem);
+        line-height: 0.94;
+      }
+
+      .hero__date {
+        margin: 0.65rem 0 0;
+        color: var(--muted);
+        font-size: 0.82rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .hero__deck {
+        margin: 0.95rem 0 0;
+        max-width: 42rem;
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .specimen__body {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(220px, 0.9fr);
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .specimen__copy p,
+      .specimen__side p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .specimen__copy p + p,
+      .specimen__side p + p {
+        margin-top: 0.7rem;
+      }
+
+      .label {
+        margin: 0 0 0.35rem;
+        color: var(--accent);
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        margin-top: 0.65rem;
+      }
+
+      .chip {
+        padding: 0.38rem 0.55rem;
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.7);
+        color: var(--muted);
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .tone-national .hero {
+        background: linear-gradient(180deg, #eef3f8, #ffffff 80%);
+      }
+
+      .tone-weekend .hero {
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.72), transparent 58%),
+          linear-gradient(180deg, #f8fbfd, #eef4f9);
+      }
+
+      .tone-ledger .hero {
+        background:
+          repeating-linear-gradient(
+            180deg,
+            rgba(36, 56, 75, 0.03) 0,
+            rgba(36, 56, 75, 0.03) 1px,
+            transparent 1px,
+            transparent 30px
+          ),
+          linear-gradient(180deg, #ffffff, #f2f6fa);
+      }
+
+      .tone-sports .hero {
+        background:
+          linear-gradient(90deg, rgba(36, 56, 75, 0.06), transparent 30%),
+          linear-gradient(180deg, #f8fbfd, #edf3f8);
+      }
+
+      .tone-opinion .hero {
+        background:
+          radial-gradient(circle at top right, rgba(175, 143, 66, 0.22), transparent 26%),
+          linear-gradient(180deg, #fcfaf4, #f5efdf);
+      }
+
+      .tone-opinion .hero,
+      .tone-opinion .hero__title {
+        color: #302616;
+      }
+
+      .tone-opinion .hero__rail,
+      .tone-opinion .hero__kicker,
+      .tone-opinion .hero__date {
+        color: #7d6430;
+      }
+
+      .tone-wire .hero {
+        background: linear-gradient(180deg, #f4f7fa, #ebf1f6);
+      }
+
+      .font-newsreader .hero__title { font-family: "Newsreader", Georgia, serif; font-weight: 700; text-transform: none; letter-spacing: 0.01em; }
+      .font-baskerville .hero__title { font-family: "Libre Baskerville", Georgia, serif; font-weight: 700; letter-spacing: 0.01em; }
+      .font-cormorant .hero__title { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; letter-spacing: 0.02em; }
+      .font-dm-serif .hero__title { font-family: "DM Serif Display", Georgia, serif; font-weight: 400; text-transform: none; letter-spacing: 0.02em; }
+      .font-bodoni .hero__title { font-family: "Bodoni Moda", "Times New Roman", serif; font-weight: 700; letter-spacing: 0.03em; }
+      .font-source-serif .hero__title { font-family: "Source Serif 4", Georgia, serif; font-weight: 700; text-transform: none; letter-spacing: 0.01em; }
+      .font-merriweather .hero__title { font-family: "Merriweather", Georgia, serif; font-weight: 700; letter-spacing: 0.01em; }
+      .font-spectral .hero__title { font-family: "Spectral", Georgia, serif; font-weight: 700; text-transform: none; letter-spacing: 0.015em; }
+      .font-fraunces .hero__title { font-family: "Fraunces", Georgia, serif; font-weight: 700; text-transform: none; letter-spacing: 0.01em; }
+      .font-prata .hero__title { font-family: "Prata", Georgia, serif; font-weight: 400; text-transform: none; letter-spacing: 0.015em; }
+      .font-domine .hero__title { font-family: "Domine", Georgia, serif; font-weight: 700; text-transform: none; letter-spacing: 0.01em; }
+      .font-alegreya .hero__title { font-family: "Alegreya", Georgia, serif; font-weight: 700; text-transform: none; letter-spacing: 0.01em; }
+      .font-franklin .hero__title { font-family: "Libre Franklin", "Helvetica Neue", Arial, sans-serif; font-weight: 800; letter-spacing: 0.05em; }
+      .font-public-sans .hero__title { font-family: "Public Sans", "Helvetica Neue", Arial, sans-serif; font-weight: 800; letter-spacing: 0.04em; }
+      .font-source-sans .hero__title { font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif; font-weight: 800; letter-spacing: 0.035em; }
+      .font-archivo-narrow .hero__title { font-family: "Archivo Narrow", "Helvetica Neue", Arial, sans-serif; font-weight: 800; letter-spacing: 0.035em; }
+
+      @media (max-width: 980px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 760px) {
+        body {
+          padding: 0.65rem;
+        }
+
+        .specimen__meta,
+        .hero__rail {
+          display: grid;
+          gap: 0.3rem;
+        }
+
+        .specimen__body {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="intro">
+        <p class="intro__eyebrow">Type Context Lab</p>
+        <h1>Tennis Daily as 16 Different Publications</h1>
+        <p>
+          En helt ny sida dar varje typsnitt far leva i riktig kontext: masthead, kicker, datum,
+          deck och redaktionell identitet. Tanken ar att du ska kunna valja ton, inte bara font.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="specimen tone-weekend font-newsreader">
+          <div class="specimen__meta"><span>Newsreader</span><span>The Smart Broadsheet</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Tennis Daily</span><span>Match by Match</span><span>Monte-Carlo</span></div>
+            <p class="hero__kicker">National Desk</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">Looks like a serious sports publication with enough softness to feel edited, not merely assembled.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy">
+              <p class="label">Why It Works</p>
+              <p>Balanced, literate and calm. This is the font that feels most naturally like a complete newspaper title rather than a design choice.</p>
+            </div>
+            <div class="specimen__side">
+              <p class="label">Best For</p>
+              <p>Smart, sober, NYT-adjacent public tone.</p>
+              <div class="chip-row"><span class="chip">Calm</span><span class="chip">Editorial</span><span class="chip">Premium</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="specimen tone-national font-baskerville">
+          <div class="specimen__meta"><span>Libre Baskerville</span><span>The Print Traditionalist</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Morning Edition</span><span>ATP Singles</span><span>Friday</span></div>
+            <p class="hero__kicker">Print Tradition</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">10 April 2026</p>
+            <p class="hero__deck">The headline reads with more inherited authority, as if the page already existed long before the web version did.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>More old-paper gravity. Less modern charm, more established newsroom confidence.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>Traditional newspaper posture and strong print echo.</p><div class="chip-row"><span class="chip">Classic</span><span class="chip">Print</span><span class="chip">Sober</span></div></div>
+          </div>
+        </article>
+
+        <article class="specimen tone-weekend font-cormorant">
+          <div class="specimen__meta"><span>Cormorant Garamond</span><span>The Sunday Review</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Weekend Review</span><span>Clay Swing</span><span>Daily Edition</span></div>
+            <p class="hero__kicker">Sunday Review</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">This one suggests essays, feature intros and slightly more elegant storytelling before you even scroll.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>Airy and beautiful without fully falling into magazine territory.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>A more cultured, premium weekend identity.</p><div class="chip-row"><span class="chip">Elegant</span><span class="chip">Feature</span><span class="chip">Light</span></div></div>
+          </div>
+        </article>
+
+        <article class="specimen tone-opinion font-dm-serif">
+          <div class="specimen__meta"><span>DM Serif Display</span><span>The Magazine Cover</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Feature Edition</span><span>Quarter-finals</span><span>Monte-Carlo</span></div>
+            <p class="hero__kicker">Weekend Magazine</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">10 April 2026</p>
+            <p class="hero__deck">The title becomes more performative here. It wants a byline, a strapline and maybe a cover story treatment.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>Strong personality and instant recognisability.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>Bold editorial identity with less concern for restraint.</p><div class="chip-row"><span class="chip">Magazine</span><span class="chip">Iconic</span><span class="chip">Loud</span></div></div>
+          </div>
+        </article>
+
+        <article class="specimen tone-opinion font-bodoni">
+          <div class="specimen__meta"><span>Bodoni Moda</span><span>The Style Section</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Style Section</span><span>European Spring</span><span>Edition</span></div>
+            <p class="hero__kicker">Luxury Sports Weekly</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">Beautiful and sharp, but loaded with taste and theatre. It changes the publication instantly.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>Pure visual status. It turns the title into an object.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>A highly stylised top with very little desire to feel neutral.</p><div class="chip-row"><span class="chip">Luxury</span><span class="chip">Sharp</span><span class="chip">Dramatic</span></div></div>
+          </div>
+        </article>
+
+        <article class="specimen tone-national font-source-serif">
+          <div class="specimen__meta"><span>Source Serif 4</span><span>The Measured Desk</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Tennis Daily</span><span>Verified Match Briefing</span><span>ATP Tour</span></div>
+            <p class="hero__kicker">Metro Desk</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">The most convincing bridge between a public-facing newspaper and the crisp, structured Vitel world underneath.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>Quietly editorial, highly readable, serious without stiffness.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>The safest real-world winner if you want coherence across projects.</p><div class="chip-row"><span class="chip">Balanced</span><span class="chip">Modern</span><span class="chip">Credible</span></div></div>
+          </div>
+        </article>
+
+        <article class="specimen tone-ledger font-merriweather">
+          <div class="specimen__meta"><span>Merriweather</span><span>The Heavy Newsroom</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Political Desk</span><span>Analysis</span><span>Friday Edition</span></div>
+            <p class="hero__kicker">Institutional</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">10 April 2026</p>
+            <p class="hero__deck">This reads like a paper that trusts its own voice. Less playful, more durable, more Washington than Manhattan.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>Dense and grounded. It gives the title newsroom mass.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>A more establishment, authority-first publication style.</p><div class="chip-row"><span class="chip">Heavy</span><span class="chip">Authority</span><span class="chip">Desk</span></div></div>
+          </div>
+        </article>
+
+        <article class="specimen tone-weekend font-spectral">
+          <div class="specimen__meta"><span>Spectral</span><span>The Human Analyst</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Longform Analysis</span><span>Clay</span><span>Edition</span></div>
+            <p class="hero__kicker">Weekend Essay</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">Warm, articulate and a little more humane. It says there is a person thinking behind the analysis.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>Editorial without becoming pompous, analytical without becoming cold.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>A softer and more essay-like version of the project.</p><div class="chip-row"><span class="chip">Human</span><span class="chip">Essay</span><span class="chip">Warm</span></div></div>
+          </div>
+        </article>
+
+        <article class="specimen tone-weekend font-fraunces">
+          <div class="specimen__meta"><span>Fraunces</span><span>The Modern Opinion Desk</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Opinion + Sport</span><span>Monte-Carlo</span><span>Quarter-finals</span></div>
+            <p class="hero__kicker">Modern Broadsheet</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">This one has point of view. Not loud, but clearly willing to sound like a publication with a personality.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>Distinctive enough to brand the page without tipping into self-parody.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>A sharper public identity with contemporary editorial taste.</p><div class="chip-row"><span class="chip">Voice</span><span class="chip">Identity</span><span class="chip">Modern</span></div></div>
+          </div>
+        </article>
+
+        <article class="specimen tone-wire font-franklin">
+          <div class="specimen__meta"><span>Libre Franklin</span><span>The Breaking Desk</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Breaking News</span><span>ATP Singles</span><span>Snapshot 22:33</span></div>
+            <p class="hero__kicker">Live Desk</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">Direct, fast and newsroom-clean. A sans option that still feels like media rather than product UI.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>All signal, low fuss, strong publishing energy.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>Fast desk tone with live-card relevance.</p><div class="chip-row"><span class="chip">Fast</span><span class="chip">Desk</span><span class="chip">Sans</span></div></div>
+          </div>
+        </article>
+
+        <article class="specimen tone-wire font-public-sans">
+          <div class="specimen__meta"><span>Public Sans</span><span>The Premium Wire</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Wire Service</span><span>Verified</span><span>Edition</span></div>
+            <p class="hero__kicker">Wire Modern</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">Disciplined, unsentimental and very current. This is the crispest possible version of the publication.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>It keeps the title sharp and trustworthy without nostalgia.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>A premium data-led wire feel.</p><div class="chip-row"><span class="chip">Wire</span><span class="chip">Crisp</span><span class="chip">Modern</span></div></div>
+          </div>
+        </article>
+
+        <article class="specimen tone-wire font-source-sans">
+          <div class="specimen__meta"><span>Source Sans 3</span><span>The Soft Modern Sans</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Modern Broadsheet</span><span>Match Briefing</span><span>Friday</span></div>
+            <p class="hero__kicker">Newsroom Lite</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">10 April 2026</p>
+            <p class="hero__deck">Cleaner and friendlier than Franklin or Public Sans. Still modern, but with some editorial softness left intact.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>A practical sans with enough warmth to avoid product-demo energy.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>A modern public page that still wants some grace.</p><div class="chip-row"><span class="chip">Warm Sans</span><span class="chip">Readable</span><span class="chip">Clean</span></div></div>
+          </div>
+        </article>
+
+        <article class="specimen tone-opinion font-prata">
+          <div class="specimen__meta"><span>Prata</span><span>The Editorial Institution</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Editorial Board</span><span>Friday Review</span><span>Monte-Carlo</span></div>
+            <p class="hero__kicker">Leading Article</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">The title becomes a masthead in the old sense here. Almost ceremonial, almost too much, and therefore memorable.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>It turns the publication name into an institution instead of a label.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>A title-driven page with unusual posture and confidence.</p><div class="chip-row"><span class="chip">Institution</span><span class="chip">Ceremony</span><span class="chip">Distinct</span></div></div>
+          </div>
+        </article>
+
+        <article class="specimen tone-ledger font-domine">
+          <div class="specimen__meta"><span>Domine</span><span>The Severe Analyst</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Analysis Desk</span><span>Quarter-final Report</span><span>Clay</span></div>
+            <p class="hero__kicker">The Ledger</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">Dry in a good way. Less charm, more commitment to the idea that this page knows what it is doing.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>Hard-edged seriousness without feeling bureaucratic.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>A more ironclad analysis desk identity.</p><div class="chip-row"><span class="chip">Severe</span><span class="chip">Analysis</span><span class="chip">Authority</span></div></div>
+          </div>
+        </article>
+
+        <article class="specimen tone-weekend font-alegreya">
+          <div class="specimen__meta"><span>Alegreya</span><span>The Weekend Essayist</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Weekend Essay</span><span>European Clay Swing</span><span>Edition</span></div>
+            <p class="hero__kicker">Long Read</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">Bookish, reflective and slightly literary. The publication sounds more considered and less desk-driven.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>It gives the page a human essay voice without making it feel antique.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>A softer intellectual tone with some warmth.</p><div class="chip-row"><span class="chip">Essay</span><span class="chip">Bookish</span><span class="chip">Thoughtful</span></div></div>
+          </div>
+        </article>
+
+        <article class="specimen tone-sports font-archivo-narrow">
+          <div class="specimen__meta"><span>Archivo Narrow</span><span>The Sports Page</span></div>
+          <div class="hero">
+            <div class="hero__rail"><span>Sports Desk</span><span>Live Card Analysis</span><span>ATP Singles</span></div>
+            <p class="hero__kicker">Sports Report</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">Faster, punchier and more like a sharp sports section than a cultured general desk. It has momentum.</p>
+          </div>
+          <div class="specimen__body">
+            <div class="specimen__copy"><p class="label">Why It Works</p><p>High energy without looking cheap. It knows it is sport.</p></div>
+            <div class="specimen__side"><p class="label">Best For</p><p>A clearer sports-redaktion identity with real pace.</p><div class="chip-row"><span class="chip">Sport</span><span class="chip">Pace</span><span class="chip">Headline</span></div></div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

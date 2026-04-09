@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tennis Daily | Font Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya:wght@700&family=Archivo+Narrow:wght@700;800&family=Bodoni+Moda:opsz,wght@6..96,700&family=Cormorant+Garamond:wght@600;700&family=DM+Serif+Display:ital@0;1&family=Domine:wght@700&family=Fraunces:opsz,wght@9..144,700&family=Libre+Baskerville:wght@400;700&family=Libre+Franklin:wght@600;700;800&family=Merriweather:wght@700&family=Newsreader:opsz,wght@6..72,600;700&family=Prata&family=Public+Sans:wght@700;800&family=Source+Sans+3:wght@700;800&family=Source+Serif+4:opsz,wght@8..60,700&family=Spectral:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #e9edf2;
+        --paper: rgba(255, 255, 255, 0.96);
+        --ink: #1f2b36;
+        --muted: #607284;
+        --rule: rgba(31, 43, 54, 0.12);
+        --accent: #24384b;
+        --shadow: 0 18px 40px rgba(31, 43, 54, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 1.2rem;
+        background: linear-gradient(180deg, #f3f6f9 0%, var(--bg) 100%);
+        color: var(--ink);
+        font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      .page {
+        width: min(1080px, 100%);
+        margin: 0 auto;
+      }
+
+      .intro {
+        margin-bottom: 1rem;
+        padding: 1rem 1.1rem;
+        border: 1px solid var(--rule);
+        border-radius: 0.45rem;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .intro h1 {
+        margin: 0 0 0.4rem;
+        font-size: 1.1rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .intro p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .samples {
+        display: grid;
+        gap: 0.9rem;
+      }
+
+      .sample {
+        padding: 1.2rem 1.3rem 1.3rem;
+        border: 1px solid var(--rule);
+        border-radius: 0.45rem;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .sample__meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.7rem;
+        border-bottom: 1px solid var(--rule);
+        color: var(--muted);
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      .sample__title {
+        margin: 0;
+        color: var(--accent);
+        font-size: clamp(2.2rem, 6vw, 4rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+      }
+
+      .sample__date {
+        margin: 0.55rem 0 0;
+        color: var(--muted);
+        font-size: 0.82rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      .sample__note {
+        margin: 0.8rem 0 0;
+        color: var(--ink);
+        line-height: 1.55;
+      }
+
+      .sample__sub {
+        margin: 0.35rem 0 0;
+        color: var(--muted);
+        font-size: 0.76rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      .font-newsreader .sample__title,
+      .font-newsreader .mini-lab__title {
+        font-family: "Newsreader", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        text-transform: none;
+      }
+
+      .font-baskerville .sample__title,
+      .font-baskerville .mini-lab__title {
+        font-family: "Libre Baskerville", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+
+      .font-cormorant .sample__title,
+      .font-cormorant .mini-lab__title {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .font-dm-serif .sample__title,
+      .font-dm-serif .mini-lab__title {
+        font-family: "DM Serif Display", Georgia, serif;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        text-transform: none;
+      }
+
+      .font-bodoni .sample__title,
+      .font-bodoni .mini-lab__title {
+        font-family: "Bodoni Moda", "Times New Roman", serif;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+      }
+
+      .font-franklin .sample__title,
+      .font-franklin .mini-lab__title {
+        font-family: "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+      }
+
+      .font-source-serif .sample__title,
+      .font-source-serif .mini-lab__title {
+        font-family: "Source Serif 4", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        text-transform: none;
+      }
+
+      .font-merriweather .sample__title,
+      .font-merriweather .mini-lab__title {
+        font-family: "Merriweather", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+
+      .font-spectral .sample__title,
+      .font-spectral .mini-lab__title {
+        font-family: "Spectral", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.015em;
+        text-transform: none;
+      }
+
+      .font-fraunces .sample__title,
+      .font-fraunces .mini-lab__title {
+        font-family: "Fraunces", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        text-transform: none;
+      }
+
+      .font-public-sans .sample__title,
+      .font-public-sans .mini-lab__title {
+        font-family: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+
+      .font-source-sans .sample__title,
+      .font-source-sans .mini-lab__title {
+        font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+        font-weight: 800;
+        letter-spacing: 0.035em;
+      }
+
+      .font-prata .sample__title,
+      .font-prata .mini-lab__title {
+        font-family: "Prata", Georgia, serif;
+        font-weight: 400;
+        letter-spacing: 0.015em;
+      }
+
+      .font-domine .sample__title,
+      .font-domine .mini-lab__title {
+        font-family: "Domine", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        text-transform: none;
+      }
+
+      .font-alegreya .sample__title,
+      .font-alegreya .mini-lab__title {
+        font-family: "Alegreya", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        text-transform: none;
+      }
+
+      .font-archivo-narrow .sample__title,
+      .font-archivo-narrow .mini-lab__title {
+        font-family: "Archivo Narrow", "Helvetica Neue", Arial, sans-serif;
+        font-weight: 800;
+        letter-spacing: 0.035em;
+      }
+
+      .lab-intro {
+        margin: 1.3rem 0 0.9rem;
+        padding: 1rem 1.1rem;
+        border: 1px solid var(--rule);
+        border-radius: 0.45rem;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .lab-intro h2 {
+        margin: 0 0 0.35rem;
+        font-size: 1rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .lab-intro p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .lab-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .lab-card {
+        overflow: hidden;
+        border: 1px solid var(--rule);
+        border-radius: 0.55rem;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .lab-card__meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid var(--rule);
+        color: var(--muted);
+        font-size: 0.72rem;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .lab-card__note {
+        padding: 0.9rem 1rem 1rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.55;
+      }
+
+      .hero {
+        position: relative;
+        padding: 1rem;
+      }
+
+      .hero__rail {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.7rem;
+        border-bottom: 1px solid currentColor;
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .hero__kicker {
+        margin: 0 0 0.5rem;
+        font-size: 0.76rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .hero__title {
+        margin: 0;
+        line-height: 0.95;
+      }
+
+      .hero__date {
+        margin: 0.65rem 0 0;
+        font-size: 0.84rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .hero__deck {
+        margin: 1rem 0 0;
+        max-width: 42rem;
+        font-size: 1.02rem;
+        line-height: 1.6;
+      }
+
+      .national {
+        background: linear-gradient(180deg, #eef3f8, #ffffff 78%);
+        color: #162432;
+      }
+
+      .national .hero__title {
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: clamp(2.6rem, 5vw, 4.6rem);
+        font-weight: 700;
+      }
+
+      .national .hero__date,
+      .national .hero__rail,
+      .national .hero__kicker {
+        color: #324f6c;
+      }
+
+      .weekend {
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.7), transparent 55%),
+          linear-gradient(180deg, #f8fbfd, #eef4f9);
+        color: #162432;
+      }
+
+      .weekend .hero__title {
+        font-family: "Newsreader", Georgia, serif;
+        font-size: clamp(2.8rem, 5.2vw, 4.9rem);
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+
+      .weekend .hero__deck {
+        font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      .ledger {
+        background:
+          repeating-linear-gradient(
+            180deg,
+            rgba(36, 56, 75, 0.03) 0,
+            rgba(36, 56, 75, 0.03) 1px,
+            transparent 1px,
+            transparent 32px
+          ),
+          linear-gradient(180deg, #ffffff, #f2f6fa);
+        color: #162432;
+      }
+
+      .ledger .hero__title {
+        font-family: "Domine", Georgia, serif;
+        font-size: clamp(2.4rem, 4.6vw, 4.2rem);
+        font-weight: 700;
+        text-transform: none;
+      }
+
+      .ledger .hero__kicker,
+      .ledger .hero__date,
+      .ledger .hero__rail {
+        color: var(--muted);
+      }
+
+      .sports {
+        background:
+          linear-gradient(90deg, rgba(36, 56, 75, 0.06), transparent 28%),
+          linear-gradient(180deg, var(--paper), #edf3f8);
+        color: #162432;
+      }
+
+      .sports .hero__title {
+        font-family: "Archivo Narrow", "Helvetica Neue", Arial, sans-serif;
+        font-size: clamp(3rem, 6vw, 5rem);
+        font-weight: 800;
+        letter-spacing: 0.035em;
+        text-transform: uppercase;
+      }
+
+      .sports .hero__kicker {
+        display: inline-block;
+        padding: 0.25rem 0.45rem;
+        background: #162432;
+        color: white;
+      }
+
+      .opinion {
+        background:
+          radial-gradient(circle at top right, rgba(175, 143, 66, 0.22), transparent 28%),
+          linear-gradient(180deg, #fcfaf4, #f5efdf);
+        color: #2f2617;
+      }
+
+      .opinion .hero__title {
+        font-family: "Prata", Georgia, serif;
+        font-size: clamp(2.7rem, 5vw, 4.7rem);
+        font-weight: 400;
+        letter-spacing: 0.015em;
+        text-transform: none;
+      }
+
+      .opinion .hero__rail,
+      .opinion .hero__date,
+      .opinion .hero__kicker {
+        color: #7d6430;
+      }
+
+      .wire {
+        background: linear-gradient(180deg, #f4f7fa, #ebf1f6);
+        color: #162432;
+      }
+
+      .wire .hero__title {
+        font-family: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+        font-size: clamp(2.8rem, 5.4vw, 4.6rem);
+        font-weight: 800;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .wire .hero__deck {
+        font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      .all-intro {
+        margin: 1.3rem 0 0.9rem;
+        padding: 1rem 1.1rem;
+        border: 1px solid var(--rule);
+        border-radius: 0.45rem;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .all-intro h2 {
+        margin: 0 0 0.35rem;
+        font-size: 1rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .all-intro p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .all-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .mini-lab {
+        overflow: hidden;
+        border: 1px solid var(--rule);
+        border-radius: 0.55rem;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .mini-lab__meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid var(--rule);
+        color: var(--muted);
+        font-size: 0.72rem;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .mini-lab__hero {
+        padding: 1rem;
+        background: linear-gradient(180deg, #f7fafc, #eef3f7);
+      }
+
+      .mini-lab__rail {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.85rem;
+        padding-bottom: 0.55rem;
+        border-bottom: 1px solid var(--rule);
+        color: var(--muted);
+        font-size: 0.68rem;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .mini-lab__kicker {
+        margin: 0 0 0.35rem;
+        color: var(--muted);
+        font-size: 0.74rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .mini-lab__title {
+        margin: 0;
+        color: var(--accent);
+        font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+        line-height: 0.95;
+      }
+
+      .mini-lab__date {
+        margin: 0.55rem 0 0;
+        color: var(--muted);
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .mini-lab__note {
+        padding: 0.9rem 1rem 1rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.55;
+      }
+
+      @media (max-width: 720px) {
+        body {
+          padding: 0.7rem;
+        }
+
+        .sample {
+          padding: 1rem;
+        }
+
+        .sample__meta,
+        .hero__rail,
+        .lab-card__meta,
+        .mini-lab__meta,
+        .mini-lab__rail {
+          display: grid;
+          gap: 0.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="intro">
+        <h1>Font Preview</h1>
+        <p>
+          Fem serif-alternativ med mer tidningskansla. De forsta tre ligger narmast en sober
+          nyhetssida, medan de sista tva ar mer editoriella. Langst ned finns ocksa ett sans serif-
+          alternativ med tydligare newsroom-kansla. Jag har nu ocksa lagt till fler kandidater som
+          ligger narmare uttrycket i systerprojektet: stramt, informativt och publicistiskt. Jag
+          har ocksa lagt till nagra tydligare redaktionella personligheter om du vill att toppen ska
+          fa mer ryggrad.
+        </p>
+      </section>
+
+      <section class="samples">
+        <article class="sample font-newsreader">
+          <div class="sample__meta">
+            <span>Newsreader</span>
+            <span>Mjuk, modern, mest NYT-lugn</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">National Desk</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Bra om du vill ha en tidningslik serif utan att den blir tung eller gammaldags.</p>
+        </article>
+
+        <article class="sample font-baskerville">
+          <div class="sample__meta">
+            <span>Libre Baskerville</span>
+            <span>Klassisk, sober, mest tidningsrubrik</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Morning Edition</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Mer traditionell och redaktionell. En trygg kandidat om du vill narmare printkansla.</p>
+        </article>
+
+        <article class="sample font-cormorant">
+          <div class="sample__meta">
+            <span>Cormorant Garamond</span>
+            <span>Elegant, luftig, lite mer feature</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Sunday Review</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Fin om du vill att toppen ska kanna mer premium och mindre ren nyhetsmodul.</p>
+        </article>
+
+        <article class="sample font-dm-serif">
+          <div class="sample__meta">
+            <span>DM Serif Display</span>
+            <span>Tydlig, egen, mer magasin an dagstidning</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Weekend Magazine</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Mer personlighet och mer display. Funkar om du vill att mastheaden ska kanna mer ikonisk.</p>
+        </article>
+
+        <article class="sample font-bodoni">
+          <div class="sample__meta">
+            <span>Bodoni Moda</span>
+            <span>Skarp, modeig, mest dramatisk</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Style Section</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Snygg, men klart mer glossy och mindre Washington Post/NYT i grundkansla.</p>
+        </article>
+
+        <article class="sample font-source-serif">
+          <div class="sample__meta">
+            <span>Source Serif 4</span>
+            <span>Stram serif, mest journalistisk balans</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Metro Desk</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Ett starkt val om du vill ligga nara `vitel`: sober, datakompatibel och fortfarande tydligt redaktionell.</p>
+        </article>
+
+        <article class="sample font-merriweather">
+          <div class="sample__meta">
+            <span>Merriweather</span>
+            <span>Tat, tidningslik, lite tyngre</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Political Desk</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Bra om du vill ha mer klassisk nyhetssida och mindre magasin. Känns stadig och lite mer Washington Post än feature.</p>
+        </article>
+
+        <article class="sample font-spectral">
+          <div class="sample__meta">
+            <span>Spectral</span>
+            <span>Human serif, lite mjukare men fortfarande redaktionell</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Longform Analysis</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">En bra mellanväg om du vill ha värme utan att tappa nyhetskänslan.</p>
+        </article>
+
+        <article class="sample font-fraunces">
+          <div class="sample__meta">
+            <span>Fraunces</span>
+            <span>Editorial serif, mer personlighet men fortfarande robust</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Opinion + Sport</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Mer uttrycksfull än Newsreader och Source Serif. Bra om du vill ha en lite tydligare identitet i mastheaden.</p>
+        </article>
+
+        <article class="sample font-franklin">
+          <div class="sample__meta">
+            <span>Libre Franklin</span>
+            <span>Sans serif, newsroom, ren men stadig</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Breaking News</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Bra om du vill bort fran serif men fortfarande ha en publicistisk rubrikkansla snarare an typisk app-UI.</p>
+        </article>
+
+        <article class="sample font-public-sans">
+          <div class="sample__meta">
+            <span>Public Sans</span>
+            <span>Sans serif, myndig, rak och modern</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Wire Service</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Lite torrare och stramare än Franklin. Passar om du vill att toppen ska kännas nästan som ett kvalitetsdesk-gränssnitt.</p>
+        </article>
+
+        <article class="sample font-source-sans">
+          <div class="sample__meta">
+            <span>Source Sans 3</span>
+            <span>Sans serif, ren, elegant och minst appig</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Modern Broadsheet</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Om du vill ha sans men ändå lite mjukare publicistisk värme än Public Sans är det här en väldigt stark kandidat.</p>
+        </article>
+
+        <article class="sample font-prata">
+          <div class="sample__meta">
+            <span>Prata</span>
+            <span>Hogstad, klassisk, nästan ledarsida</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Editorial Board</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Inte ett vardagligt sportdesk-val, men stark om du vill att titeln ska kännas som en riktig publikation och inte bara en rubrikrad.</p>
+        </article>
+
+        <article class="sample font-domine">
+          <div class="sample__meta">
+            <span>Domine</span>
+            <span>Kompakt, seriös, torr pa ratt satt</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Analysis Desk</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Mycket auktoritet och mindre charm. Bra om du vill att toppen ska kanna mer som tung journalistik an som designobjekt.</p>
+        </article>
+
+        <article class="sample font-alegreya">
+          <div class="sample__meta">
+            <span>Alegreya</span>
+            <span>Boklig, human, mer essa an flash</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Weekend Essay</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Bra om du vill ge sidan mer personlighet och eftertankekansla utan att ga hela vagen till magasin.</p>
+        </article>
+
+        <article class="sample font-archivo-narrow">
+          <div class="sample__meta">
+            <span>Archivo Narrow</span>
+            <span>Sports desk, rubrikig, rak och snabb</span>
+          </div>
+          <h2 class="sample__title">Tennis Daily</h2>
+          <p class="sample__sub">Sports Desk</p>
+          <p class="sample__date">Fredag 10 april 2026</p>
+          <p class="sample__note">Om du vill luta mer mot sportredaktion än kultursida är det här ett mycket starkare sans-val än vanlig neutral grotesk. Mer energi, mindre salong.</p>
+        </article>
+      </section>
+
+      <section class="lab-intro">
+        <h2>Masthead Lab</h2>
+        <p>
+          Samma typografi, men nu som riktiga publicistiska personligheter. Här handlar det inte
+          bara om fontval, utan om vilken sorts tidning <strong>Tennis Daily</strong> vill låta som
+          innan första matchanalysen ens börjar.
+        </p>
+      </section>
+
+      <section class="lab-grid">
+        <article class="lab-card">
+          <div class="lab-card__meta">
+            <span>The National Desk</span>
+            <span>Stram, sober, mest trovardig</span>
+          </div>
+          <div class="hero national">
+            <div class="hero__rail">
+              <span>Tennis Daily</span>
+              <span>ATP Quarter-finals</span>
+              <span>10 April 2026</span>
+            </div>
+            <p class="hero__kicker">European Clay Swing</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">Feels like a serious sports desk that learned some elegance, not a design exercise trying too hard to be a newspaper.</p>
+          </div>
+          <div class="lab-card__note">Best if you want the page to feel established, credible and calm. Safest path with the most upside.</div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-card__meta">
+            <span>The Weekend Review</span>
+            <span>Mjukare, smartare, lite mer New York</span>
+          </div>
+          <div class="hero weekend">
+            <div class="hero__rail">
+              <span>Tennis Daily</span>
+              <span>Match by Match</span>
+              <span>Monte-Carlo</span>
+            </div>
+            <p class="hero__kicker">Daily Edition</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">More cultured and fluid. Still newsy, but with enough softness to suggest interpretation and taste, not just data.</p>
+          </div>
+          <div class="lab-card__note">Best if you want a subtle NYT-ish intelligence without going full Sunday magazine.</div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-card__meta">
+            <span>The Ledger</span>
+            <span>Auktoritet, analys, lite stenigare</span>
+          </div>
+          <div class="hero ledger">
+            <div class="hero__rail">
+              <span>Edition</span>
+              <span>Quarter-final Report</span>
+              <span>Clay</span>
+            </div>
+            <p class="hero__kicker">Analysis Desk</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">The stern one. Less charm, more authority. A masthead that says the page takes its own judgment very seriously.</p>
+          </div>
+          <div class="lab-card__note">Useful if you want less softness and more “this is a real editorial product with opinions and standards”.</div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-card__meta">
+            <span>The Sports Desk</span>
+            <span>Mer energi, mer rubrik, mindre salong</span>
+          </div>
+          <div class="hero sports">
+            <div class="hero__rail">
+              <span>Daily Sports Report</span>
+              <span>ATP Singles</span>
+              <span>Monte-Carlo</span>
+            </div>
+            <p class="hero__kicker">Live Card Analysis</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">This one sounds like a newspaper sports section that secretly knows more than the betting screen next door.</p>
+          </div>
+          <div class="lab-card__note">Best if you want to lean harder into sport and pace without becoming tabloid or TV graphics.</div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-card__meta">
+            <span>The Editorial Board</span>
+            <span>High ceremony, headline as institution</span>
+          </div>
+          <div class="hero opinion">
+            <div class="hero__rail">
+              <span>Independent Edition</span>
+              <span>Friday Review</span>
+              <span>Monte-Carlo Masters</span>
+            </div>
+            <p class="hero__kicker">Leading Article</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">More institution than page heading. It gives the title weight, posture and a little bit of theatre.</p>
+          </div>
+          <div class="lab-card__note">The least practical and maybe the most memorable. Great if you want a title, not just a label.</div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-card__meta">
+            <span>The Wire Modern</span>
+            <span>Sans serif, premium wire service energy</span>
+          </div>
+          <div class="hero wire">
+            <div class="hero__rail">
+              <span>Tennis Daily</span>
+              <span>Verified Match Briefing</span>
+              <span>Snapshot 22:33 CEST</span>
+            </div>
+            <p class="hero__kicker">Match Intelligence</p>
+            <h2 class="hero__title">Tennis Daily</h2>
+            <p class="hero__date">Friday 10 April 2026</p>
+            <p class="hero__deck">Not a newspaper in the nostalgic sense. More like a premium sports wire that happens to have taste.</p>
+          </div>
+          <div class="lab-card__note">Best if you want to keep some of Vitel’s crispness while still making the public page feel like a publication.</div>
+        </article>
+      </section>
+
+      <section class="all-intro">
+        <h2>All Fonts As Mastheads</h2>
+        <p>
+          Här får varje enskilt typsnitt vara en liten publikation. Samma titel, samma grunddata,
+          men med olika röst, status och temperament.
+        </p>
+      </section>
+
+      <section class="all-grid">
+        <article class="mini-lab font-newsreader"><div class="mini-lab__meta"><span>Newsreader</span><span>Intelligent broadsheet</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Tennis Daily</span><span>Match by Match</span><span>Monte-Carlo</span></div><p class="mini-lab__kicker">National Desk</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">Friday 10 April 2026</p></div><div class="mini-lab__note">Still the most naturally balanced “serious but graceful” option.</div></article>
+        <article class="mini-lab font-baskerville"><div class="mini-lab__meta"><span>Libre Baskerville</span><span>Classic print authority</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Morning Edition</span><span>ATP Singles</span><span>Friday</span></div><p class="mini-lab__kicker">Print Tradition</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">10 April 2026</p></div><div class="mini-lab__note">More old-paper authority, less contemporary softness.</div></article>
+        <article class="mini-lab font-cormorant"><div class="mini-lab__meta"><span>Cormorant Garamond</span><span>Elegant weekend section</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Weekend Review</span><span>Clay Swing</span><span>Daily Edition</span></div><p class="mini-lab__kicker">Sunday Review</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">Friday 10 April 2026</p></div><div class="mini-lab__note">The first step away from desk and toward style.</div></article>
+        <article class="mini-lab font-dm-serif"><div class="mini-lab__meta"><span>DM Serif Display</span><span>Magazine confidence</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Feature Edition</span><span>Quarter-finals</span><span>Monte-Carlo</span></div><p class="mini-lab__kicker">Weekend Magazine</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">10 April 2026</p></div><div class="mini-lab__note">Feels like it wants a byline and a cover line.</div></article>
+        <article class="mini-lab font-bodoni"><div class="mini-lab__meta"><span>Bodoni Moda</span><span>High style drama</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Style Section</span><span>European Spring</span><span>Edition</span></div><p class="mini-lab__kicker">Luxury Sports Weekly</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">Friday 10 April 2026</p></div><div class="mini-lab__note">Beautiful, but absolutely not neutral.</div></article>
+        <article class="mini-lab font-source-serif"><div class="mini-lab__meta"><span>Source Serif 4</span><span>Measured editorial desk</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Tennis Daily</span><span>Verified Match Briefing</span><span>ATP Tour</span></div><p class="mini-lab__kicker">Metro Desk</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">Friday 10 April 2026</p></div><div class="mini-lab__note">Probably the best marriage of public page and Vitel DNA.</div></article>
+        <article class="mini-lab font-merriweather"><div class="mini-lab__meta"><span>Merriweather</span><span>Heavy newsroom credibility</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Political Desk</span><span>Analysis</span><span>Friday Edition</span></div><p class="mini-lab__kicker">Institutional</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">10 April 2026</p></div><div class="mini-lab__note">Feels older, weightier and a bit more Washington than New York.</div></article>
+        <article class="mini-lab font-spectral"><div class="mini-lab__meta"><span>Spectral</span><span>Warm analytical essay</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Longform Analysis</span><span>Clay</span><span>Edition</span></div><p class="mini-lab__kicker">Weekend Essay</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">Friday 10 April 2026</p></div><div class="mini-lab__note">A little more humane and literary without losing discipline.</div></article>
+        <article class="mini-lab font-fraunces"><div class="mini-lab__meta"><span>Fraunces</span><span>Modern editorial flourish</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Opinion + Sport</span><span>Monte-Carlo</span><span>Quarter-finals</span></div><p class="mini-lab__kicker">Modern Broadsheet</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">Friday 10 April 2026</p></div><div class="mini-lab__note">More voice, more point of view, more personality.</div></article>
+        <article class="mini-lab font-franklin"><div class="mini-lab__meta"><span>Libre Franklin</span><span>Breaking desk sans</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Breaking News</span><span>ATP Singles</span><span>Snapshot 22:33</span></div><p class="mini-lab__kicker">Live Desk</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">Friday 10 April 2026</p></div><div class="mini-lab__note">Clean, forceful and much less app-ish than most sans choices.</div></article>
+        <article class="mini-lab font-public-sans"><div class="mini-lab__meta"><span>Public Sans</span><span>Premium wire service</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Wire Service</span><span>Verified</span><span>Edition</span></div><p class="mini-lab__kicker">Wire Modern</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">Friday 10 April 2026</p></div><div class="mini-lab__note">The most disciplined sans option. Crisp and unsentimental.</div></article>
+        <article class="mini-lab font-source-sans"><div class="mini-lab__meta"><span>Source Sans 3</span><span>Soft modern sans</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Modern Broadsheet</span><span>Match Briefing</span><span>Friday</span></div><p class="mini-lab__kicker">Newsroom Lite</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">10 April 2026</p></div><div class="mini-lab__note">Still modern, but with more warmth than Franklin or Public Sans.</div></article>
+        <article class="mini-lab font-prata"><div class="mini-lab__meta"><span>Prata</span><span>Editorial institution</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Editorial Board</span><span>Friday Review</span><span>Monte-Carlo</span></div><p class="mini-lab__kicker">Leading Article</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">Friday 10 April 2026</p></div><div class="mini-lab__note">A title with posture. More publication than interface.</div></article>
+        <article class="mini-lab font-domine"><div class="mini-lab__meta"><span>Domine</span><span>Severe analysis voice</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Analysis Desk</span><span>Quarter-final Report</span><span>Clay</span></div><p class="mini-lab__kicker">The Ledger</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">Friday 10 April 2026</p></div><div class="mini-lab__note">If you want less charm and more authority, this is the stern one.</div></article>
+        <article class="mini-lab font-alegreya"><div class="mini-lab__meta"><span>Alegreya</span><span>Essayistic humanist serif</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Weekend Essay</span><span>European Clay Swing</span><span>Edition</span></div><p class="mini-lab__kicker">Long Read</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">Friday 10 April 2026</p></div><div class="mini-lab__note">A thoughtful, slightly literary option that still holds the page together.</div></article>
+        <article class="mini-lab font-archivo-narrow"><div class="mini-lab__meta"><span>Archivo Narrow</span><span>Sports page energy</span></div><div class="mini-lab__hero"><div class="mini-lab__rail"><span>Sports Desk</span><span>Live Card Analysis</span><span>ATP Singles</span></div><p class="mini-lab__kicker">Sports Report</p><h3 class="mini-lab__title">Tennis Daily</h3><p class="mini-lab__date">Friday 10 April 2026</p></div><div class="mini-lab__note">The punchiest option. More desk, more speed, more sport.</div></article>
+      </section>
+    </main>
+  </body>
+</html>
