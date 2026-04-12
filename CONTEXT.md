@@ -51,7 +51,6 @@ Read this file first at the start of every new thread or restart. Then read the 
 - `GET /api/oddset`
 - `GET /api/player/lookup?query=...`
 - `GET /api/players/odds?playerA=...&playerB=...&surface=...`
-- `GET /api/players/head-to-head?playerA=...&playerB=...&limit=10`
 - `GET /api/events/calendar`
 - `GET /api/flags/:code.svg`
 - `GET /api/meta/endpoints`

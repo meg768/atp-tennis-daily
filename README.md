@@ -114,7 +114,6 @@ For this project, treat those two metadata endpoints as the canonical documentat
   `GET /api/player/lookup`
   `GET /api/players/odds?playerA=...&playerB=...`
   `GET /api/tennis-abstract/odds?playerA=...&playerB=...&surface=...`
-  `GET /api/players/head-to-head?playerA=...&playerB=...`
   `GET /api/events/calendar`
   `POST /api/query`
 - canonical service docs:
@@ -196,6 +195,6 @@ This project is meant to stand on its own.
 - 2026-04-06: Initial project scaffold added with project memory, HTML template, and edition workflow.
 - 2026-04-07: Locked `atp-tennis-daily-scan` to the documented ATP endpoints so Pi scans do not waste time rediscovering APIs from the hosted frontend bundle.
 - 2026-04-07: Added compact-output rules for `atp-tennis-daily-scan` so Pi scans do not bloat the nested Codex session with full HTML, payload, or schema dumps.
-- 2026-04-07: Documented the actual endpoint payload shapes from `tennis.egelberg.se`, especially the live contracts for `/api/oddset`, `/api/player/lookup`, `/api/players/odds`, `/api/players/head-to-head`, `/api/events/calendar`, and `/api/query`.
+- 2026-04-07: Documented the actual endpoint payload shapes from `tennis.egelberg.se`, especially the live contracts for `/api/oddset`, `/api/player/lookup`, `/api/players/odds`, `/api/events/calendar`, and `/api/query`.
 - 2026-04-07: Removed the inherited user-mode versus developer-mode split from this project and simplified command handling to one workflow.
 - 2026-04-09: Detached the project from `tennis-scanner-daily`, renamed the public page to `Tennis Daily`, published it at `https://tennis-daily.egelberg.se`, and added an independent PM2 job for daily `09:00` publishing.
