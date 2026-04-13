@@ -7,11 +7,20 @@ PUBLISH_DIR="/var/www/html/tennis-daily"
 TIMEZONE="Europe/Stockholm"
 PUBLISH=false
 DAILY_TIME=""
+
+if [[ -f "$REPO_DIR/.env" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "$REPO_DIR/.env"
+  set +a
+fi
+
 PUSHOVER_TOKEN="${PUSHOVER_TOKEN:-}"
 PUSHOVER_USER="${PUSHOVER_USER:-}"
 PUSHOVER_DEVICE="${PUSHOVER_DEVICE:-}"
 PUSHOVER_SOUND="${PUSHOVER_SOUND:-}"
 LAST_RUN_MESSAGE=""
+PUSHOVER_WARNING_SHOWN=false
 
 usage() {
   cat <<'EOF'
@@ -71,12 +80,41 @@ set_last_run_message() {
   LAST_RUN_MESSAGE="$1"
 }
 
+warn_pushover_unavailable() {
+  local reason="$1"
+
+  if [[ "$PUSHOVER_WARNING_SHOWN" == "true" ]]; then
+    return 0
+  fi
+
+  echo "Pushover unavailable: $reason" >&2
+  PUSHOVER_WARNING_SHOWN=true
+}
+
+check_pushover_before_scan() {
+  if [[ -z "$PUSHOVER_TOKEN" || -z "$PUSHOVER_USER" ]]; then
+    warn_pushover_unavailable "missing PUSHOVER_TOKEN or PUSHOVER_USER before scan start."
+    return 0
+  fi
+
+  if ! command -v curl >/dev/null 2>&1; then
+    warn_pushover_unavailable "curl is not installed before scan start."
+    return 0
+  fi
+}
+
 send_pushover() {
   local title="$1"
   local message="$2"
   local priority="${3:-0}"
 
   if [[ -z "$PUSHOVER_TOKEN" || -z "$PUSHOVER_USER" ]]; then
+    warn_pushover_unavailable "missing PUSHOVER_TOKEN or PUSHOVER_USER."
+    return 0
+  fi
+
+  if ! command -v curl >/dev/null 2>&1; then
+    warn_pushover_unavailable "curl is not installed."
     return 0
   fi
 
@@ -100,7 +138,7 @@ send_pushover() {
   fi
 
   if ! curl "${curl_args[@]}" https://api.pushover.net/1/messages.json >/dev/null; then
-    echo "Pushover notification failed." >&2
+    warn_pushover_unavailable "request to api.pushover.net failed."
   fi
 }
 
@@ -255,6 +293,8 @@ run_scan() {
 }
 
 run_once() {
+  check_pushover_before_scan
+
   if run_scan; then
     send_pushover "Tennis Daily klar" "${LAST_RUN_MESSAGE:-Tennis Daily klar.}" 0
     return 0
