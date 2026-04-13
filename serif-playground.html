@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tennis Daily | Serif Playground</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya:wght@700&family=Bodoni+Moda:opsz,wght@6..96,700&family=Cormorant+Garamond:wght@600;700&family=Fraunces:opsz,wght@9..144,700&family=Libre+Baskerville:wght@400;700&family=Libre+Franklin:wght@600;700;800&family=Merriweather:wght@700&family=Newsreader:opsz,wght@6..72,600;700&family=Prata&family=Source+Sans+3:wght@600;700;800&family=Source+Serif+4:opsz,wght@8..60,700&family=Spectral:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-top: #edf2f6;
+        --bg-bottom: #dbe5ee;
+        --paper: rgba(255, 255, 255, 0.96);
+        --paper-soft: #f7fafc;
+        --ink: #182634;
+        --muted: #5f7284;
+        --rule: rgba(50, 79, 108, 0.16);
+        --accent: #324f6c;
+        --accent-soft: #8aa7c2;
+        --shadow: 0 20px 42px rgba(24, 38, 52, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        color-scheme: light;
+      }
+
+      body {
+        margin: 0;
+        padding: 1rem;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(255, 255, 255, 0.8), transparent 28%),
+          linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+        font-family: "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      .page {
+        width: min(1240px, 100%);
+        margin: 0 auto;
+      }
+
+      .intro,
+      .selected,
+      .gallery {
+        border: 1px solid var(--rule);
+        border-radius: 0.7rem;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .intro,
+      .selected {
+        margin-bottom: 1rem;
+      }
+
+      .intro {
+        padding: 1rem 1.15rem;
+      }
+
+      .eyebrow,
+      .selected__meta,
+      .specimen__meta,
+      .masthead__rail,
+      .masthead__kicker,
+      .masthead__date,
+      .chip {
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        margin: 0 0 0.3rem;
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 800;
+      }
+
+      .intro h1 {
+        margin: 0;
+        font-size: clamp(1.55rem, 3.2vw, 2.4rem);
+        line-height: 1.08;
+      }
+
+      .intro p {
+        margin: 0.6rem 0 0;
+        max-width: 72ch;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .selected {
+        overflow: hidden;
+      }
+
+      .selected__meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.9rem 1rem;
+        border-bottom: 1px solid var(--rule);
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 800;
+      }
+
+      .selected__body {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.9fr);
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .masthead {
+        padding: 1rem 1rem 1.15rem;
+        border: 1px solid var(--rule);
+        border-radius: 0.55rem;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0)),
+          linear-gradient(180deg, #f8fbfd, #edf3f8);
+        color: var(--ink);
+      }
+
+      .masthead__rail {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-bottom: 0.8rem;
+        border-bottom: 1px solid currentColor;
+        color: var(--muted);
+        font-size: 0.68rem;
+        font-weight: 800;
+      }
+
+      .masthead__kicker {
+        margin: 1rem 0 0.5rem;
+        color: var(--accent);
+        font-size: 0.76rem;
+        font-weight: 800;
+      }
+
+      .masthead__title {
+        margin: 0;
+        font-size: clamp(3rem, 7vw, 6rem);
+        line-height: 0.9;
+        color: var(--ink);
+      }
+
+      .masthead__date {
+        margin: 0.7rem 0 0;
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 800;
+      }
+
+      .masthead__deck {
+        margin: 1rem 0 0;
+        max-width: 44rem;
+        color: var(--ink);
+        font-size: 1.02rem;
+        line-height: 1.62;
+      }
+
+      .selected__notes {
+        display: grid;
+        gap: 0.9rem;
+        align-content: start;
+      }
+
+      .note-card {
+        padding: 0.95rem 1rem;
+        border: 1px solid var(--rule);
+        border-radius: 0.55rem;
+        background: var(--paper-soft);
+      }
+
+      .note-card h2 {
+        margin: 0 0 0.4rem;
+        color: var(--accent);
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .note-card p {
+        margin: 0;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+      }
+
+      .chip {
+        padding: 0.36rem 0.55rem;
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.86);
+        color: var(--muted);
+        font-size: 0.7rem;
+        font-weight: 800;
+      }
+
+      .gallery {
+        padding: 1rem;
+      }
+
+      .gallery__header {
+        margin-bottom: 0.9rem;
+      }
+
+      .gallery__header h2 {
+        margin: 0;
+        font-size: 1rem;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+
+      .gallery__header p {
+        margin: 0.35rem 0 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .specimen-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .specimen {
+        overflow: hidden;
+        border: 1px solid var(--rule);
+        border-radius: 0.6rem;
+        background: linear-gradient(180deg, #fbfdff, #eef4f9);
+      }
+
+      .specimen__meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.8rem 0.95rem;
+        border-bottom: 1px solid var(--rule);
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 800;
+      }
+
+      .specimen__body {
+        padding: 0.95rem;
+      }
+
+      .specimen__title {
+        margin: 0;
+        color: var(--ink);
+        font-size: clamp(2.2rem, 5vw, 3.8rem);
+        line-height: 0.92;
+      }
+
+      .specimen__deck {
+        margin: 0.7rem 0 0;
+        color: var(--muted);
+        line-height: 1.58;
+      }
+
+      .specimen__footer {
+        margin-top: 0.8rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        color: var(--accent);
+        font-size: 0.74rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .font-newsreader .masthead__title,
+      .font-newsreader .specimen__title {
+        font-family: "Newsreader", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+
+      .font-baskerville .masthead__title,
+      .font-baskerville .specimen__title {
+        font-family: "Libre Baskerville", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+
+      .font-cormorant .masthead__title,
+      .font-cormorant .specimen__title {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .font-source-serif .masthead__title,
+      .font-source-serif .specimen__title {
+        font-family: "Source Serif 4", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+
+      .font-merriweather .masthead__title,
+      .font-merriweather .specimen__title {
+        font-family: "Merriweather", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+
+      .font-spectral .masthead__title,
+      .font-spectral .specimen__title {
+        font-family: "Spectral", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+
+      .font-fraunces .masthead__title,
+      .font-fraunces .specimen__title {
+        font-family: "Fraunces", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+
+      .font-prata .masthead__title,
+      .font-prata .specimen__title {
+        font-family: "Prata", Georgia, serif;
+        font-weight: 400;
+        letter-spacing: 0.015em;
+      }
+
+      .font-bodoni .masthead__title,
+      .font-bodoni .specimen__title {
+        font-family: "Bodoni Moda", "Times New Roman", serif;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .font-alegreya .masthead__title,
+      .font-alegreya .specimen__title {
+        font-family: "Alegreya", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+
+      .voice-newsroom .masthead__deck,
+      .voice-newsroom .specimen__deck {
+        font-family: "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      .voice-elegant .masthead__deck,
+      .voice-elegant .specimen__deck {
+        font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      .voice-classic .masthead__deck,
+      .voice-classic .specimen__deck {
+        font-family: Georgia, "Times New Roman", serif;
+      }
+
+      @media (max-width: 960px) {
+        .selected__body,
+        .specimen-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 760px) {
+        body {
+          padding: 0.65rem;
+        }
+
+        .selected__meta,
+        .masthead__rail,
+        .specimen__meta,
+        .specimen__footer {
+          display: grid;
+          gap: 0.3rem;
+        }
+
+        .masthead__title {
+          font-size: clamp(2.4rem, 13vw, 4.1rem);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="intro">
+        <p class="eyebrow">Local Type Playground</p>
+        <h1>Serif-spår för Tennis Daily, helt lokalt och helt utan scan</h1>
+        <p>
+          Här leker vi bara med masthead och tonalitet. Tanken är att du snabbt ska kunna känna
+          om sidan vill vara smart broadsheet, klassisk morgontidning, feature-helg eller tung
+          redaktionell institution, utan att röra genereringen.
+        </p>
+      </section>
+
+      <section class="selected">
+        <div class="selected__meta">
+          <span>Förstaval just nu</span>
+          <span>Newsreader + sans i rail och deck</span>
+        </div>
+        <div class="selected__body">
+          <article class="masthead font-newsreader voice-newsroom">
+            <div class="masthead__rail">
+              <span>Tennis Daily</span>
+              <span>ATP-kvartsfinaler</span>
+              <span>Snapshot 09:00 CEST</span>
+            </div>
+            <p class="masthead__kicker">National Desk</p>
+            <h2 class="masthead__title">Tennis Daily</h2>
+            <p class="masthead__date">Fredag 10 april 2026</p>
+            <p class="masthead__deck">
+              Ett dagligt ATP-nyhetsblad med kommande singelmatcher, match för match, med ranking,
+              ELO, form, inbördes möten, odds och verifierat dagsläge i fokus.
+            </p>
+          </article>
+
+          <div class="selected__notes">
+            <section class="note-card">
+              <h2>Varför den fungerar</h2>
+              <p>
+                Newsreader känns mest som en riktig tidning och minst som en UI-demonstration. Den
+                ger lugn auktoritet utan att bli tung eller dammig.
+              </p>
+            </section>
+
+            <section class="note-card">
+              <h2>Vad den signalerar</h2>
+              <div class="chip-row">
+                <span class="chip">Broadsheet</span>
+                <span class="chip">Lugn</span>
+                <span class="chip">Redigerad</span>
+                <span class="chip">Premium</span>
+              </div>
+            </section>
+
+            <section class="note-card">
+              <h2>Praktisk take</h2>
+              <p>
+                Om du redan vet att serif är rätt är detta den mest naturliga baslinjen att tweaka
+                vidare från, både i storlek, spacing och vikt.
+              </p>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery">
+        <div class="gallery__header">
+          <h2>Serifgalleri</h2>
+          <p>
+            Samma titel, olika publicistisk personlighet. Här går det snabbt att se vilka som blir
+            mer New York Times, vilka som lutar Washington Post, och vilka som sticker iväg mot
+            feature eller magasin.
+          </p>
+        </div>
+
+        <div class="specimen-grid">
+          <article class="specimen font-newsreader voice-newsroom">
+            <div class="specimen__meta"><span>Newsreader</span><span>Smart Broadsheet</span></div>
+            <div class="specimen__body">
+              <h3 class="specimen__title">Tennis Daily</h3>
+              <p class="specimen__deck">
+                Mest naturlig som riktig dagstidning. Intelligent, lugn och redaktionell utan att
+                kännas gammal.
+              </p>
+              <div class="specimen__footer"><span>NYT-adjacent</span><span>Vinnare</span></div>
+            </div>
+          </article>
+
+          <article class="specimen font-baskerville voice-classic">
+            <div class="specimen__meta"><span>Libre Baskerville</span><span>Morning Paper</span></div>
+            <div class="specimen__body">
+              <h3 class="specimen__title">Tennis Daily</h3>
+              <p class="specimen__deck">
+                Mer gammal tidning direkt. Mindre modern energi, mer känsla av etablerad redaktion
+                och tryckt tradition.
+              </p>
+              <div class="specimen__footer"><span>Klassisk</span><span>Tryckkänsla</span></div>
+            </div>
+          </article>
+
+          <article class="specimen font-source-serif voice-newsroom">
+            <div class="specimen__meta"><span>Source Serif 4</span><span>Measured Desk</span></div>
+            <div class="specimen__body">
+              <h3 class="specimen__title">Tennis Daily</h3>
+              <p class="specimen__deck">
+                Väldigt stark kompromiss mellan frontend-polerad och nyhetsmässig. Känns både
+                läsbar och systematisk.
+              </p>
+              <div class="specimen__footer"><span>Washington Post</span><span>Stabil</span></div>
+            </div>
+          </article>
+
+          <article class="specimen font-merriweather voice-newsroom">
+            <div class="specimen__meta"><span>Merriweather</span><span>Heavy Newsroom</span></div>
+            <div class="specimen__body">
+              <h3 class="specimen__title">Tennis Daily</h3>
+              <p class="specimen__deck">
+                Tyngre och mer institutionell. Mer myndig desk-känsla, mindre grace, men stark
+                auktoritet.
+              </p>
+              <div class="specimen__footer"><span>Tung</span><span>Auktoritet</span></div>
+            </div>
+          </article>
+
+          <article class="specimen font-spectral voice-elegant">
+            <div class="specimen__meta"><span>Spectral</span><span>Human Analyst</span></div>
+            <div class="specimen__body">
+              <h3 class="specimen__title">Tennis Daily</h3>
+              <p class="specimen__deck">
+                Lite mjukare och mer mänsklig. Bra om sidan ska kännas skriven av en tänkande
+                redaktion snarare än ett strikt nyhetsbord.
+              </p>
+              <div class="specimen__footer"><span>Varm</span><span>Essä</span></div>
+            </div>
+          </article>
+
+          <article class="specimen font-cormorant voice-elegant">
+            <div class="specimen__meta"><span>Cormorant Garamond</span><span>Sunday Review</span></div>
+            <div class="specimen__body">
+              <h3 class="specimen__title">Tennis Daily</h3>
+              <p class="specimen__deck">
+                Väldigt snygg, men mer helgfeature än daglig desk. Bra om du vill ha mer kultur-
+                eller magasinluft i toppen.
+              </p>
+              <div class="specimen__footer"><span>Elegant</span><span>Feature</span></div>
+            </div>
+          </article>
+
+          <article class="specimen font-fraunces voice-elegant">
+            <div class="specimen__meta"><span>Fraunces</span><span>Modern Opinion</span></div>
+            <div class="specimen__body">
+              <h3 class="specimen__title">Tennis Daily</h3>
+              <p class="specimen__deck">
+                Har mer egen röst. Inte tokig alls, men börjar ge publikationen en tydligare
+                personlighet än klassisk nyhetsneutralitet.
+              </p>
+              <div class="specimen__footer"><span>Modern</span><span>Karaktär</span></div>
+            </div>
+          </article>
+
+          <article class="specimen font-bodoni voice-classic">
+            <div class="specimen__meta"><span>Bodoni Moda</span><span>Style Section</span></div>
+            <div class="specimen__body">
+              <h3 class="specimen__title">Tennis Daily</h3>
+              <p class="specimen__deck">
+                Supersnygg men klart mer mode- eller magasinspår. Bra att se bredvid de andra
+                eftersom den visar var gränsen går för för mycket dramatik.
+              </p>
+              <div class="specimen__footer"><span>Teatralisk</span><span>Display</span></div>
+            </div>
+          </article>
+
+          <article class="specimen font-prata voice-classic">
+            <div class="specimen__meta"><span>Prata</span><span>Editorial Institution</span></div>
+            <div class="specimen__body">
+              <h3 class="specimen__title">Tennis Daily</h3>
+              <p class="specimen__deck">
+                Ceremoniell och gammalvärldslig på ett kul sätt. Mer ledarsida eller söndagsbilaga
+                än daglig tennisdesk.
+              </p>
+              <div class="specimen__footer"><span>Institution</span><span>Distinkt</span></div>
+            </div>
+          </article>
+
+          <article class="specimen font-alegreya voice-elegant">
+            <div class="specimen__meta"><span>Alegreya</span><span>Soft Feature Desk</span></div>
+            <div class="specimen__body">
+              <h3 class="specimen__title">Tennis Daily</h3>
+              <p class="specimen__deck">
+                Vänligare och lite mer berättande. Inte min främsta tidningskandidat, men den har
+                ett mjukt och rätt charmigt uttryck.
+              </p>
+              <div class="specimen__footer"><span>Mjuk</span><span>Berättande</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
