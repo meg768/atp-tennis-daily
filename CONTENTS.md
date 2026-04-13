@@ -11,7 +11,7 @@ This file stores the editorial brief for what the edition should contain, how it
 - exclude doubles, WTA, and Challenger
 - use `https://tennis.egelberg.se` as the statistical backbone
 - enrich with current reporting when it adds real value, especially for injuries, withdrawals, and recent developments
-- write the edition in Swedish
+- write the edition in Swedish, using normal Swedish spelling with `å`, `ä`, and `ö`
 
 ## Coverage Rules
 
@@ -78,6 +78,7 @@ Each match section should usually contain:
 - let the current event surface act as matchup context
 - keep labels plain rather than decorative
 - prefer flat box colors over visible gradients inside cards
+- use proper Swedish characters in all rendered copy instead of ASCII fallback spellings
 - use surface themes:
   - clay = warm red/terracotta
   - grass = green

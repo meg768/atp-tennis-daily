@@ -127,10 +127,10 @@ For this project, treat those two metadata endpoints as the canonical documentat
 The repo includes a `run.sh` runner for scans.
 
 - `./run.sh`
-  Runs one scan and exits.
+  Runs one scan and exits. The command now verifies that `editions/latest.html` was actually refreshed before returning success.
 
 - `./run.sh --publish`
-  Runs one scan, publishes `editions/` to the web root, writes `editions/latest.html` as `index.html`, and exits.
+  Runs one scan, publishes `editions/` to the web root, writes `editions/latest.html` as `index.html`, and exits. The command also verifies that the published `index.html` matches the local `latest.html`.
 
 - `./run.sh --daily 09:00`
   Waits for the next `09:00` in `Europe/Stockholm`, then runs once per day at that time.
@@ -142,11 +142,15 @@ Internally, `run.sh` sends the short command `atp-tennis-daily-scan` to Codex. T
 `atp-tennis-daily-scan` is meant to execute the scan directly in the active Codex session. It must not call `run.sh` again or start a nested runner process.
 `atp-tennis-daily-scan` should stay narrowly focused during a live scan: read `template.html` and `editions/latest.html`, fetch the current card and player context from `https://tennis.egelberg.se`, add current reporting for the specific matches on the card, then write the two edition files. It should avoid broad repo searching or wandering through unrelated historical files during a normal scan.
 `atp-tennis-daily-scan` should also use the documented ATP service endpoints directly. It should not probe `https://tennis.egelberg.se/`, inspect the frontend app, or scrape bundled JavaScript assets just to rediscover endpoints that are already part of the project memory.
+During a normal scan, it should not inspect `run.sh`, broad repo history, or large unrelated files once the workflow is already known.
 To keep Pi scans stable, `atp-tennis-daily-scan` should keep tool output compact. It should prefer filtered endpoint reads and small excerpts over dumping full HTML, full JSON payloads, or large schema responses into the session.
+The rendered edition should be written in Swedish with proper Swedish characters, including `å`, `ä`, and `ö`, rather than ASCII fallback spellings.
 In the `Odds` block, `atp-tennis-daily-scan` should show `Tennis Abstract` rather than a generated `Codex` line. Do not shorten that label to `TA` in the rendered page. Show `Svenska Spel`, `Tennis Abstract`, and `Vitel`, and if edge is shown place it inline after the odds in the same cell, for example `1.43 (-2%)`, rounded to whole percentages with no decimals. Do not render separate edge rows. `Spelidé` should follow the inline `Tennis Abstract` edge first, while `Vitel` remains a secondary experimental comparison. Avoid unexplained shorthand like `pp` in user-facing output. Keep full player names in the main match title, but use player surnames rather than first names in odds-table headers and in `Spelidé`.
 In the `Head-to-head` block, `atp-tennis-daily-scan` should prefer the existing compact table style when previous meetings exist. Show date, tournament, surface, and a readable result line with winner and score. Fall back to a short prose note only when there are no relevant previous meetings.
 In `Skador och dagsläge`, the scan may also call out a meaningful recent inactivity period, comeback, or long layoff when it helps explain why the current ranking may undersell the player's real level.
 When doing that, name the player directly in the sentence instead of only describing an anonymous gap in days.
+For matchup prices, use the documented live endpoints such as `/api/oddset`, `/api/oddset/odds`, `/api/odds`, and `/api/tennis-abstract/odds`. Do not guess undocumented paths such as `/api/players/odds` or `/api/players/head-to-head`.
+For head-to-head, recent form, and inactivity, prefer targeted `POST /api/query` reads over broad schema introspection or endpoint guessing.
 
 For the Pi runner, `run.sh` should use `codex exec --sandbox danger-full-access` rather than `--full-auto`. In practice, the narrower nested sandbox can block DNS or outbound HTTP for `tennis.egelberg.se` and Svenska Spel-backed feeds even when plain shell networking works on the machine.
 

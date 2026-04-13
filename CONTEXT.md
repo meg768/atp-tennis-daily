@@ -35,6 +35,8 @@ Read this file first at the start of every new thread or restart. Then read the 
 - when handling `atp-tennis-daily-scan`, do the scan work directly in the current session
 - never call `run.sh` from inside `atp-tennis-daily-scan`
 - never spawn a nested runner from `atp-tennis-daily-scan`
+- a normal scan should not inspect `run.sh`, broad repo history, or large unrelated files once the workflow is already known
+- a normal scan should not reread the full schema or endpoint docs unless a needed endpoint contract is genuinely unclear
 
 ## Runtime Rules
 
@@ -45,17 +47,28 @@ Read this file first at the start of every new thread or restart. Then read the 
 - `editions/latest.html` may be read to preserve layout, but it must never be used as a reason to skip regeneration
 - every scan run must generate a fresh edition from live sources
 - every scan run must rewrite the visible snapshot timestamp and output HTML
+- during a normal scan, prefer a short deterministic path: card, player lookup, odds, selective SQL, render, write
+- do not guess undocumented endpoints during a normal scan; use only documented live endpoints or targeted read-only SQL
 
 ## Preferred ATP Endpoints
 
 - `GET /api/oddset`
 - `GET /api/player/lookup?query=...`
+- `GET /api/oddset/odds?playerA=...&playerB=...`
 - `GET /api/odds?playerA=...&playerB=...&surface=...`
+- `GET /api/tennis-abstract/odds?playerA=...&playerB=...&surface=...`
 - `GET /api/events/calendar`
 - `GET /api/flags/:code.svg`
 - `GET /api/meta/endpoints`
-- `GET /api/meta/schema.sql`
 - `POST /api/query` only when the normal endpoints are not enough
+
+## Scan Reliability
+
+- for head-to-head, recent form, inactivity, and recent match lists, prefer targeted `POST /api/query` reads over endpoint guessing
+- do not use undocumented paths such as `/api/players/odds` or `/api/players/head-to-head`
+- avoid schema introspection queries such as `sqlite_master` during a normal scan
+- avoid broad endpoint probing during a normal scan
+- keep shell output compact so the nested runner does not waste time or context on large dumps
 
 ## Rendering Rules
 
@@ -87,6 +100,8 @@ Read this file first at the start of every new thread or restart. Then read the 
 - `run.sh --daily HH:MM` enables the long-lived daily schedule in `Europe/Stockholm`
 - `run.sh` should call `atp-tennis-daily-scan` rather than embedding a long literal prompt
 - when `run.sh --publish` is used, publish dated files under `editions/` and also mirror `editions/latest.html` to the site root as `index.html`
+- `run.sh` should fail loudly if a scan exits without actually refreshing `editions/latest.html`
+- `run.sh --publish` should also verify that the published `index.html` matches `editions/latest.html`
 
 ## Restart Reliability
 
