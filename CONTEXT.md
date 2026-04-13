@@ -37,6 +37,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - never spawn a nested runner from `atp-tennis-daily-scan`
 - a normal scan should not inspect `run.sh`, broad repo history, or large unrelated files once the workflow is already known
 - a normal scan should not reread the full schema or endpoint docs unless a needed endpoint contract is genuinely unclear
+- when a scan needs to write targeted SQL, it should verify table and column names against `GET /api/meta/schema.sql` rather than guessing
 
 ## Runtime Rules
 
@@ -60,6 +61,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - `GET /api/events/calendar`
 - `GET /api/flags/:code.svg`
 - `GET /api/meta/endpoints`
+- `GET /api/meta/schema.sql`
 - `POST /api/query` only when the normal endpoints are not enough
 
 ## Scan Reliability
@@ -67,8 +69,12 @@ Read this file first at the start of every new thread or restart. Then read the 
 - for head-to-head, recent form, inactivity, and recent match lists, prefer targeted `POST /api/query` reads over endpoint guessing
 - do not use undocumented paths such as `/api/players/odds` or `/api/players/head-to-head`
 - avoid schema introspection queries such as `sqlite_master` during a normal scan
+- use `GET /api/meta/schema.sql` as the schema source of truth when building SQL, but read only the narrow excerpt needed for the relevant tables or columns
 - avoid broad endpoint probing during a normal scan
 - keep shell output compact so the nested runner does not waste time or context on large dumps
+- if a per-match odds or model endpoint returns `404`, `500`, times out, or otherwise fails for one matchup, treat that row as missing data rather than a fatal scan error
+- a single failed enrichment request must not abort the whole edition if the rest of the card can still be rendered
+- prefer partial completion over restart loops: write the edition with the data that succeeded, and omit only the unavailable row or sentence
 
 ## Rendering Rules
 

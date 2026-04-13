@@ -88,6 +88,7 @@ Each match section should usually contain:
 - keep mobile readability strong
 - in `Head-to-head`, prefer the existing compact table style when there are actual previous meetings to show
 - in the `Odds` block, show `Svenska Spel`, `Tennis Abstract`, and `Vitel` when the data supports it
+- if one odds or model source is temporarily unavailable for a matchup, omit that row and keep rendering the rest of the match section
 - if edge is shown, place it inline after the odds in the same cell, for example `1.43 (-2%)`
 - round displayed edge to whole percentages with no decimals
 - do not render separate edge rows
@@ -100,6 +101,7 @@ Each match section should usually contain:
 - keep full player names in the main match title
 - use player surnames rather than first names in odds-table headers and in `Spelidé`
 - avoid anonymous layoff phrasing such as only giving a date gap; say which player has been inactive
+- do not abort the whole page just because one matchup is missing one model row
 
 ## What To Avoid
 
