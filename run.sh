@@ -7,6 +7,11 @@ PUBLISH_DIR="/var/www/html/tennis-daily"
 TIMEZONE="Europe/Stockholm"
 PUBLISH=false
 DAILY_TIME=""
+PUSHOVER_TOKEN="${PUSHOVER_TOKEN:-}"
+PUSHOVER_USER="${PUSHOVER_USER:-}"
+PUSHOVER_DEVICE="${PUSHOVER_DEVICE:-}"
+PUSHOVER_SOUND="${PUSHOVER_SOUND:-}"
+LAST_RUN_MESSAGE=""
 
 usage() {
   cat <<'EOF'
@@ -60,6 +65,43 @@ snapshot_marker() {
   fi
 
   grep -Eo 'Snapshot [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2} [A-Z]+' "$file" | head -n 1
+}
+
+set_last_run_message() {
+  LAST_RUN_MESSAGE="$1"
+}
+
+send_pushover() {
+  local title="$1"
+  local message="$2"
+  local priority="${3:-0}"
+
+  if [[ -z "$PUSHOVER_TOKEN" || -z "$PUSHOVER_USER" ]]; then
+    return 0
+  fi
+
+  local curl_args=(
+    -fsS
+    --retry 2
+    --max-time 10
+    -F "token=$PUSHOVER_TOKEN"
+    -F "user=$PUSHOVER_USER"
+    -F "title=$title"
+    -F "message=$message"
+    -F "priority=$priority"
+  )
+
+  if [[ -n "$PUSHOVER_DEVICE" ]]; then
+    curl_args+=(-F "device=$PUSHOVER_DEVICE")
+  fi
+
+  if [[ -n "$PUSHOVER_SOUND" ]]; then
+    curl_args+=(-F "sound=$PUSHOVER_SOUND")
+  fi
+
+  if ! curl "${curl_args[@]}" https://api.pushover.net/1/messages.json >/dev/null; then
+    echo "Pushover notification failed." >&2
+  fi
 }
 
 validate_rendered_edition() {
@@ -162,11 +204,15 @@ run_scan() {
   before_snapshot="$(snapshot_marker "$latest_file" 2>/dev/null || true)"
 
   if ! codex exec --sandbox danger-full-access -C "$REPO_DIR" "$SCAN_COMMAND" < /dev/null; then
+    set_last_run_message "Scan command failed before edition verification."
     echo "Scan command failed before edition verification." >&2
     return 1
   fi
 
-  validate_rendered_edition "$latest_file"
+  if ! validate_rendered_edition "$latest_file"; then
+    set_last_run_message "Edition verification failed for $latest_file."
+    return 1
+  fi
 
   after_mtime="$(file_mtime "$latest_file" 2>/dev/null || true)"
   after_fingerprint="$(file_fingerprint "$latest_file" 2>/dev/null || true)"
@@ -176,12 +222,14 @@ run_scan() {
     && [[ "$after_mtime" == "$before_mtime" ]] \
     && [[ "$after_fingerprint" == "$before_fingerprint" ]] \
     && [[ "$after_snapshot" == "$before_snapshot" ]]; then
+    set_last_run_message "Scan finished without refreshing editions/latest.html."
     echo "Scan finished without refreshing editions/latest.html." >&2
     return 1
   fi
 
   dated_count="$(find "$REPO_DIR/editions" -maxdepth 1 -type f -name '20??-??-??.html' | wc -l | tr -d ' ')"
   if [[ "$dated_count" == "0" ]]; then
+    set_last_run_message "Scan did not leave any dated edition files under editions/."
     echo "Scan did not leave any dated edition files under editions/." >&2
     return 1
   fi
@@ -191,21 +239,38 @@ run_scan() {
     mkdir -p "$PUBLISH_DIR/editions"
     rsync -az --delete "$REPO_DIR/editions/" "$PUBLISH_DIR/editions/"
     cp "$REPO_DIR/editions/latest.html" "$PUBLISH_DIR/index.html"
-    validate_rendered_edition "$PUBLISH_DIR/index.html"
+    if ! validate_rendered_edition "$PUBLISH_DIR/index.html"; then
+      set_last_run_message "Published edition verification failed for $PUBLISH_DIR/index.html."
+      return 1
+    fi
 
     if [[ "$(file_fingerprint "$PUBLISH_DIR/index.html")" != "$after_fingerprint" ]]; then
+      set_last_run_message "Published index.html does not match editions/latest.html after publish."
       echo "Published index.html does not match editions/latest.html after publish." >&2
       return 1
     fi
   fi
+
+  set_last_run_message "Tennis Daily klar. ${after_snapshot:-Snapshot missing}. Publish: ${PUBLISH}."
+}
+
+run_once() {
+  if run_scan; then
+    send_pushover "Tennis Daily klar" "${LAST_RUN_MESSAGE:-Tennis Daily klar.}" 0
+    return 0
+  fi
+
+  local exit_code=$?
+  send_pushover "Tennis Daily fel" "${LAST_RUN_MESSAGE:-Tennis Daily misslyckades.}" 1
+  return "$exit_code"
 }
 
 if [[ -z "$DAILY_TIME" ]]; then
-  run_scan
+  run_once
   exit 0
 fi
 
 while true; do
   sleep "$(next_daily_sleep_seconds "$DAILY_TIME")"
-  run_scan
+  run_once
 done

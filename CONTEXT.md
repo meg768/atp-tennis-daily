@@ -126,6 +126,8 @@ Read this file first at the start of every new thread or restart. Then read the 
 - when `run.sh --publish` is used, publish dated files under `editions/` and also mirror `editions/latest.html` to the site root as `index.html`
 - `run.sh` should fail loudly if a scan exits without actually refreshing `editions/latest.html`
 - `run.sh --publish` should also verify that the published `index.html` matches `editions/latest.html`
+- `run.sh` may send optional Pushover notifications when `PUSHOVER_TOKEN` and `PUSHOVER_USER` are set in the environment
+- notification failures must never make an otherwise successful scan fail
 
 ## Restart Reliability
 

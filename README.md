@@ -196,6 +196,17 @@ cd /home/pi/atp-tennis-daily
 ./run.sh --publish
 ```
 
+Optional Pushover notifications can be enabled for both successful and failed runs by setting these environment variables before starting the runner:
+
+```bash
+export PUSHOVER_TOKEN="your-app-token"
+export PUSHOVER_USER="your-user-key"
+export PUSHOVER_DEVICE="optional-device-name"
+export PUSHOVER_SOUND="optional-sound"
+```
+
+If `PUSHOVER_TOKEN` and `PUSHOVER_USER` are present, `run.sh` sends a short success notification after a verified run and a failure notification if the scan or publish step aborts. Notification errors are intentionally non-fatal so they do not break the daily job.
+
 ## Separation From The Old Project
 
 This project is meant to stand on its own.
@@ -215,3 +226,4 @@ This project is meant to stand on its own.
 - 2026-04-09: Detached the project from `tennis-scanner-daily`, renamed the public page to `Tennis Daily`, published it at `https://tennis-daily.egelberg.se`, and added an independent PM2 job for daily `09:00` publishing.
 - 2026-04-13: Tightened `Spelidé` guidance so scan runs coerce model signals to numbers before comparison and skip malformed signal rows instead of crashing the render.
 - 2026-04-13: Tightened normal scan discipline further so runs reuse known payload shapes, avoid re-reading `README.md`, and stop immediately after a verified write instead of wandering into extra probes.
+- 2026-04-14: Added optional Pushover notifications to `run.sh` for verified success and failure states without letting notification errors break the daily run.
