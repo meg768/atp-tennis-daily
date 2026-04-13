@@ -65,6 +65,7 @@ Each match section should usually contain:
 - `Odds` as a full-width primary block rather than a cramped side-column block
 - `Skador och dagsläge` when relevant
   This may also cover recent inactivity or a return after a long break when that helps explain a player's current ranking versus likely level.
+  When mentioning inactivity or a layoff, explicitly name which player it applies to.
 - `Marknad och modell` when relevant
 - one short closing line
 
@@ -97,6 +98,7 @@ Each match section should usually contain:
 - avoid unexplained shorthand like `pp` in rendered output
 - keep full player names in the main match title
 - use player surnames rather than first names in odds-table headers and in `Spelidé`
+- avoid anonymous layoff phrasing such as only giving a date gap; say which player has been inactive
 
 ## What To Avoid
 
