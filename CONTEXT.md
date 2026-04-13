@@ -110,6 +110,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - support light and dark mode when practical, but do not let theme work destabilize the scan flow
 - prefer ATP SVG flags over emoji
 - render match-title flags as circular slots using `background-image:url(...)`
+- for inline flag styles, use `background-image:url(https://...)` without inner quote characters, so the HTML attribute stays valid and browsers do not drop the flag image
 - if a flag asset is missing, keep the same slot and rely on the backend fallback SVG
 - the `Odds` block may show `Svenska Spel`, `Tennis Abstract`, and `Vitel`
 - when edge is shown, append it inline after the odds in the same cell, for example `1.43 (-2%)`
