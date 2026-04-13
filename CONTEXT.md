@@ -51,6 +51,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - every scan run must rewrite the visible snapshot timestamp and output HTML
 - during a normal scan, prefer a short deterministic path: card, player lookup, odds, selective SQL, render, write
 - do not guess undocumented endpoints during a normal scan; use only documented live endpoints or targeted read-only SQL
+- when the edition is opened from `vitel`, it may receive a `theme=` query parameter such as `dark clay`; that override should control both color mode and surface theme for the rendered page
 
 ## Preferred ATP Endpoints
 
