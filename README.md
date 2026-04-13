@@ -56,6 +56,8 @@ The page is intentionally static:
 
 The design is meant to stay focused on the match list itself. It should still work well on both desktop and mobile.
 The generated HTML can also carry the dominant surface theme in a fully self-contained way and follow the viewer's light/dark system preference without needing any external app runtime.
+When opened from `vitel`, the page can also accept a `theme=` query parameter such as `dark clay` or `light hard` to mirror the frontend's current mode and surface selection.
+The standalone page also supports keyboard theme shortcuts: `F3` cycles surface (`hard`, `grass`, `clay`) and `F6` toggles `light/dark`, with the latest local choice persisted in `localStorage`.
 Match titles should prefer ATP-service SVG flags rather than emoji flags.
 
 At publish time:
@@ -151,6 +153,7 @@ Known payload shapes should be treated as stable defaults during a normal scan: 
 In the `Odds` block, `atp-tennis-daily-scan` should show `Tennis Abstract` rather than a generated `Codex` line. Do not shorten that label to `TA` in the rendered page. Show `Svenska Spel`, `Tennis Abstract`, and `Vitel`, and if edge is shown place it inline after the odds in the same cell, for example `1.43 (-2%)`, rounded to whole percentages with no decimals. Do not render separate edge rows. `Spelidé` should follow the inline `Tennis Abstract` edge first, while `Vitel` remains a secondary experimental comparison. Avoid unexplained shorthand like `pp` in user-facing output. Keep full player names in the main match title, but use player surnames rather than first names in odds-table headers and in `Spelidé`.
 When `Spelidé` compares model signals, normalize the values to numeric types first. If a `Tennis Abstract` or `Vitel` signal is missing, empty, or non-numeric, skip that source rather than aborting the whole render.
 In the `Head-to-head` block, `atp-tennis-daily-scan` should prefer the existing compact table style when previous meetings exist. Show date, tournament, surface, and a readable result line with winner and score. Fall back to a short prose note only when there are no relevant previous meetings.
+When building those result lines in inline Python on the Pi, avoid brittle nested f-string quoting such as `f"{row["winner"]}"`. Prefer small intermediate variables like `winner`, `loser`, and `score`, then build the final text from those variables.
 In `Skador och dagsläge`, the scan may also call out a meaningful recent inactivity period, comeback, or long layoff when it helps explain why the current ranking may undersell the player's real level.
 When doing that, name the player directly in the sentence instead of only describing an anonymous gap in days.
 For matchup prices, use the documented live endpoints such as `/api/oddset`, `/api/oddset/odds`, `/api/odds`, and `/api/tennis-abstract/odds`. Do not guess undocumented paths such as `/api/players/odds` or `/api/players/head-to-head`.

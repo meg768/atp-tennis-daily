@@ -51,6 +51,8 @@ Read this file first at the start of every new thread or restart. Then read the 
 - every scan run must rewrite the visible snapshot timestamp and output HTML
 - during a normal scan, prefer a short deterministic path: card, player lookup, odds, selective SQL, render, write
 - do not guess undocumented endpoints during a normal scan; use only documented live endpoints or targeted read-only SQL
+- when the edition is opened from `vitel`, it may receive a `theme=` query parameter such as `dark clay`; that override should control both color mode and surface theme for the rendered page
+- the standalone HTML edition also supports local keyboard theme toggles: `F3` cycles `hard -> grass -> clay`, and `F6` toggles `light/dark`; the last local choice is stored in browser `localStorage`
 
 ## Preferred ATP Endpoints
 
@@ -87,6 +89,8 @@ Read this file first at the start of every new thread or restart. Then read the 
 - a single failed enrichment request must not abort the whole edition if the rest of the card can still be rendered
 - prefer partial completion over restart loops: write the edition with the data that succeeded, and omit only the unavailable row or sentence
 - once the fresh edition files are written and the required checks pass, stop immediately rather than continuing with extra endpoint or schema exploration
+- when the scan uses inline Python, avoid nested quote traps inside f-strings such as `f"{row["winner"]}"`; prefer helper variables, `.format(...)`, or single-quoted dict keys inside the expression
+- for head-to-head result strings, prefer a safe pattern like `winner = row["winner"]`, `loser = row["loser"]`, `score = row["score"]`, then format the final sentence from those variables
 
 ## Rendering Rules
 
