@@ -94,6 +94,8 @@ Read this file first at the start of every new thread or restart. Then read the 
 - never abbreviate `Tennis Abstract` to `TA` in user-facing HTML
 - let `Spelidé` follow the inline `Tennis Abstract` edge first when that data is available
 - keep `Vitel` as a secondary experimental signal, but it must not control `Spelidé` when `Tennis Abstract` is also visible
+- any odds, edge, or signal values used in `Spelidé` logic must be normalized to numeric values before comparison
+- if a `Tennis Abstract` or `Vitel` signal is missing, empty, or non-numeric, skip that signal rather than aborting the whole render
 - do not use the bare suffix `pp` in user-facing output
 - do not show a `Codex` odds row in the edition
 - keep full player names in the main match title

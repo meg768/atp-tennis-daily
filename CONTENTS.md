@@ -97,6 +97,7 @@ Each match section should usually contain:
 - let `Spelidé` follow the inline `Tennis Abstract` edge first when it is available
 - keep `Vitel` as a secondary experimental comparison when useful
 - do not let `Spelidé` follow one signal while the visible main odds line follows another
+- when `Spelidé` compares model signals, normalize values to numbers first; if a source returns empty or non-numeric signal data, omit that source from the comparison instead of crashing the render
 - avoid unexplained shorthand like `pp` in rendered output
 - keep full player names in the main match title
 - use player surnames rather than first names in odds-table headers and in `Spelidé`
