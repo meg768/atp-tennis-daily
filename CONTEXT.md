@@ -36,6 +36,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - never call `run.sh` from inside `atp-tennis-daily-scan`
 - never spawn a nested runner from `atp-tennis-daily-scan`
 - a normal scan should not inspect `run.sh`, broad repo history, or large unrelated files once the workflow is already known
+- a normal scan should not read `README.md` once `CONTEXT.md` and `CONTENTS.md` are already loaded
 - a normal scan should not reread the full schema or endpoint docs unless a needed endpoint contract is genuinely unclear
 - when a scan needs to write targeted SQL, it should verify table and column names against `GET /api/meta/schema.sql` rather than guessing
 
@@ -64,6 +65,16 @@ Read this file first at the start of every new thread or restart. Then read the 
 - `GET /api/meta/schema.sql`
 - `POST /api/query` only when the normal endpoints are not enough
 
+## Known Payload Shapes
+
+- `GET /api/oddset` returns an array of match objects, not an object wrapper
+- each `GET /api/oddset` row uses keys such as `id`, `start`, `tournament`, `state`, `score`, `playerA`, and `playerB`
+- `playerA` and `playerB` each use keys such as `id`, `name`, and `odds`
+- `GET /api/events/calendar` returns an object with an `events` array
+- `GET /api/meta/endpoints` returns an object with an `endpoints` map keyed by path
+- `GET /api/player/lookup` returns an array, usually with objects like `{ "id": "..." }`
+- do not spend scan time rediscovering these known shapes unless the backend clearly changed
+
 ## Scan Reliability
 
 - for head-to-head, recent form, inactivity, and recent match lists, prefer targeted `POST /api/query` reads over endpoint guessing
@@ -75,6 +86,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - if a per-match odds or model endpoint returns `404`, `500`, times out, or otherwise fails for one matchup, treat that row as missing data rather than a fatal scan error
 - a single failed enrichment request must not abort the whole edition if the rest of the card can still be rendered
 - prefer partial completion over restart loops: write the edition with the data that succeeded, and omit only the unavailable row or sentence
+- once the fresh edition files are written and the required checks pass, stop immediately rather than continuing with extra endpoint or schema exploration
 
 ## Rendering Rules
 
