@@ -89,8 +89,9 @@ Read this file first at the start of every new thread or restart. Then read the 
 - a single failed enrichment request must not abort the whole edition if the rest of the card can still be rendered
 - prefer partial completion over restart loops: write the edition with the data that succeeded, and omit only the unavailable row or sentence
 - once the fresh edition files are written and the required checks pass, stop immediately rather than continuing with extra endpoint or schema exploration
-- when the scan uses inline Python, avoid nested quote traps inside f-strings such as `f"{row["winner"]}"`; prefer helper variables, `.format(...)`, or single-quoted dict keys inside the expression
+- when the scan uses inline Python, avoid nested quote traps inside f-strings such as `f"{row["winner"]}"` or `f"{BASE}/api/player/search?term={urllib.parse.quote(player["name"])}"`; prefer helper variables, `.format(...)`, or a two-step pattern where dict values are first assigned to local variables
 - for head-to-head result strings, prefer a safe pattern like `winner = row["winner"]`, `loser = row["loser"]`, `score = row["score"]`, then format the final sentence from those variables
+- use the same safe pattern for URL construction in inline Python: for example `player_name = player["name"]`, `quoted_name = urllib.parse.quote(player_name)`, then build the final URL from `quoted_name`
 
 ## Rendering Rules
 
