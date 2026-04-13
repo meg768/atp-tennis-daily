@@ -29,6 +29,7 @@ For each match, include as much of this as the sources support:
 - overall and surface-specific ELO or rating context when useful
 - player strengths, tactical identity, and likely match pattern
 - recent form
+- recent inactivity, layoffs, or long breaks from the tour when they meaningfully affect the matchup context
 - head-to-head when relevant
 - odds context from Svenska Spel, Tennis Abstract, and Vitel
 - injuries, withdrawals, or fitness questions when they are currently and credibly reported
@@ -63,6 +64,7 @@ Each match section should usually contain:
 - when previous meetings exist, `Head-to-head` should prefer a compact results table with date, tournament, surface, and score rather than only a prose summary
 - `Odds` as a full-width primary block rather than a cramped side-column block
 - `Skador och dagsläge` when relevant
+  This may also cover recent inactivity or a return after a long break when that helps explain a player's current ranking versus likely level.
 - `Marknad och modell` when relevant
 - one short closing line
 
