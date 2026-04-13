@@ -210,7 +210,7 @@ export PUSHOVER_SOUND="optional-sound"
 
 `run.sh` also loads an optional local `.env` file from the repo root before those variables are read, which is the simplest way to keep secrets off the command line and out of git. Add `.env` on the machine that runs PM2, not in the repository.
 
-If `PUSHOVER_TOKEN` and `PUSHOVER_USER` are present, `run.sh` sends a short success notification after a verified run and a failure notification if the scan or publish step aborts. Notification errors are intentionally non-fatal so they do not break the daily job.
+If `PUSHOVER_TOKEN` and `PUSHOVER_USER` are present, `run.sh` sends a short success notification after a verified run and a failure notification if the scan or publish step aborts. When Codex session metadata is available, the message also includes the detected token count for that run. Notification errors are intentionally non-fatal so they do not break the daily job.
 
 ## Separation From The Old Project
 

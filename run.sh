@@ -2,6 +2,7 @@
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
+CODEX_HOME_DIR="${CODEX_HOME:-$HOME/.codex}"
 SCAN_COMMAND="atp-tennis-daily-scan"
 PUBLISH_DIR="/var/www/html/tennis-daily"
 TIMEZONE="Europe/Stockholm"
@@ -20,6 +21,7 @@ PUSHOVER_USER="${PUSHOVER_USER:-}"
 PUSHOVER_DEVICE="${PUSHOVER_DEVICE:-}"
 PUSHOVER_SOUND="${PUSHOVER_SOUND:-}"
 LAST_RUN_MESSAGE=""
+LAST_RUN_TOKENS=""
 PUSHOVER_WARNING_SHOWN=false
 
 usage() {
@@ -80,6 +82,20 @@ set_last_run_message() {
   LAST_RUN_MESSAGE="$1"
 }
 
+set_last_run_tokens() {
+  LAST_RUN_TOKENS="$1"
+}
+
+token_suffix() {
+  local tokens="$1"
+
+  if [[ -z "$tokens" ]]; then
+    return 0
+  fi
+
+  printf ' Tokens: %s.' "$tokens"
+}
+
 warn_pushover_unavailable() {
   local reason="$1"
 
@@ -89,6 +105,89 @@ warn_pushover_unavailable() {
 
   echo "Pushover unavailable: $reason" >&2
   PUSHOVER_WARNING_SHOWN=true
+}
+
+extract_codex_token_usage_since() {
+  local marker_file="$1"
+  local sessions_dir="$CODEX_HOME_DIR/sessions"
+
+  if [[ ! -d "$sessions_dir" ]]; then
+    return 0
+  fi
+
+  python3 - "$REPO_DIR" "$sessions_dir" "$marker_file" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+repo_dir = sys.argv[1]
+sessions_dir = Path(sys.argv[2])
+marker_file = Path(sys.argv[3])
+try:
+    marker_mtime = marker_file.stat().st_mtime
+except Exception:
+    marker_mtime = None
+
+paths = []
+if marker_mtime is not None:
+    for path in sessions_dir.rglob("*.jsonl"):
+        try:
+            if path.stat().st_mtime > marker_mtime:
+                paths.append(path)
+        except Exception:
+            continue
+
+best = None
+
+for path in paths:
+    try:
+        text = path.read_text(encoding="utf-8")
+    except Exception:
+        continue
+
+    if repo_dir not in text:
+        continue
+
+    score = 2 if "atp-tennis-daily-scan" in text else 0
+    latest_timestamp = ""
+    latest_tokens = None
+
+    for line in text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+
+        try:
+            obj = json.loads(line)
+        except Exception:
+            continue
+
+        if obj.get("type") != "event_msg":
+            continue
+
+        payload = obj.get("payload") or {}
+        if payload.get("type") != "token_count":
+            continue
+
+        info = payload.get("info") or {}
+        usage = info.get("last_token_usage") or info.get("total_token_usage") or {}
+        tokens = usage.get("total_tokens")
+        if not isinstance(tokens, int):
+            continue
+
+        latest_timestamp = obj.get("timestamp") or latest_timestamp
+        latest_tokens = tokens
+
+    if latest_tokens is None:
+        continue
+
+    candidate = (score, latest_timestamp, latest_tokens)
+    if best is None or candidate > best:
+        best = candidate
+
+if best is not None:
+    print(f"{best[2]:,}")
+PY
 }
 
 check_pushover_before_scan() {
@@ -233,6 +332,8 @@ run_scan() {
   local after_fingerprint=""
   local after_snapshot=""
   local dated_count=""
+  local session_marker=""
+  local token_usage=""
 
   mkdir -p "$REPO_DIR/.codex"
   mkdir -p "$REPO_DIR/editions"
@@ -240,15 +341,24 @@ run_scan() {
   before_mtime="$(file_mtime "$latest_file" 2>/dev/null || true)"
   before_fingerprint="$(file_fingerprint "$latest_file" 2>/dev/null || true)"
   before_snapshot="$(snapshot_marker "$latest_file" 2>/dev/null || true)"
+  set_last_run_tokens ""
+  session_marker="$(mktemp "$REPO_DIR/.codex/codex-session-marker.XXXXXX")"
 
   if ! codex exec --sandbox danger-full-access -C "$REPO_DIR" "$SCAN_COMMAND" < /dev/null; then
-    set_last_run_message "Scan command failed before edition verification."
+    token_usage="$(extract_codex_token_usage_since "$session_marker" 2>/dev/null || true)"
+    set_last_run_tokens "$token_usage"
+    rm -f "$session_marker"
+    set_last_run_message "Scan command failed before edition verification.$(token_suffix "$token_usage")"
     echo "Scan command failed before edition verification." >&2
     return 1
   fi
 
+  token_usage="$(extract_codex_token_usage_since "$session_marker" 2>/dev/null || true)"
+  set_last_run_tokens "$token_usage"
+  rm -f "$session_marker"
+
   if ! validate_rendered_edition "$latest_file"; then
-    set_last_run_message "Edition verification failed for $latest_file."
+    set_last_run_message "Edition verification failed for $latest_file.$(token_suffix "$token_usage")"
     return 1
   fi
 
@@ -260,14 +370,14 @@ run_scan() {
     && [[ "$after_mtime" == "$before_mtime" ]] \
     && [[ "$after_fingerprint" == "$before_fingerprint" ]] \
     && [[ "$after_snapshot" == "$before_snapshot" ]]; then
-    set_last_run_message "Scan finished without refreshing editions/latest.html."
+    set_last_run_message "Scan finished without refreshing editions/latest.html.$(token_suffix "$token_usage")"
     echo "Scan finished without refreshing editions/latest.html." >&2
     return 1
   fi
 
   dated_count="$(find "$REPO_DIR/editions" -maxdepth 1 -type f -name '20??-??-??.html' | wc -l | tr -d ' ')"
   if [[ "$dated_count" == "0" ]]; then
-    set_last_run_message "Scan did not leave any dated edition files under editions/."
+    set_last_run_message "Scan did not leave any dated edition files under editions/.$(token_suffix "$token_usage")"
     echo "Scan did not leave any dated edition files under editions/." >&2
     return 1
   fi
@@ -278,18 +388,18 @@ run_scan() {
     rsync -az --delete "$REPO_DIR/editions/" "$PUBLISH_DIR/editions/"
     cp "$REPO_DIR/editions/latest.html" "$PUBLISH_DIR/index.html"
     if ! validate_rendered_edition "$PUBLISH_DIR/index.html"; then
-      set_last_run_message "Published edition verification failed for $PUBLISH_DIR/index.html."
+      set_last_run_message "Published edition verification failed for $PUBLISH_DIR/index.html.$(token_suffix "$token_usage")"
       return 1
     fi
 
     if [[ "$(file_fingerprint "$PUBLISH_DIR/index.html")" != "$after_fingerprint" ]]; then
-      set_last_run_message "Published index.html does not match editions/latest.html after publish."
+      set_last_run_message "Published index.html does not match editions/latest.html after publish.$(token_suffix "$token_usage")"
       echo "Published index.html does not match editions/latest.html after publish." >&2
       return 1
     fi
   fi
 
-  set_last_run_message "Tennis Daily klar. ${after_snapshot:-Snapshot missing}. Publish: ${PUBLISH}."
+  set_last_run_message "Tennis Daily klar. ${after_snapshot:-Snapshot missing}. Publish: ${PUBLISH}.$(token_suffix "$token_usage")"
 }
 
 run_once() {
