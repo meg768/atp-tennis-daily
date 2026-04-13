@@ -58,6 +58,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 
 - `GET /api/oddset`
 - `GET /api/player/lookup?query=...`
+- `GET /api/player/search?term=...` only as a fallback when lookup is empty or the live card lacks a player id
 - `GET /api/oddset/odds?playerA=...&playerB=...`
 - `GET /api/odds?playerA=...&playerB=...&surface=...`
 - `GET /api/tennis-abstract/odds?playerA=...&playerB=...&surface=...`
@@ -75,6 +76,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - `GET /api/events/calendar` returns an object with an `events` array
 - `GET /api/meta/endpoints` returns an object with an `endpoints` map keyed by path
 - `GET /api/player/lookup` returns an array, usually with objects like `{ "id": "..." }`
+- `GET /api/player/search` should be treated as a secondary candidate search endpoint, not the default first step
 - do not spend scan time rediscovering these known shapes unless the backend clearly changed
 
 ## Scan Reliability
@@ -85,13 +87,19 @@ Read this file first at the start of every new thread or restart. Then read the 
 - use `GET /api/meta/schema.sql` as the schema source of truth when building SQL, but read only the narrow excerpt needed for the relevant tables or columns
 - avoid broad endpoint probing during a normal scan
 - keep shell output compact so the nested runner does not waste time or context on large dumps
+- when a live-card player lacks an id, use a short deterministic fallback chain: existing id -> `/api/player/lookup` -> `/api/player/search` -> a tiny known-name alias map -> continue with partial data if still unresolved
+- do not turn missing player ids into long exploratory work; spend at most one lookup call and one search call per unresolved player before falling back to partial rendering
+- if a difficult but known name mismatch appears, resolve it silently from a tiny inline alias map rather than narrating the discovery process; for example `Diego Dedura-Palomero` should map directly to `D0LJ`
 - if a per-match odds or model endpoint returns `404`, `500`, times out, or otherwise fails for one matchup, treat that row as missing data rather than a fatal scan error
 - a single failed enrichment request must not abort the whole edition if the rest of the card can still be rendered
 - prefer partial completion over restart loops: write the edition with the data that succeeded, and omit only the unavailable row or sentence
 - once the fresh edition files are written and the required checks pass, stop immediately rather than continuing with extra endpoint or schema exploration
+- do not announce fallback mechanics in the final scan narrative; resolve them quietly and keep the user-facing run summary short
 - when the scan uses inline Python, avoid nested quote traps inside f-strings such as `f"{row["winner"]}"` or `f"{BASE}/api/player/search?term={urllib.parse.quote(player["name"])}"`; prefer helper variables, `.format(...)`, or a two-step pattern where dict values are first assigned to local variables
 - for head-to-head result strings, prefer a safe pattern like `winner = row["winner"]`, `loser = row["loser"]`, `score = row["score"]`, then format the final sentence from those variables
 - use the same safe pattern for URL construction in inline Python: for example `player_name = player["name"]`, `quoted_name = urllib.parse.quote(player_name)`, then build the final URL from `quoted_name`
+- before sorting rows in inline Python, normalize nullable fields so the sort key never mixes `None` with strings or numbers
+- use explicit safe sort keys such as `(row.get("start") or "", row.get("tournament") or "", row.get("playerA", {}).get("name") or "")` rather than comparing raw nullable values
 
 ## Rendering Rules
 
