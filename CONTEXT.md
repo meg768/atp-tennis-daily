@@ -115,13 +115,11 @@ Read this file first at the start of every new thread or restart. Then read the 
 - treat the hidden `<template id="fixed-match-section-template">` inside `template.html` as the literal per-match scaffold during scans
 - when rendering a match, replace the scaffold fields with data and text; do not output free-form alternative wrappers or differently ordered sections
 - the official per-match slots are:
-  `title`, `summary`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `ranking-table`, `recent-results`, `news`, `market-model`, `decider`
+  `title`, `summary`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `ranking-table`, `recent-results`, `market-model`, `decider`
 - do not invent extra slot names or omit these boxes unless the user explicitly changes the template contract
-- `news` is optional: render it only when there is relevant recent ATP Tour news about one of the players; otherwise skip that box
 - `ranking-table` belongs in the wide main column, not the narrow side column
 - `recent-results` belongs in the wide main column, not the narrow side column
 - `status` belongs in the narrow side column, not the wide main column
-- `news` belongs in the narrow side column, not the wide main column
 - the page theme may follow the dominant surface on the card
 - support light and dark mode when practical, but do not let theme work destabilize the scan flow
 - prefer ATP SVG flags over emoji
@@ -129,7 +127,9 @@ Read this file first at the start of every new thread or restart. Then read the 
 - keep the `match-title__flag` slot visually empty; never place visible country text inside the flag span itself
 - for inline flag styles, use `background-image:url(https://...)` without inner quote characters, so the HTML attribute stays valid and browsers do not drop the flag image
 - if a flag asset is missing, keep the same slot and rely on the backend fallback SVG
-- in `Senaste resultat`, render four columns: `Datum`, `Vinnare`, `Förlorare`, and `Resultat`
+- in `Senaste resultat`, render three columns: `Datum`, `Spelare`, and `Resultat`
+- in the `Spelare` column, show winner first in the form `winner vs looser`
+- in the `Resultat` column, show the winner's score line
 - normalize visible date columns such as `Head-to-head` and `Senaste resultat` to `YYYY-MM-DD`
 - prefer explicit block classes such as `match-block--play`, `match-block--form`, `match-block--head-to-head`, `match-block--status`, `match-block--ranking`, `match-block--recent-results`, `match-block--market`, and `match-block--decider`
 - the `Odds` block may show `Svenska Spel`, `Tennis Abstract`, and `Vitel`

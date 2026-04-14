@@ -75,12 +75,12 @@ Use one fixed block order and naming contract:
 - main column in this order:
   `match-block--play`, `match-block--form`, `match-block--ranking`, `match-block--recent-results`, `match-block--head-to-head`
 - side column in this order:
-  `match-block--status`, `match-block--news`, `match-block--market`, `match-block--decider`
+  `match-block--status`, `match-block--market`, `match-block--decider`
 - the generator should fill this structure with content rather than inventing alternative wrapper layouts per match
 - the hidden fixed match scaffold in `template.html` should be treated as the source template for every generated match section
 - fill the placeholders inside that scaffold with match-specific content instead of writing new section HTML from scratch
 - the official slot names for one match are:
-  `title`, `summary`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `ranking-table`, `recent-results`, `news`, `market-model`, `decider`
+  `title`, `summary`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `ranking-table`, `recent-results`, `market-model`, `decider`
 
 ## Presentation Rules
 
@@ -101,8 +101,9 @@ Use one fixed block order and naming contract:
 - keep mobile readability strong
 - in `Head-to-head`, prefer the existing compact table style when there are actual previous meetings to show
 - in date columns such as `Head-to-head` and `Senaste resultat`, display dates as `YYYY-MM-DD`
-- in `Senaste resultat`, keep the table structure fixed to exactly four columns: `Datum`, `Vinnare`, `Förlorare`, `Resultat`
-- add a `Nyheter` box in the narrow side column only when `atptour.com` has relevant recent player news; otherwise omit it entirely
+- in `Senaste resultat`, keep the table structure fixed to exactly three columns: `Datum`, `Spelare`, `Resultat`
+- in `Spelare`, show the winner first in the form `winner vs looser`
+- in `Resultat`, show the winner's score line
 - in the `Odds` block, show `Svenska Spel`, `Tennis Abstract`, and `Vitel` when the data supports it
 - do not render a separate match-meta box such as `Svenska Spel / modell` above the `Odds` block; all price comparison belongs inside `Odds` and, when useful, in `Marknad och modell`
 - if one odds or model source is temporarily unavailable for a matchup, omit that row and keep rendering the rest of the match section

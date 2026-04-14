@@ -348,6 +348,10 @@
           return { winner: name, loser: foe, result: scoreText };
         }
 
+        function formatRecentPlayersCell(winner, loser) {
+          return [String(winner || '').trim(), String(loser || '').trim()].filter(Boolean).join(' vs ');
+        }
+
         function isRecentResultsBlock(block, label) {
           if (block.classList.contains('match-block--recent-results')) {
             return true;
@@ -367,7 +371,6 @@
           if (block.classList.contains('match-block--status') || text === 'Skador och dagsläge') return 'status';
           if (block.classList.contains('match-block--ranking') || text === 'Ranking och yta') return 'ranking';
           if (block.classList.contains('match-block--recent-results') || text === 'Senaste resultat') return 'recent-results';
-          if (block.classList.contains('match-block--news') || text === 'Nyheter') return 'news';
           if (block.classList.contains('match-block--market') || text === 'Marknad och modell') return 'market';
           if (block.classList.contains('match-block--decider') || text === 'Det avgör') return 'decider';
 
@@ -383,13 +386,12 @@
             status: 'match-block--status',
             ranking: 'match-block--ranking',
             'recent-results': 'match-block--recent-results',
-            news: 'match-block--news',
             market: 'match-block--market',
             decider: 'match-block--decider'
           };
 
           const mainOrder = ['play', 'form', 'ranking', 'recent-results', 'head-to-head'];
-          const sideOrder = ['status', 'news', 'market', 'decider'];
+          const sideOrder = ['status', 'market', 'decider'];
 
           document.querySelectorAll('.match-section').forEach(section => {
             const blocks = Array.from(section.querySelectorAll('.match-block'));
@@ -480,17 +482,28 @@
 
             const headRow = table.querySelector('thead tr');
             if (headRow) {
-              headRow.innerHTML = '<th>Datum</th><th>Vinnare</th><th>Förlorare</th><th>Resultat</th>';
+              headRow.innerHTML = '<th>Datum</th><th>Spelare</th><th>Resultat</th>';
             }
 
             table.querySelectorAll('tbody tr').forEach(row => {
               const cells = Array.from(row.querySelectorAll('td'));
-              if (cells.length === 4) {
+              if (cells.length === 3) {
                 cells[0].textContent = normalizeIsoDateValue(cells[0].textContent);
                 return;
               }
 
-              if (cells.length < 4) {
+              if (cells.length === 4) {
+                const date = normalizeIsoDateValue(cells[0].textContent);
+                const winner = cells[1].textContent;
+                const loser = cells[2].textContent;
+                const result = cells[3].textContent;
+                const players = formatRecentPlayersCell(winner, loser);
+
+                row.innerHTML = `<td>${date}</td><td>${players}</td><td>${result}</td>`;
+                return;
+              }
+
+              if (cells.length < 5) {
                 return;
               }
 
@@ -500,8 +513,9 @@
               const opponent = cells[3].textContent;
               const score = cells[4]?.textContent || '';
               const { winner, loser, result } = normalizeRecentResultParts(player, outcome, opponent, score);
+              const players = formatRecentPlayersCell(winner, loser);
 
-              row.innerHTML = `<td>${date}</td><td>${winner}</td><td>${loser}</td><td>${result}</td>`;
+              row.innerHTML = `<td>${date}</td><td>${players}</td><td>${result}</td>`;
             });
           });
         }
@@ -1030,7 +1044,6 @@ a {
 .match-block--play,
 .match-block--form,
 .match-block--status,
-.match-block--news,
 .match-block--market,
 .match-block--decider {
   isolation: isolate;
@@ -1134,10 +1147,8 @@ a {
 }
 
 .mini-table--recent-results th:nth-child(2),
-.mini-table--recent-results td:nth-child(2),
-.mini-table--recent-results th:nth-child(3),
-.mini-table--recent-results td:nth-child(3) {
-  width: 28%;
+.mini-table--recent-results td:nth-child(2) {
+  width: auto;
 }
 
 .mini-table--recent-results th:last-child,
@@ -1146,7 +1157,6 @@ a {
 }
 
 .mini-table--recent-results td:nth-child(2),
-.mini-table--recent-results td:nth-child(3),
 .mini-table--recent-results td:last-child {
   overflow-wrap: break-word;
 }
@@ -1280,7 +1290,7 @@ a {
                 <article class="match-block match-block--ranking">...</article>
                 <article class="match-block match-block--recent-results">
                   <table class="mini-table mini-table--recent-results">
-                    <thead><tr><th>Datum</th><th>Vinnare</th><th>Förlorare</th><th>Resultat</th></tr></thead>
+                    <thead><tr><th>Datum</th><th>Spelare</th><th>Resultat</th></tr></thead>
                   </table>
                 </article>
                 <article class="match-block match-block--head-to-head">
@@ -1291,7 +1301,6 @@ a {
               </div>
               <aside class="match-side">
                 <article class="match-block match-block--status">...</article>
-                <article class="match-block match-block--news">...</article>
                 <article class="match-block match-block--market">...</article>
                 <article class="match-block match-block--decider">...</article>
               </aside>
@@ -1329,7 +1338,6 @@ a {
             - status
             - ranking-table
             - recent-results
-            - news
             - market-model
             - decider
 
@@ -1384,12 +1392,12 @@ a {
               <article class="match-block match-block--recent-results">
                 <p class="match-block__label">Senaste resultat</p>
                 <table class="mini-table mini-table--recent-results" data-slot="recent-results">
-                  <thead><tr><th>Datum</th><th>Vinnare</th><th>Förlorare</th><th>Resultat</th></tr></thead>
+                  <thead><tr><th>Datum</th><th>Spelare</th><th>Resultat</th></tr></thead>
                   <tbody>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner}}</td><td>{{Show loser}}</td><td>{{Show score}}</td></tr>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner}}</td><td>{{Show loser}}</td><td>{{Show score}}</td></tr>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner}}</td><td>{{Show loser}}</td><td>{{Show score}}</td></tr>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner}}</td><td>{{Show loser}}</td><td>{{Show score}}</td></tr>
+                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
+                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
+                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
+                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
                   </tbody>
                 </table>
               </article>
@@ -1410,11 +1418,6 @@ a {
               <article class="match-block match-block--status">
                 <p class="match-block__label">Skador och dagsläge</p>
                 <p data-slot="status">{{Describe any verified injury, comeback, layoff, or current status note. Always name the player it applies to.}}</p>
-              </article>
-
-              <article class="match-block match-block--news">
-                <p class="match-block__label">Nyheter</p>
-                <p data-slot="news">{{If atptour.com has any recent news about any of the players - display them here - if not, skip this section}}</p>
               </article>
 
               <article class="match-block match-block--market">
