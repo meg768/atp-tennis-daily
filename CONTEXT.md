@@ -32,6 +32,8 @@ Read this file first at the start of every new thread or restart. Then read the 
 - treat short prompts such as `scan`, `edition`, `refresh`, and `help` as scanner commands
 - `scan` means: fetch the current ATP singles card, enrich it with ATP data plus current reporting, and update the two edition files
 - internal runner shortcut: `atp-tennis-daily-scan`
+- `atp-tennis-daily-scan` is a Codex-internal scan prompt, not a shell command in `PATH`
+- do not try to run `atp-tennis-daily-scan` directly in a terminal on Mac or Pi; use `./run.sh` or `./run.sh --publish` there
 - when handling `atp-tennis-daily-scan`, do the scan work directly in the current session
 - never call `run.sh` from inside `atp-tennis-daily-scan`
 - never spawn a nested runner from `atp-tennis-daily-scan`
