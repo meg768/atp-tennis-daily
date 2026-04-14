@@ -144,7 +144,8 @@ Internally, `run.sh` sends the short command `atp-tennis-daily-scan` to Codex. T
 `atp-tennis-daily-scan` is an internal Codex shortcut, not a terminal command installed in `PATH`.
 Do not run `atp-tennis-daily-scan` directly on your Mac or on `pi-kato`; use `./run.sh` or `./run.sh --publish` in the repo directory instead.
 `atp-tennis-daily-scan` is meant to execute the scan directly in the active Codex session. It must not call `run.sh` again or start a nested runner process.
-`atp-tennis-daily-scan` should stay narrowly focused during a live scan: read `template.html` and `editions/latest.html`, fetch the current card and player context from `https://tennis.egelberg.se`, add current reporting for the specific matches on the card, then write the two edition files. It should avoid broad repo searching or wandering through unrelated historical files during a normal scan.
+`editions/` is output-only and must never be used as scan input, fallback input, or layout source.
+`atp-tennis-daily-scan` should stay narrowly focused during a live scan: read `template.html`, fetch the current card and player context from `https://tennis.egelberg.se`, add current reporting for the specific matches on the card, then write the two edition files. It should avoid broad repo searching or wandering through unrelated historical files during a normal scan.
 `atp-tennis-daily-scan` should also use the documented ATP service endpoints directly. It should not probe `https://tennis.egelberg.se/`, inspect the frontend app, or scrape bundled JavaScript assets just to rediscover endpoints that are already part of the project memory.
 During a normal scan, it should not inspect `run.sh`, broad repo history, or large unrelated files once the workflow is already known.
 During a normal scan, it should not read `README.md` again once `CONTEXT.md` and `CONTENTS.md` are already loaded.

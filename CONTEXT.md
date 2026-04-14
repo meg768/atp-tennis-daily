@@ -48,10 +48,11 @@ Read this file first at the start of every new thread or restart. Then read the 
 - fetch the current match card and Svenska Spel prices from `https://tennis.egelberg.se/api/oddset`
 - use ATP and reliable current reporting only as enrichment
 - use bookmaker odds only for matches that have not started yet
-- `editions/latest.html` may be read to preserve layout, but it must never be used as a reason to skip regeneration
+- `editions/` is output only during scans
+- do not read from `editions/latest.html` or any dated file as scan input, layout source, fallback source, or regeneration template
 - every scan run must generate a fresh edition from live sources
 - every scan run must rewrite the visible snapshot timestamp and output HTML
-- during a normal scan, prefer a short deterministic path: card, player lookup, odds, selective SQL, render, write
+- during a normal scan, prefer a short deterministic path: template, card, player lookup, odds, selective SQL, render, write
 - do not guess undocumented endpoints during a normal scan; use only documented live endpoints or targeted read-only SQL
 - when the edition is opened from `vitel`, it may receive a `theme=` query parameter such as `dark clay`; that override should control both color mode and surface theme for the rendered page
 - the standalone HTML edition also supports local keyboard theme toggles: `F3` cycles `hard -> grass -> clay`, and `F6` toggles `light/dark`; the last local choice is stored in browser `localStorage`
@@ -135,6 +136,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - `run.sh --publish` is optional
 - `run.sh --daily HH:MM` enables the long-lived daily schedule in `Europe/Stockholm`
 - `run.sh` should call `atp-tennis-daily-scan` rather than embedding a long literal prompt
+- `template.html` is the only local layout input for a normal scan; `editions/` must remain output-only
 - when `run.sh --publish` is used, publish dated files under `editions/` and also mirror `editions/latest.html` to the site root as `index.html`
 - `run.sh` should fail loudly if a scan exits without actually refreshing `editions/latest.html`
 - `run.sh --publish` should also verify that the published `index.html` matches `editions/latest.html`
