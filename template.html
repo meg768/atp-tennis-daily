@@ -385,6 +385,7 @@
           if (block.classList.contains('match-block--head-to-head') || text === 'Head-to-head') return 'head-to-head';
           if (block.classList.contains('match-block--status') || text === 'Skador och dagsläge') return 'status';
           if (block.classList.contains('match-block--ranking') || text === 'Ranking och yta') return 'ranking';
+          if (block.classList.contains('match-block--win-rate') || text === 'Vinstprocent') return 'win-rate';
           if (block.classList.contains('match-block--recent-results') || text === 'Senaste resultat') return 'recent-results';
           if (block.classList.contains('match-block--market') || text === 'Marknad och modell') return 'market';
           if (block.classList.contains('match-block--decider') || text === 'Det avgör') return 'decider';
@@ -400,12 +401,13 @@
             'head-to-head': 'match-block--head-to-head',
             status: 'match-block--status',
             ranking: 'match-block--ranking',
+            'win-rate': 'match-block--win-rate',
             'recent-results': 'match-block--recent-results',
             market: 'match-block--market',
             decider: 'match-block--decider'
           };
 
-          const mainOrder = ['play', 'form', 'ranking', 'recent-results', 'head-to-head'];
+          const mainOrder = ['play', 'form', 'ranking', 'win-rate', 'recent-results', 'head-to-head'];
           const sideOrder = ['status', 'market', 'decider'];
 
           document.querySelectorAll('.match-section').forEach(section => {
@@ -1107,6 +1109,7 @@ a {
 
 .match-block--head-to-head .mini-table,
 .match-block--ranking .mini-table,
+.match-block--win-rate .mini-table,
 .match-block--recent-results .mini-table {
   width: 100%;
 }
@@ -1364,6 +1367,11 @@ a {
                 <article class="match-block match-block--play">...</article>
                 <article class="match-block match-block--form">...</article>
                 <article class="match-block match-block--ranking">...</article>
+                <article class="match-block match-block--win-rate">
+                  <table class="mini-table">
+                    <thead><tr><th>Spelare</th><th>3 mån</th><th>6 mån</th><th>12 mån</th></tr></thead>
+                  </table>
+                </article>
                 <article class="match-block match-block--recent-results">
                   <table class="mini-table mini-table--recent-results">
                     <thead><tr><th>Datum</th><th>Spelare</th><th>Resultat</th></tr></thead>
@@ -1413,6 +1421,7 @@ a {
             - head-to-head
             - status
             - ranking-table
+            - win-rate-table
             - recent-results
             - market-model
             - decider
@@ -1461,6 +1470,17 @@ a {
                   <tbody>
                     <tr><td>{{Show PlayerA surname}}</td><td>{{Show rank}}</td><td>{{Show surface ELO}}</td><td>{{Show surface factor}}</td></tr>
                     <tr><td>{{Show PlayerB surname}}</td><td>{{Show rank}}</td><td>{{Show surface ELO}}</td><td>{{Show surface factor}}</td></tr>
+                  </tbody>
+                </table>
+              </article>
+
+              <article class="match-block match-block--win-rate">
+                <p class="match-block__label">Vinstprocent</p>
+                <table class="mini-table" data-slot="win-rate-table">
+                  <thead><tr><th>Spelare</th><th>3 mån</th><th>6 mån</th><th>12 mån</th></tr></thead>
+                  <tbody>
+                    <tr><td>{{Show PlayerA surname}}</td><td>{{Show 3 month win rate}}</td><td>{{Show 6 month win rate}}</td><td>{{Show 12 month win rate}}</td></tr>
+                    <tr><td>{{Show PlayerB surname}}</td><td>{{Show 3 month win rate}}</td><td>{{Show 6 month win rate}}</td><td>{{Show 12 month win rate}}</td></tr>
                   </tbody>
                 </table>
               </article>

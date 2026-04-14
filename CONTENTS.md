@@ -74,14 +74,14 @@ Use one fixed block order and naming contract:
 
 - `match-block--odds` for the main full-width odds block
 - main column in this order:
-  `match-block--play`, `match-block--form`, `match-block--ranking`, `match-block--recent-results`, `match-block--head-to-head`
+  `match-block--play`, `match-block--form`, `match-block--ranking`, `match-block--win-rate`, `match-block--recent-results`, `match-block--head-to-head`
 - side column in this order:
   `match-block--status`, `match-block--market`, `match-block--decider`
 - the generator should fill this structure with content rather than inventing alternative wrapper layouts per match
 - the hidden fixed match scaffold in `template.html` should be treated as the source template for every generated match section
 - fill the placeholders inside that scaffold with match-specific content instead of writing new section HTML from scratch
 - the official slot names for one match are:
-  `title`, `summary`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `ranking-table`, `recent-results`, `market-model`, `decider`
+  `title`, `summary`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `ranking-table`, `win-rate-table`, `recent-results`, `market-model`, `decider`
 
 ## Presentation Rules
 
@@ -104,6 +104,7 @@ Use one fixed block order and naming contract:
 - in `Spelare`, show the winner first in the form `winner vs looser`
 - in `Resultat`, show the winner's score line
 - in date columns such as `Head-to-head` and `Senaste resultat`, display dates as `YYYY-MM-DD`
+- add a `Vinstprocent` table with columns `Spelare`, `3 mån`, `6 mån`, `12 mån`
 - in `Senaste resultat`, keep the table structure fixed to exactly three columns: `Datum`, `Spelare`, `Resultat`
 - in `Spelare`, show the winner first in the form `winner vs looser`
 - in `Resultat`, show the winner's score line
