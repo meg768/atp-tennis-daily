@@ -40,6 +40,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - a normal scan should not inspect `run.sh`, broad repo history, or large unrelated files once the workflow is already known
 - a normal scan should not read `README.md` once `CONTEXT.md` and `CONTENTS.md` are already loaded
 - a normal scan should not reread the full schema or endpoint docs unless a needed endpoint contract is genuinely unclear
+- a normal scan should never read files under `playground/`; that directory is design-only and off limits in scan mode
 - when a scan needs to write targeted SQL, it should verify table and column names against `GET /api/meta/schema.sql` rather than guessing
 
 ## Runtime Rules
@@ -107,6 +108,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 ## Rendering Rules
 
 - `template.html` is the main editable layout file
+- `playground/` contains local design sandboxes and experiments only; it is not part of scan input or runtime
 - generated editions must remain fully standalone HTML files
 - keep styling inline unless the user asks otherwise
 - the page theme may follow the dominant surface on the card

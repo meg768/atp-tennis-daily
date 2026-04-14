@@ -50,7 +50,8 @@ The edition should be built in this order:
 The page is intentionally static:
 
 - `template.html` is the base layout file
-- `preview.html` is a local design sandbox and is not required for runtime
+- `playground/preview.html` is a local design sandbox and is not required for runtime
+- `playground/` holds design experiments only and should stay off limits during normal scan runs
 - `editions/YYYY-MM-DD.html` stores the dated edition
 - `editions/latest.html` stores the current edition
 
