@@ -88,6 +88,7 @@ Each match section should usually contain:
 - keep mobile readability strong
 - in `Head-to-head`, prefer the existing compact table style when there are actual previous meetings to show
 - in the `Odds` block, show `Svenska Spel`, `Tennis Abstract`, and `Vitel` when the data supports it
+- do not render a separate match-meta box such as `Svenska Spel / modell` above the `Odds` block; all price comparison belongs inside `Odds` and, when useful, in `Marknad och modell`
 - if one odds or model source is temporarily unavailable for a matchup, omit that row and keep rendering the rest of the match section
 - if edge is shown, place it inline after the odds in the same cell, for example `1.43 (-2%)`
 - round displayed edge to whole percentages with no decimals
