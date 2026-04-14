@@ -23,14 +23,14 @@ Read this file first at the start of every new thread or restart. Then read the 
 ## Working Rules
 
 - the main output is HTML, not a chat report
-- the normal deliverable is `editions/YYYY-MM-DD.html` plus `editions/latest.html`
+- the normal deliverable is one local root file: `tennis-daily.html`
 - after a successful scan, a short confirmation is enough unless the user asks for more
 - prefer small, durable rules over brittle prompt micromanagement
 
 ## Core Commands
 
 - treat short prompts such as `scan`, `edition`, `refresh`, and `help` as scanner commands
-- `scan` means: fetch the current ATP singles card, enrich it with ATP data plus current reporting, and update the two edition files
+- `scan` means: fetch the current ATP singles card, enrich it with ATP data plus current reporting, and update `tennis-daily.html`
 - internal runner shortcut: `atp-tennis-daily-scan`
 - `atp-tennis-daily-scan` is a Codex-internal scan prompt, not a shell command in `PATH`
 - do not try to run `atp-tennis-daily-scan` directly in a terminal on Mac or Pi; use `./run.sh` or `./run.sh --publish` there
@@ -49,8 +49,8 @@ Read this file first at the start of every new thread or restart. Then read the 
 - fetch the current match card and Svenska Spel prices from `https://tennis.egelberg.se/api/oddset`
 - use ATP and reliable current reporting only as enrichment
 - use bookmaker odds only for matches that have not started yet
-- `editions/` is output only during scans
-- do not read from `editions/latest.html` or any dated file as scan input, layout source, fallback source, or regeneration template
+- `tennis-daily.html` is output only during scans
+- do not read from `tennis-daily.html` as scan input, layout source, fallback source, or regeneration template
 - every scan run must generate a fresh edition from live sources
 - every scan run must rewrite the visible snapshot timestamp and output HTML
 - during a normal scan, prefer a short deterministic path: template, card, player lookup, odds, selective SQL, render, write
@@ -138,8 +138,8 @@ Read this file first at the start of every new thread or restart. Then read the 
 - `run.sh --publish` is optional
 - `run.sh --daily HH:MM` enables the long-lived daily schedule in `Europe/Stockholm`
 - `run.sh` should call `atp-tennis-daily-scan` rather than embedding a long literal prompt
-- `template.html` is the only local layout input for a normal scan; `editions/` must remain output-only
-- `run.sh --publish` should simply copy `editions/latest.html` to the site root as `index.html`
+- `template.html` is the only local layout input for a normal scan; `tennis-daily.html` must remain output-only
+- `run.sh --publish` should simply copy `tennis-daily.html` to the site root as `index.html`
 - `run.sh` may send optional Pushover notifications when `PUSHOVER_TOKEN` and `PUSHOVER_USER` are set in the environment
 - notification failures must never make an otherwise successful scan fail
 

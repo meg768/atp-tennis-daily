@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="sv" class="theme-hard">
+<html lang="sv" class="theme-clay">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tennis Daily | 8 april 2026</title>
-    <meta name="description" content="ATP-singlarna från Monte-Carlo med dossierer, odds, form och verifierat dagsläge inför onsdagens matcher." />
+    <title>Tennis Daily | Preview</title>
+    <meta name="description" content="Preview av Tennis Daily-mallen med tydligare hierarki mellan huvudblock och sidoblock." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -309,6 +309,8 @@
     </script>
     <style>
 :root {
+  --font-sans: "Lato", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Libre Baskerville", Georgia, serif;
   --theme-base: #5482b0;
   --theme-dark: #203346;
   --theme-soft: #eef2f7;
@@ -335,6 +337,21 @@
   --flag-border: rgba(84, 130, 176, 0.22);
   --copy: #203346;
   --copy-soft: #31485b;
+  --type-rail-size: 0.68rem;
+  --type-label-size: 0.68rem;
+  --type-meta-size: 1rem;
+  --type-summary-size: 1.04rem;
+  --type-body-size: 1.03rem;
+  --type-side-size: 0.96rem;
+  --type-note-size: 0.68rem;
+  --type-table-size: 0.95rem;
+  --leading-summary: 1.48;
+  --leading-body: 1.62;
+  --leading-side: 1.58;
+  --leading-note: 1.6;
+  --block-padding-main: 1rem;
+  --block-padding-side: 0.82rem;
+  --block-padding-primary: 1rem;
 }
 
 html.theme-clay {
@@ -497,7 +514,7 @@ html {
 
 body {
   margin: 0;
-  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
 }
 
 a {
@@ -526,7 +543,7 @@ a {
 .match-meta__item,
 .match-block__label,
 .footer-note {
-  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -538,13 +555,13 @@ a {
   padding: 0 0 0.8rem 0.55rem;
   border-bottom: 1px solid var(--rule);
   color: var(--muted);
-  font-size: 0.68rem;
+  font-size: var(--type-rail-size);
   font-weight: 700;
 }
 
 .masthead__title {
   margin: 0.95rem 0 0.55rem;
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-serif);
   font-size: clamp(2rem, 4.4vw, 3.5rem);
   line-height: 0.92;
   letter-spacing: 0.01em;
@@ -565,7 +582,7 @@ a {
 .masthead__deck {
   margin: 0.8rem auto 0;
   max-width: 72ch;
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-serif);
   font-size: 1.02rem;
   line-height: 1.65;
   color: var(--muted);
@@ -592,7 +609,7 @@ a {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
-  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(1.18rem, 1.7vw, 1.42rem);
   line-height: 1.14;
   letter-spacing: -0.028em;
@@ -624,7 +641,7 @@ a {
   overflow: hidden;
   flex: 0 0 auto;
   color: var(--muted);
-  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.52rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -642,7 +659,7 @@ a {
 
 .match-title__country {
   color: inherit;
-  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.92em;
   letter-spacing: -0.01em;
   white-space: nowrap;
@@ -651,7 +668,7 @@ a {
 
 .match-title__rank {
   color: inherit;
-  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.92em;
   letter-spacing: 0;
   white-space: nowrap;
@@ -669,9 +686,9 @@ a {
 .match-section__summary {
   margin: 0.65rem 0 0;
   max-width: 70ch;
-  font-family: "Libre Baskerville", Georgia, serif;
-  font-size: 1.04rem;
-  line-height: 1.48;
+  font-family: var(--font-serif);
+  font-size: var(--type-summary-size);
+  line-height: var(--leading-summary);
   color: var(--copy-soft);
 }
 
@@ -688,7 +705,7 @@ a {
   border: 1px solid var(--rule);
   border-radius: 0.35rem;
   color: var(--muted);
-  font-size: 0.68rem;
+  font-size: var(--type-label-size);
   font-weight: 700;
 }
 
@@ -696,8 +713,8 @@ a {
   display: block;
   margin-top: 0.35rem;
   color: var(--ink);
-  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
-  font-size: 1rem;
+  font-family: var(--font-sans);
+  font-size: var(--type-meta-size);
   line-height: 1.45;
   letter-spacing: 0;
   text-transform: none;
@@ -708,7 +725,7 @@ a {
   display: block;
   margin-top: 0.2rem;
   color: var(--muted);
-  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.62rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -729,27 +746,44 @@ a {
 
 .match-block--primary {
   margin-top: 1.5rem;
+  padding: var(--block-padding-primary);
 }
 
 .match-block {
-  padding: 0.9rem;
+  padding: var(--block-padding-main);
   background: var(--block-surface);
   border: 1px solid var(--rule);
   border-radius: 0.35rem;
 }
 
+.match-copy .match-block {
+  padding: var(--block-padding-main);
+}
+
+.match-side .match-block {
+  padding: var(--block-padding-side);
+}
+
 .match-block__label {
   margin: 0 0 0.45rem;
   color: var(--theme-base);
-  font-size: 0.68rem;
+  font-size: var(--type-label-size);
   font-weight: 700;
 }
 
-.match-block p:not(.match-block__label) {
+.match-copy .match-block p:not(.match-block__label) {
   margin: 0;
-  font-family: "Libre Baskerville", Georgia, serif;
-  font-size: 1.03rem;
-  line-height: 1.62;
+  font-family: var(--font-serif);
+  font-size: var(--type-body-size);
+  line-height: var(--leading-body);
+  color: var(--copy);
+}
+
+.match-side .match-block p:not(.match-block__label) {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--type-side-size);
+  line-height: var(--leading-side);
   color: var(--copy);
 }
 
@@ -758,11 +792,19 @@ a {
   padding-left: 1.1rem;
 }
 
-.match-block li {
+.match-copy .match-block li {
   margin-bottom: 0.5rem;
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-serif);
   font-size: 1rem;
-  line-height: 1.55;
+  line-height: var(--leading-body);
+  color: var(--copy);
+}
+
+.match-side .match-block li {
+  margin-bottom: 0.45rem;
+  font-family: var(--font-serif);
+  font-size: var(--type-side-size);
+  line-height: var(--leading-side);
   color: var(--copy);
 }
 
@@ -773,7 +815,7 @@ a {
 .mini-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.95rem;
+  font-size: var(--type-table-size);
   line-height: 1.45;
 }
 
@@ -787,12 +829,12 @@ a {
 
 .mini-table td,
 .odds-table td {
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-serif);
 }
 
 .mini-table th {
   color: var(--muted);
-  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.62rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -806,7 +848,7 @@ a {
 .odds-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.95rem;
+  font-size: var(--type-table-size);
   line-height: 1.45;
 }
 
@@ -826,7 +868,7 @@ a {
 
 .odds-table th {
   color: var(--muted);
-  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.62rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -846,7 +888,7 @@ a {
 }
 
 .odds-callout strong {
-  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   color: var(--theme-dark);
 }
 
@@ -854,8 +896,8 @@ a {
   margin: 1rem 0 0;
   padding: 0.8rem 1rem;
   color: var(--muted);
-  font-size: 0.68rem;
-  line-height: 1.6;
+  font-size: var(--type-note-size);
+  line-height: var(--leading-note);
   border: 1px solid var(--rule);
   border-radius: 0.35rem;
   background: var(--footer-surface);
@@ -906,269 +948,117 @@ a {
     <div class="page-shell">
       <header class="masthead">
         <div class="masthead__rail">
-          <span>Tennis Daily</span><span>Dagens ATP-singlar</span><span>Snapshot 2026-04-08 01:44 CEST</span>
+          <span>Tennis Daily</span><span>Preview Layout</span><span>Onsdag 15 april 2026</span>
         </div>
         <h1 class="masthead__title">Tennis Daily</h1>
-        <p class="masthead__date">Onsdag 8 april 2026</p>
+        <p class="masthead__date">Preview av blockhierarki och typografi</p>
         <p class="masthead__deck">Ett dagligt ATP-nyhetsblad med kommande singelmatcher, match för match, med ranking, ELO, form, inbördes möten, odds och verifierat dagsläge i fokus.</p>
       </header>
 
       <main class="match-list">
-        <section class="match-section">
-      <h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/RUS.svg&quot;);"></span><span class="match-title__name">Andrey Rublev <span class="match-title__country">(RUS)</span> <span class="match-title__rank">#15</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/BEL.svg&quot;);"></span><span class="match-title__name">Zizou Bergs <span class="match-title__country">(BEL)</span> <span class="match-title__rank">#47</span></span></span></h2>
-      <p class="match-section__summary">Andrey Rublev har ett litet övertag i totalbilden, men det här luktar mer kamp om rytm än ren klasskillnad. Mycket kommer att avgöras av vem som får sätta första mönstret snarare än av rankingen ensam.</p>
-      <div class="match-meta">
-        <div class="match-meta__item">Tid<strong>11:00 CEST<span class="match-meta__subtext">Onsdag 8 april</span></strong></div>
-        <div class="match-meta__item">2026-facit<strong>10-6 mot 6-7</strong></div>
-      </div><article class="match-block match-block--primary"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Rublev</th><th>Bergs</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>1.41</td><td>2.90</td></tr><tr><td>Tennis Abstract</td><td>1.43 (-1%)</td><td>3.32 (-13%)</td></tr><tr><td>Vitel</td><td>1.41 (+0%)</td><td>2.94 (-0%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Ingen tydlig spelidé just nu. Marknad och modell ligger för nära varandra.</p></article>
-      <div class="match-body">
-        <div class="match-copy">
-          <article class="match-block"><p class="match-block__label">Spelbild</p><p>Andrey Rublev och Zizou Bergs söker båda ungefär samma typ av baslinjekontroll, vilket gör tempoövertaget i de första två slagen ovanligt viktigt här.</p></article>
-          <article class="match-block"><p class="match-block__label">Form och historik</p><p>Andrey Rublev öppnade veckan i Monte-Carlo med seger mot Nuno Borges. Zizou Bergs öppnade veckan i Monte-Carlo med seger mot Adrian Mannarino. ATP-databasen lutar också åt Andrey Rublev på grus, med grus-ELO 1991 mot 1791 och faktor 65 mot 50.</p></article>
-          <article class="match-block"><p class="match-block__label">Head-to-head</p><table class="mini-table"><thead><tr><th>Datum</th><th>Turnering</th><th>Underlag</th><th>Resultat</th></tr></thead><tbody><tr><td>2025-03-16</td><td>Miami</td><td>Hard</td><td>Zizou Bergs slog Andrey Rublev 7-5 6-4</td></tr><tr><td>2024-02-11</td><td>Rotterdam</td><td>Hard</td><td>Andrey Rublev slog Zizou Bergs 7-5 6-3</td></tr></tbody></table></article>
-          <article class="match-block"><p class="match-block__label">Dagsläge</p><p>ATP Tours order of play publicerad den 7 april 2026 placerar matchen på Court des Princes. ATP Tour skrev den 5 april 2026 att Bergs också vann dubbelpremiären ihop med Jannik Sinner, så belgaren kommer in med extra banvana i Monaco.</p></article>
-        </div>
-        <aside class="match-side">
-          
-          <article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Svenska Spel och Vitel ligger nära varandra här. Det pekar mot en rimligt satt marknad utan någon större snedhet åt endera håll.</p></article>
-          <article class="match-block"><p class="match-block__label">Det avgör</p><p>Om Andrey får spela första slaget och hålla duellerna i sitt tempo blir det svårt för Zizou att vinna tillräckligt många neutrala poäng. Underdogens väg går genom att störa rytmen tidigt och dra matchen in i fler andra-serve-lägen.</p></article>
-        </aside>
-      </div>
-    </section>
+        
 <section class="match-section">
-      <h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/RUS.svg&quot;);"></span><span class="match-title__name">Daniil Medvedev <span class="match-title__country">(RUS)</span> <span class="match-title__rank">#10</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/ITA.svg&quot;);"></span><span class="match-title__name">Matteo Berrettini <span class="match-title__country">(ITA)</span> <span class="match-title__rank">#90</span></span></span></h2>
-      <p class="match-section__summary">Daniil Medvedev ser starkast ut i helheten, men marknaden lämnar mer luft åt Matteo Berrettini än vad oddsen antyder. Vitel och den redaktionella linjen ger Matteo Berrettini fler vägar in än vad Svenska Spel prissätter.</p>
-      <div class="match-meta">
-        <div class="match-meta__item">Tid<strong>11:00 CEST<span class="match-meta__subtext">Onsdag 8 april</span></strong></div>
-        <div class="match-meta__item">2026-facit<strong>19-5 mot 6-6</strong></div>
-      </div><article class="match-block match-block--primary"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Medvedev</th><th>Berrettini</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>1.44</td><td>2.80</td></tr><tr><td>Tennis Abstract</td><td>1.61 (-11%)</td><td>2.64 (+6%)</td></tr><tr><td>Vitel</td><td>1.63 (-8%)</td><td>2.29 (+8%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Berrettini till underdogpris. Marknaden ger motståndarsidan för stort försprång relativt modellen.</p></article>
-      <div class="match-body">
-        <div class="match-copy">
-          <article class="match-block"><p class="match-block__label">Spelbild</p><p>Daniil Medvedev vill ta sig in i returerna och dra ned tempot i duellerna. Matteo Berrettini är bäst när han får spela först och styra direkt efter serven, vilket gör första två slagen och kontrollen över backhand-diagonalen extra viktiga i just den här matchen.</p></article>
-          <article class="match-block"><p class="match-block__label">Form och historik</p><p>Daniil Medvedev kommer från en seger mot Rei Sakamoto med 6-7(10) 6-3 6-1 i Miami. Matteo Berrettini kommer från en förlust mot Ignacio Buse med 7-6(5) 6-7(2) 6-4 i Marrakech. ATP-databasen lutar också åt Daniil Medvedev på grus, med grus-ELO 2086 mot 2015 och faktor 67 mot 69.</p></article>
-          <article class="match-block"><p class="match-block__label">Head-to-head</p><table class="mini-table"><thead><tr><th>Datum</th><th>Turnering</th><th>Underlag</th><th>Resultat</th></tr></thead><tbody><tr><td>2018-03-04</td><td>Indian Wells</td><td>Hard</td><td>Daniil Medvedev slog Matteo Berrettini 6-7(6) 7-5 6-4</td></tr></tbody></table></article>
-          <article class="match-block"><p class="match-block__label">Dagsläge</p><p>ATP Tours order of play publicerad den 7 april 2026 placerar matchen på Court Rainier III. ATP Tour skrev den 19 mars 2026 att Berrettini tog en wild card till Monte-Carlo, och den 7 april 2026 beskrev touren också hur de senaste säsongerna har varit skadehackiga trots att han nu är tillbaka i huvudlottningen.</p></article>
-        </div>
-        <aside class="match-side">
-          
-          <article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Vitel ger mer chans åt Matteo Berrettini än Svenska Spel gör. Det gör underdog-sidan mer intressant än den råa rankingen antyder.</p></article>
-          <article class="match-block"><p class="match-block__label">Det avgör</p><p>Om Daniil får spela första slaget och hålla duellerna i sitt tempo blir det svårt för Matteo att vinna tillräckligt många neutrala poäng. Underdogens väg går genom att störa rytmen tidigt och dra matchen in i fler andra-serve-lägen.</p></article>
-        </aside>
-      </div>
-    </section>
+  <h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(https://tennis.egelberg.se/api/flags/ITA.svg);"></span><span class="match-title__name">Lorenzo Musetti <span class="match-title__country">(ITA)</span> <span class="match-title__rank">#14</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(https://tennis.egelberg.se/api/flags/DEN.svg);"></span><span class="match-title__name">Holger Rune <span class="match-title__country">(DEN)</span> <span class="match-title__rank">#8</span></span></span></h2>
+  <p class="match-section__summary">Det här är en bra previewmatch för hierarkin: stor sammanfattning först, tydliga faktaboxar direkt under, sedan ett dominant oddsblock innan huvudtexten tar över.</p>
+  <div class="match-meta">
+    <div class="match-meta__item">Tid<strong>14:30 CEST<span class="match-meta__subtext">Monte-Carlo, kvartsfinal</span></strong></div>
+    <div class="match-meta__item">2026-facit<strong>15-6 mot 18-7</strong></div>
+    <div class="match-meta__item">Grusprofil<strong>69 / 66<span class="match-meta__subtext">ELO-rank 1912 / 1948</span></strong></div>
+  </div>
+  <article class="match-block match-block--primary">
+    <p class="match-block__label">Odds</p>
+    <table class="odds-table">
+      <thead><tr><th>Källa</th><th>Musetti</th><th>Rune</th></tr></thead>
+      <tbody>
+        <tr><td>Svenska Spel</td><td>2.35</td><td>1.59</td></tr>
+        <tr><td>Tennis Abstract</td><td>2.08 (+6%)</td><td>1.79 (-5%)</td></tr>
+        <tr><td>Vitel</td><td>2.14 (+5%)</td><td>1.75 (-4%)</td></tr>
+      </tbody>
+    </table>
+    <p class="odds-callout"><strong>Spelidé:</strong> Lorenzo Musetti till nuvarande pris. Här ska primärblocket kännas tydligt större och mer redaktionellt bärande än sidonoterna.</p>
+  </article>
+  <div class="match-body">
+    <div class="match-copy">
+      <article class="match-block">
+        <p class="match-block__label">Spelbild</p>
+        <p>Huvudkolumnen ska kännas som den stora läsytan. Seriftexten får därför lite mer kropp, lite mer radluft och lite mer blocknärvaro. Musetti vill dra matchen mot fler vinklar och längre mönster på forehandsidan, medan Rune tjänar på att sätta fart genom mitten och göra duellerna mer direkta.</p>
+      </article>
+      <article class="match-block">
+        <p class="match-block__label">Form och historik</p>
+        <p>Det här blocket visar samma stora typografiska roll som Spelbild. Tanken är att flera stora textsektioner ska kunna ligga staplade utan att kännas som metadata. Musetti kommer in från två starka grusveckor, medan Rune har högre topp men lite mer skiftande veckotempo.</p>
+      </article>
+      <article class="match-block">
+        <p class="match-block__label">Head-to-head</p>
+        <table class="mini-table">
+          <thead><tr><th>Datum</th><th>Turnering</th><th>Underlag</th><th>Resultat</th></tr></thead>
+          <tbody>
+            <tr><td>2025-05-16</td><td>Rome</td><td>Clay</td><td>Lorenzo Musetti slog Holger Rune 7-6 3-6 6-4</td></tr>
+            <tr><td>2024-04-12</td><td>Monte-Carlo</td><td>Clay</td><td>Holger Rune slog Lorenzo Musetti 6-2 7-5</td></tr>
+          </tbody>
+        </table>
+      </article>
+      <article class="match-block">
+        <p class="match-block__label">Skador och dagsläge</p>
+        <p>Ingen verifierad färsk skadenotis dominerar upptakten. Det viktiga här är att även dagsläge-blocket fortfarande känns som en riktig lässektion, inte som liten systemtext.</p>
+      </article>
+    </div>
+    <aside class="match-side">
+      <article class="match-block">
+        <p class="match-block__label">Marknad och modell</p>
+        <p>Sidokolumnen ska vara stramare och lite mindre. Den bär kompletterande resonemang, inte huvudtextens fulla tyngd. Här sammanfattas hur marknaden fortfarande håller Rune som favorit trots att modellerna är mer öppna.</p>
+      </article>
+      <article class="match-block">
+        <p class="match-block__label">Det avgör</p>
+        <p>Om Rune får tidig kontroll på returerna trycks Musetti bak. Om italienaren får spela i större bågar och fler riktningsbyten öppnas matchen upp.</p>
+      </article>
+    </aside>
+  </div>
+</section>
 <section class="match-section">
-      <h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/CZE.svg&quot;);"></span><span class="match-title__name">Jiri Lehecka <span class="match-title__country">(CZE)</span> <span class="match-title__rank">#13</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/CHI.svg&quot;);"></span><span class="match-title__name">Alejandro Tabilo <span class="match-title__country">(CHI)</span> <span class="match-title__rank">#39</span></span></span></h2>
-      <p class="match-section__summary">Jiri Lehecka har ett litet övertag i totalbilden, men det här luktar mer kamp om rytm än ren klasskillnad. Vitel och den redaktionella linjen lutar mer åt Jiri Lehecka än vad Svenska Spel gör.</p>
-      <div class="match-meta">
-        <div class="match-meta__item">Tid<strong>11:00 CEST<span class="match-meta__subtext">Onsdag 8 april</span></strong></div>
-        <div class="match-meta__item">2026-facit<strong>11-6 mot 13-8</strong></div>
-      </div><article class="match-block match-block--primary"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Lehecka</th><th>Tabilo</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>1.76</td><td>2.07</td></tr><tr><td>Tennis Abstract</td><td>1.63 (+8%)</td><td>2.58 (-20%)</td></tr><tr><td>Vitel</td><td>1.61 (+5%)</td><td>2.33 (-5%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Lehecka till favoritpris. Modellen ger den sidan större kontroll än marknaden gör.</p></article>
-      <div class="match-body">
-        <div class="match-copy">
-          <article class="match-block"><p class="match-block__label">Spelbild</p><p>Jiri Lehecka och Alejandro Tabilo söker båda ungefär samma typ av baslinjekontroll, vilket gör tempoövertaget i de första två slagen ovanligt viktigt här.</p></article>
-          <article class="match-block"><p class="match-block__label">Form och historik</p><p>Jiri Lehecka öppnade veckan i Monte-Carlo med seger mot Emilio Nava. Alejandro Tabilo öppnade veckan i Monte-Carlo med seger mot Marton Fucsovics. ATP-databasen lutar också åt Jiri Lehecka på grus, med grus-ELO 2000 mot 1905 och faktor 63 mot 54.</p></article>
-          <article class="match-block"><p class="match-block__label">Head-to-head</p><table class="mini-table"><thead><tr><th>Datum</th><th>Turnering</th><th>Underlag</th><th>Resultat</th></tr></thead><tbody><tr><td>2022-04-24</td><td>Munich</td><td>Clay</td><td>Jiri Lehecka slog Alejandro Tabilo 6-4 7-6(3)</td></tr></tbody></table></article>
-          <article class="match-block"><p class="match-block__label">Dagsläge</p><p>ATP Tours order of play publicerad den 7 april 2026 placerar matchen på Court EA de Massy. Samma ATP-rapport den 6 april 2026 noterade att Lehecka behövde 3.02 för att slå Emilio Nava i tre set, så belastningen inför onsdagen är inte obetydlig.</p></article>
-        </div>
-        <aside class="match-side">
-          
-          <article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Vitel är tydligt hårdare på Jiri Lehecka än Svenska Spel är. Det betyder att den sidan fortfarande kan vara spelbar trots att priset redan är kort.</p></article>
-          <article class="match-block"><p class="match-block__label">Det avgör</p><p>Om Jiri får spela första slaget och hålla duellerna i sitt tempo blir det svårt för Alejandro att vinna tillräckligt många neutrala poäng. Underdogens väg går genom att störa rytmen tidigt och dra matchen in i fler andra-serve-lägen.</p></article>
-        </aside>
-      </div>
-    </section>
-<section class="match-section">
-      <h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/BRA.svg&quot;);"></span><span class="match-title__name">Joao Fonseca <span class="match-title__country">(BRA)</span> <span class="match-title__rank">#40</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/FRA.svg&quot;);"></span><span class="match-title__name">Arthur Rinderknech <span class="match-title__country">(FRA)</span> <span class="match-title__rank">#27</span></span></span></h2>
-      <p class="match-section__summary">Joao Fonseca ser starkast ut i helheten, men marknaden lämnar mer luft åt Arthur Rinderknech än vad oddsen antyder. Vitel och den redaktionella linjen ger Arthur Rinderknech fler vägar in än vad Svenska Spel prissätter.</p>
-      <div class="match-meta">
-        <div class="match-meta__item">Tid<strong>12:10 CEST<span class="match-meta__subtext">Onsdag 8 april</span></strong></div>
-        <div class="match-meta__item">2026-facit<strong>5-5 mot 5-7</strong></div>
-      </div><article class="match-block match-block--primary"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Fonseca</th><th>Rinderknech</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>1.29</td><td>3.60</td></tr><tr><td>Tennis Abstract</td><td>1.78 (-28%)</td><td>2.28 (+58%)</td></tr><tr><td>Vitel</td><td>1.76 (-21%)</td><td>2.07 (+21%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Rinderknech till underdogpris. Marknaden ger motståndarsidan för stort försprång relativt modellen.</p></article>
-      <div class="match-body">
-        <div class="match-copy">
-          <article class="match-block"><p class="match-block__label">Spelbild</p><p>Joao Fonseca och Arthur Rinderknech söker båda ungefär samma typ av baslinjekontroll, vilket gör tempoövertaget i de första två slagen ovanligt viktigt här.</p></article>
-          <article class="match-block"><p class="match-block__label">Form och historik</p><p>Joao Fonseca öppnade veckan i Monte-Carlo med seger mot Gabriel Diallo. Arthur Rinderknech öppnade veckan i Monte-Carlo med seger mot Karen Khachanov. ATP-databasen lutar också åt Joao Fonseca på grus, med grus-ELO 1929 mot 1878 och faktor 62 mot 46.</p></article>
-          <article class="match-block"><p class="match-block__label">Head-to-head</p><p>Inga tidigare tourmöten finns i ATP-databasen, så spelbilden får i stället vila på profil, form och underlag.</p></article>
-          <article class="match-block"><p class="match-block__label">Dagsläge</p><p>ATP Tours order of play publicerad den 7 april 2026 placerar matchen på Court des Princes. I ATP Tours rapport den 6 april 2026 sade Fonseca att han känner sig frisk igen efter att skada och brist på rytm störde säsongsstarten. ATP Tour rapporterade den 6 april 2026 att Rinderknech öppnade veckan med 7-5, 6-2 mot Karen Khachanov.</p></article>
-        </div>
-        <aside class="match-side">
-          
-          <article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Vitel ger mer chans åt Arthur Rinderknech än Svenska Spel gör. Det gör underdog-sidan mer intressant än den råa rankingen antyder.</p></article>
-          <article class="match-block"><p class="match-block__label">Det avgör</p><p>Om Joao får spela första slaget och hålla duellerna i sitt tempo blir det svårt för Arthur att vinna tillräckligt många neutrala poäng. Underdogens väg går genom att störa rytmen tidigt och dra matchen in i fler andra-serve-lägen.</p></article>
-        </aside>
-      </div>
-    </section>
-<section class="match-section">
-      <h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/CHI.svg&quot;);"></span><span class="match-title__name">Cristian Garin <span class="match-title__country">(CHI)</span> <span class="match-title__rank">#109</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/GER.svg&quot;);"></span><span class="match-title__name">Alexander Zverev <span class="match-title__country">(GER)</span> <span class="match-title__rank">#3</span></span></span></h2>
-      <p class="match-section__summary">Alexander Zverev ser starkast ut i helheten, men marknaden lämnar mer luft åt Cristian Garin än vad oddsen antyder. Vitel och den redaktionella linjen lutar mer åt Cristian Garin än vad Svenska Spel gör.</p>
-      <div class="match-meta">
-        <div class="match-meta__item">Tid<strong>12:10 CEST<span class="match-meta__subtext">Onsdag 8 april</span></strong></div>
-        <div class="match-meta__item">2026-facit<strong>1-3 mot 15-5</strong></div>
-      </div><article class="match-block match-block--primary"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Garin</th><th>Zverev</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>6.25</td><td>1.12</td></tr><tr><td>Tennis Abstract</td><td>5.66 (+10%)</td><td>1.21 (-7%)</td></tr><tr><td>Vitel</td><td>4.06 (+9%)</td><td>1.24 (-9%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Garin till underdogpris. Modellen ger den sidan större kontroll än marknaden gör.</p></article>
-      <div class="match-body">
-        <div class="match-copy">
-          <article class="match-block"><p class="match-block__label">Spelbild</p><p>Cristian Garin är som mest bekväm när han får bygga poängen metodiskt från baslinjen. Alexander Zverev vill hålla poängen korta bakom serve och första slag, vilket gör första två slagen och kontrollen över backhand-diagonalen extra viktiga i just den här matchen.</p></article>
-          <article class="match-block"><p class="match-block__label">Form och historik</p><p>Cristian Garin har redan tre raka Monte-Carlo-segrar via kvalet och huvudturneringen. Alexander Zverev kommer från en seger mot Quentin Halys med 7-6(4) 7-6(1) i Miami. ATP-databasen lutar också åt Alexander Zverev på grus, med grus-ELO 2161 mot 1770 och faktor 76 mot 48.</p></article>
-          <article class="match-block"><p class="match-block__label">Head-to-head</p><table class="mini-table"><thead><tr><th>Datum</th><th>Turnering</th><th>Underlag</th><th>Resultat</th></tr></thead><tbody><tr><td>2024-04-14</td><td>Munich</td><td>Clay</td><td>Cristian Garin slog Alexander Zverev 6-4 6-4</td></tr><tr><td>2022-05-08</td><td>Rome</td><td>Clay</td><td>Alexander Zverev slog Cristian Garin 7-5 6-2</td></tr><tr><td>2019-04-28</td><td>Munich</td><td>Clay</td><td>Cristian Garin slog Alexander Zverev 6-4 5-7 7-5</td></tr></tbody></table></article>
-          <article class="match-block"><p class="match-block__label">Dagsläge</p><p>ATP Tours order of play publicerad den 7 april 2026 placerar matchen på Court Rainier III. Ingen verifierad färsk skadenotis framkom i ATP Tours tillgängliga rapportering inför onsdagens spel.</p></article>
-        </div>
-        <aside class="match-side">
-          
-          <article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Vitel är tydligt hårdare på Cristian Garin än Svenska Spel är. Det betyder att den sidan fortfarande kan vara spelbar trots att priset redan är kort.</p></article>
-          <article class="match-block"><p class="match-block__label">Det avgör</p><p>Nyckeln blir om Alexander får matchen dit där profil- och underlagsövertaget verkligen märks. Cristian behöver hålla poängen kortare än grunddatan egentligen vill se.</p></article>
-        </aside>
-      </div>
-    </section>
-<section class="match-section">
-      <h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/ARG.svg&quot;);"></span><span class="match-title__name">Francisco Cerundolo <span class="match-title__country">(ARG)</span> <span class="match-title__rank">#19</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/CZE.svg&quot;);"></span><span class="match-title__name">Tomas Machac <span class="match-title__country">(CZE)</span> <span class="match-title__rank">#53</span></span></span></h2>
-      <p class="match-section__summary">Francisco Cerundolo ser starkast ut i helheten, men marknaden lämnar mer luft åt Tomas Machac än vad oddsen antyder. Vitel och den redaktionella linjen ger Tomas Machac fler vägar in än vad Svenska Spel prissätter.</p>
-      <div class="match-meta">
-        <div class="match-meta__item">Tid<strong>12:10 CEST<span class="match-meta__subtext">Onsdag 8 april</span></strong></div>
-        <div class="match-meta__item">2026-facit<strong>14-6 mot 8-6</strong></div>
-      </div><article class="match-block match-block--primary"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Cerundolo</th><th>Machac</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>1.38</td><td>3.05</td></tr><tr><td>Tennis Abstract</td><td>1.59 (-13%)</td><td>2.71 (+13%)</td></tr><tr><td>Vitel</td><td>1.58 (-9%)</td><td>2.39 (+9%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Machac till underdogpris. Marknaden ger motståndarsidan för stort försprång relativt modellen.</p></article>
-      <div class="match-body">
-        <div class="match-copy">
-          <article class="match-block"><p class="match-block__label">Spelbild</p><p>Francisco Cerundolo vill ta sig in i returerna och dra ned tempot i duellerna. Tomas Machac är som mest bekväm när han får bygga poängen metodiskt från baslinjen, vilket gör första två slagen och kontrollen över backhand-diagonalen extra viktiga i just den här matchen.</p></article>
-          <article class="match-block"><p class="match-block__label">Form och historik</p><p>Francisco Cerundolo öppnade veckan i Monte-Carlo med seger mot Stefanos Tsitsipas. Tomas Machac öppnade veckan i Monte-Carlo med seger mot Daniel Altmaier. ATP-databasen lutar också åt Francisco Cerundolo på grus, med grus-ELO 2041 mot 1938 och faktor 69 mot 50.</p></article>
-          <article class="match-block"><p class="match-block__label">Head-to-head</p><p>Inga tidigare tourmöten finns i ATP-databasen, så spelbilden får i stället vila på profil, form och underlag.</p></article>
-          <article class="match-block"><p class="match-block__label">Dagsläge</p><p>ATP Tours order of play publicerad den 7 april 2026 placerar matchen på Court EA de Massy. ATP Tour skrev den 6 april 2026 att Cerundolo slog Stefanos Tsitsipas direkt och förbättrade sig till 12-0 i inledningsmatcher på Masters 1000-nivå sedan Shanghai 2024.</p></article>
-        </div>
-        <aside class="match-side">
-          
-          <article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Vitel ger mer chans åt Tomas Machac än Svenska Spel gör. Det gör underdog-sidan mer intressant än den råa rankingen antyder.</p></article>
-          <article class="match-block"><p class="match-block__label">Det avgör</p><p>Om Francisco får spela första slaget och hålla duellerna i sitt tempo blir det svårt för Tomas att vinna tillräckligt många neutrala poäng. Underdogens väg går genom att störa rytmen tidigt och dra matchen in i fler andra-serve-lägen.</p></article>
-        </aside>
-      </div>
-    </section>
-<section class="match-section">
-      <h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/FRA.svg&quot;);"></span><span class="match-title__name">Corentin Moutet <span class="match-title__country">(FRA)</span> <span class="match-title__rank">#31</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/NOR.svg&quot;);"></span><span class="match-title__name">Casper Ruud <span class="match-title__country">(NOR)</span> <span class="match-title__rank">#12</span></span></span></h2>
-      <p class="match-section__summary">Casper Ruud går in som tydlig favorit och har också den renare vägen genom matchen på grus. Mycket kommer att avgöras av vem som får sätta första mönstret snarare än av rankingen ensam.</p>
-      <div class="match-meta">
-        <div class="match-meta__item">Tid<strong>13:20 CEST<span class="match-meta__subtext">Onsdag 8 april</span></strong></div>
-        <div class="match-meta__item">2026-facit<strong>4-6 mot 7-7</strong></div>
-      </div><article class="match-block match-block--primary"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Moutet</th><th>Ruud</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>2.95</td><td>1.40</td></tr><tr><td>Tennis Abstract</td><td>3.40 (-13%)</td><td>1.42 (-1%)</td></tr><tr><td>Vitel</td><td>2.90 (+1%)</td><td>1.42 (-1%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Ingen tydlig spelidé just nu. Marknad och modell ligger för nära varandra.</p></article>
-      <div class="match-body">
-        <div class="match-copy">
-          <article class="match-block"><p class="match-block__label">Spelbild</p><p>Corentin Moutet vill ta sig in i returerna och dra ned tempot i duellerna. Casper Ruud trivs när duellerna blir tunga och fysiska på grus, vilket gör första två slagen och kontrollen över backhand-diagonalen extra viktiga i just den här matchen.</p></article>
-          <article class="match-block"><p class="match-block__label">Form och historik</p><p>Corentin Moutet öppnade veckan i Monte-Carlo med seger mot Alexandre Muller. Casper Ruud öppnade veckan i Monte-Carlo med seger mot Alexei Popyrin. ATP-databasen lutar också åt Casper Ruud på grus, med grus-ELO 2084 mot 1886 och faktor 78 mot 59.</p></article>
-          <article class="match-block"><p class="match-block__label">Head-to-head</p><table class="mini-table"><thead><tr><th>Datum</th><th>Turnering</th><th>Underlag</th><th>Resultat</th></tr></thead><tbody><tr><td>2022-08-28</td><td>US Open</td><td>Hard</td><td>Casper Ruud slog Corentin Moutet 6-1 6-2 6-7(4) 6-2</td></tr></tbody></table></article>
-          <article class="match-block"><p class="match-block__label">Dagsläge</p><p>ATP Tours order of play publicerad den 7 april 2026 placerar matchen på Court des Princes. Ingen verifierad färsk skadenotis framkom i ATP Tours tillgängliga rapportering inför onsdagens spel.</p></article>
-        </div>
-        <aside class="match-side">
-          
-          <article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Svenska Spel och Vitel ligger nära varandra här. Det pekar mot en rimligt satt marknad utan någon större snedhet åt endera håll.</p></article>
-          <article class="match-block"><p class="match-block__label">Det avgör</p><p>Nyckeln blir om Casper får matchen dit där profil- och underlagsövertaget verkligen märks. Corentin behöver hålla poängen kortare än grunddatan egentligen vill se.</p></article>
-        </aside>
-      </div>
-    </section>
-<section class="match-section">
-      <h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/CAN.svg&quot;);"></span><span class="match-title__name">Felix Auger-Aliassime <span class="match-title__country">(CAN)</span> <span class="match-title__rank">#7</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/CRO.svg&quot;);"></span><span class="match-title__name">Marin Cilic <span class="match-title__country">(CRO)</span> <span class="match-title__rank">#51</span></span></span></h2>
-      <p class="match-section__summary">Felix Auger-Aliassime ser starkast ut i helheten, men marknaden lämnar mer luft åt Marin Cilic än vad oddsen antyder. Vitel och den redaktionella linjen ger Marin Cilic fler vägar in än vad Svenska Spel prissätter.</p>
-      <div class="match-meta">
-        <div class="match-meta__item">Tid<strong>13:20 CEST<span class="match-meta__subtext">Onsdag 8 april</span></strong></div>
-        <div class="match-meta__item">2026-facit<strong>15-6 mot 8-6</strong></div>
-      </div><article class="match-block match-block--primary"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Auger-Aliassime</th><th>Cilic</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>1.43</td><td>2.85</td></tr><tr><td>Tennis Abstract</td><td>1.66 (-14%)</td><td>2.52 (+13%)</td></tr><tr><td>Vitel</td><td>1.62 (-8%)</td><td>2.30 (+8%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Cilic till underdogpris. Marknaden ger motståndarsidan för stort försprång relativt modellen.</p></article>
-      <div class="match-body">
-        <div class="match-copy">
-          <article class="match-block"><p class="match-block__label">Spelbild</p><p>Felix Auger-Aliassime vill hålla poängen korta bakom serve och första slag. Marin Cilic är som mest bekväm när han får bygga poängen metodiskt från baslinjen, vilket gör första två slagen och kontrollen över backhand-diagonalen extra viktiga i just den här matchen.</p></article>
-          <article class="match-block"><p class="match-block__label">Form och historik</p><p>Felix Auger-Aliassime kommer från en seger mot Marton Fucsovics med 7-6(3) 7-5 i Miami. Marin Cilic öppnade veckan i Monte-Carlo med seger mot Alexander Shevchenko. ATP-databasen lutar också åt Felix Auger-Aliassime på grus, med grus-ELO 2018 mot 1938 och faktor 62 mot 50.</p></article>
-          <article class="match-block"><p class="match-block__label">Head-to-head</p><table class="mini-table"><thead><tr><th>Datum</th><th>Turnering</th><th>Underlag</th><th>Resultat</th></tr></thead><tbody><tr><td>2025-10-19</td><td>Basel</td><td>Hard</td><td>Felix Auger-Aliassime slog Marin Cilic 7-6(2) 7-6(2)</td></tr><tr><td>2025-02-23</td><td>Dubai</td><td>Hard</td><td>Felix Auger-Aliassime slog Marin Cilic 6-4 3-6 6-2</td></tr><tr><td>2022-01-16</td><td>Australian Open</td><td>Hard</td><td>Felix Auger-Aliassime slog Marin Cilic 2-6 7-6(7) 6-2 7-6(4)</td></tr><tr><td>2021-06-06</td><td>Stuttgart</td><td>Grass</td><td>Marin Cilic slog Felix Auger-Aliassime 7-6(2) 6-3</td></tr></tbody></table></article>
-          <article class="match-block"><p class="match-block__label">Dagsläge</p><p>ATP Tours order of play publicerad den 7 april 2026 placerar matchen på Court Rainier III. ATP Tour noterade den 10 mars 2026 att Cilic som dåvarande världsrankad 51 var sista direkt antagna spelare i huvudlottningen, vilket säger något om hur tät den här delen av fältet är.</p></article>
-        </div>
-        <aside class="match-side">
-          
-          <article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Vitel ger mer chans åt Marin Cilic än Svenska Spel gör. Det gör underdog-sidan mer intressant än den råa rankingen antyder.</p></article>
-          <article class="match-block"><p class="match-block__label">Det avgör</p><p>Om Felix får spela första slaget och hålla duellerna i sitt tempo blir det svårt för Marin att vinna tillräckligt många neutrala poäng. Underdogens väg går genom att störa rytmen tidigt och dra matchen in i fler andra-serve-lägen.</p></article>
-        </aside>
-      </div>
-    </section>
-<section class="match-section">
-      <h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/ARG.svg&quot;);"></span><span class="match-title__name">Tomas Martin Etcheverry <span class="match-title__country">(ARG)</span> <span class="match-title__rank">#30</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/FRA.svg&quot;);"></span><span class="match-title__name">Terence Atmane <span class="match-title__country">(FRA)</span> <span class="match-title__rank">#45</span></span></span></h2>
-      <p class="match-section__summary">Tomas Martin Etcheverry har ett litet övertag i totalbilden, men det här luktar mer kamp om rytm än ren klasskillnad. Mycket kommer att avgöras av vem som får sätta första mönstret snarare än av rankingen ensam.</p>
-      <div class="match-meta">
-        <div class="match-meta__item">Tid<strong>13:20 CEST<span class="match-meta__subtext">Onsdag 8 april</span></strong></div>
-        <div class="match-meta__item">2026-facit<strong>15-7 mot 6-7</strong></div>
-      </div><article class="match-block match-block--primary"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Etcheverry</th><th>Atmane</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>1.37</td><td>3.10</td></tr><tr><td>Tennis Abstract</td><td>1.44 (-5%)</td><td>3.29 (-6%)</td></tr><tr><td>Vitel</td><td>1.42 (-3%)</td><td>2.89 (+2%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Svag lutning åt Atmane, men värdet är inte helt rent.</p></article>
-      <div class="match-body">
-        <div class="match-copy">
-          <article class="match-block"><p class="match-block__label">Spelbild</p><p>Tomas Martin Etcheverry är bäst när han får spela först och styra direkt efter serven. Terence Atmane är som mest bekväm när han får bygga poängen metodiskt från baslinjen, vilket gör första två slagen och kontrollen över backhand-diagonalen extra viktiga i just den här matchen.</p></article>
-          <article class="match-block"><p class="match-block__label">Form och historik</p><p>Tomas Martin Etcheverry öppnade veckan i Monte-Carlo med seger mot Grigor Dimitrov. Terence Atmane öppnade veckan i Monte-Carlo med seger mot Ethan Quinn. ATP-databasen lutar också åt Tomas Martin Etcheverry på grus, med grus-ELO 1960 mot 1757 och faktor 59 mot 50.</p></article>
-          <article class="match-block"><p class="match-block__label">Head-to-head</p><p>Inga tidigare tourmöten finns i ATP-databasen, så spelbilden får i stället vila på profil, form och underlag.</p></article>
-          <article class="match-block"><p class="match-block__label">Dagsläge</p><p>ATP Tours order of play publicerad den 7 april 2026 placerar matchen på Court EA de Massy. Ingen verifierad färsk skadenotis framkom i ATP Tours tillgängliga rapportering inför onsdagens spel.</p></article>
-        </div>
-        <aside class="match-side">
-          
-          <article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Marknaden och modellen pekar åt samma håll, men inte med exakt samma styrka. Därför blir prisfrågan viktigare än vinnarsidan i sig.</p></article>
-          <article class="match-block"><p class="match-block__label">Det avgör</p><p>Om Tomas får spela första slaget och hålla duellerna i sitt tempo blir det svårt för Terence att vinna tillräckligt många neutrala poäng. Underdogens väg går genom att störa rytmen tidigt och dra matchen in i fler andra-serve-lägen.</p></article>
-        </aside>
-      </div>
-    </section>
-<section class="match-section">
-      <h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/ITA.svg&quot;);"></span><span class="match-title__name">Lorenzo Musetti <span class="match-title__country">(ITA)</span> <span class="match-title__rank">#5</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/MON.svg&quot;);"></span><span class="match-title__name">Valentin Vacherot <span class="match-title__country">(MON)</span> <span class="match-title__rank">#23</span></span></span></h2>
-      <p class="match-section__summary">Lorenzo Musetti är rätt favorit på grundnivå, men prissättningen drar längre än vad modellen gör. Vitel och den redaktionella linjen lutar mer åt Lorenzo Musetti än vad Svenska Spel gör.</p>
-      <div class="match-meta">
-        <div class="match-meta__item">Tid<strong>14:30 CEST<span class="match-meta__subtext">Onsdag 8 april</span></strong></div>
-        <div class="match-meta__item">2026-facit<strong>7-3 mot 10-7</strong></div>
-      </div><article class="match-block match-block--primary"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Musetti</th><th>Vacherot</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>1.49</td><td>2.63</td></tr><tr><td>Tennis Abstract</td><td>1.32 (+13%)</td><td>4.14 (-36%)</td></tr><tr><td>Vitel</td><td>1.31 (+9%)</td><td>3.50 (-9%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Musetti till favoritpris. Modellen ger den sidan större kontroll än marknaden gör.</p></article>
-      <div class="match-body">
-        <div class="match-copy">
-          <article class="match-block"><p class="match-block__label">Spelbild</p><p>Lorenzo Musetti vill ta sig in i returerna och dra ned tempot i duellerna. Valentin Vacherot vill hålla poängen korta bakom serve och första slag, vilket gör första två slagen och kontrollen över backhand-diagonalen extra viktiga i just den här matchen.</p></article>
-          <article class="match-block"><p class="match-block__label">Form och historik</p><p>Lorenzo Musetti kommer från en förlust mot Marton Fucsovics med 7-5 6-1 i Indian Wells. Valentin Vacherot öppnade veckan i Monte-Carlo med seger mot Juan Manuel Cerundolo. ATP-databasen lutar också åt Lorenzo Musetti på grus, med grus-ELO 2171 mot 1895 och faktor 72 mot 60.</p></article>
-          <article class="match-block"><p class="match-block__label">Head-to-head</p><p>Inga tidigare tourmöten finns i ATP-databasen, så spelbilden får i stället vila på profil, form och underlag.</p></article>
-          <article class="match-block"><p class="match-block__label">Dagsläge</p><p>ATP Tours order of play publicerad den 7 april 2026 placerar matchen på Court Rainier III. ATP Tour noterade den 10 mars 2026 att Vacherot återvänder till sitt hemma-Masters i Monaco för första gången sedan Shanghai-titeln i oktober 2025.</p></article>
-        </div>
-        <aside class="match-side">
-          
-          <article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Vitel är tydligt hårdare på Lorenzo Musetti än Svenska Spel är. Det betyder att den sidan fortfarande kan vara spelbar trots att priset redan är kort.</p></article>
-          <article class="match-block"><p class="match-block__label">Det avgör</p><p>Om Lorenzo får spela första slaget och hålla duellerna i sitt tempo blir det svårt för Valentin att vinna tillräckligt många neutrala poäng. Underdogens väg går genom att störa rytmen tidigt och dra matchen in i fler andra-serve-lägen.</p></article>
-        </aside>
-      </div>
-    </section>
-<section class="match-section">
-      <h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/HUN.svg&quot;);"></span><span class="match-title__name">Fabian Marozsan <span class="match-title__country">(HUN)</span> <span class="match-title__rank">#43</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/POL.svg&quot;);"></span><span class="match-title__name">Hubert Hurkacz <span class="match-title__country">(POL)</span> <span class="match-title__rank">#74</span></span></span></h2>
-      <p class="match-section__summary">Hubert Hurkacz är rätt favorit på grundnivå, men prissättningen drar längre än vad modellen gör. Vitel och den redaktionella linjen ger Hubert Hurkacz fler vägar in än vad Svenska Spel prissätter.</p>
-      <div class="match-meta">
-        <div class="match-meta__item">Tid<strong>14:30 CEST<span class="match-meta__subtext">Onsdag 8 april</span></strong></div>
-        <div class="match-meta__item">2026-facit<strong>8-9 mot 5-7</strong></div>
-      </div><article class="match-block match-block--primary"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Marozsan</th><th>Hurkacz</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>1.75</td><td>2.08</td></tr><tr><td>Tennis Abstract</td><td>2.53 (-31%)</td><td>1.65 (+26%)</td></tr><tr><td>Vitel</td><td>2.37 (-15%)</td><td>1.59 (+15%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Hurkacz till underdogpris. Marknaden ger motståndarsidan för stort försprång relativt modellen.</p></article>
-      <div class="match-body">
-        <div class="match-copy">
-          <article class="match-block"><p class="match-block__label">Spelbild</p><p>Fabian Marozsan och Hubert Hurkacz söker båda ungefär samma typ av baslinjekontroll, vilket gör tempoövertaget i de första två slagen ovanligt viktigt här.</p></article>
-          <article class="match-block"><p class="match-block__label">Form och historik</p><p>Fabian Marozsan öppnade veckan i Monte-Carlo med seger mot Damir Dzumhur. Hubert Hurkacz öppnade veckan i Monte-Carlo med seger mot Luciano Darderi. ATP-databasen lutar också åt Hubert Hurkacz på grus, med grus-ELO 2015 mot 1887 och faktor 69 mot 53.</p></article>
-          <article class="match-block"><p class="match-block__label">Head-to-head</p><table class="mini-table"><thead><tr><th>Datum</th><th>Turnering</th><th>Underlag</th><th>Resultat</th></tr></thead><tbody><tr><td>2023-10-01</td><td>Shanghai</td><td>Hard</td><td>Hubert Hurkacz slog Fabian Marozsan 4-6 6-1 6-3</td></tr></tbody></table></article>
-          <article class="match-block"><p class="match-block__label">Dagsläge</p><p>ATP Tours order of play publicerad den 7 april 2026 placerar matchen på Court EA de Massy. ATP Tours officiella besked den 26 september 2025 var att Hurkacz stängde ned fjolårssäsongen efter artroskopisk operation i höger knä den 2 juli 2025 och en tidigare ryggrelaterad walkover den 12 juni 2025.</p></article>
-        </div>
-        <aside class="match-side">
-          
-          <article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Vitel ger mer chans åt Hubert Hurkacz än Svenska Spel gör. Det gör underdog-sidan mer intressant än den råa rankingen antyder.</p></article>
-          <article class="match-block"><p class="match-block__label">Det avgör</p><p>Nyckeln blir om Hubert får matchen dit där profil- och underlagsövertaget verkligen märks. Fabian behöver hålla poängen kortare än grunddatan egentligen vill se.</p></article>
-        </aside>
-      </div>
-    </section>
-<section class="match-section">
-      <h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/ITA.svg&quot;);"></span><span class="match-title__name">Flavio Cobolli <span class="match-title__country">(ITA)</span> <span class="match-title__rank">#16</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(&quot;https://tennis.egelberg.se/api/flags/BEL.svg&quot;);"></span><span class="match-title__name">Alexander Blockx <span class="match-title__country">(BEL)</span> <span class="match-title__rank">#91</span></span></span></h2>
-      <p class="match-section__summary">Flavio Cobolli har ett litet övertag i totalbilden, men det här luktar mer kamp om rytm än ren klasskillnad. Vitel och den redaktionella linjen lutar mer åt Flavio Cobolli än vad Svenska Spel gör.</p>
-      <div class="match-meta">
-        <div class="match-meta__item">Tid<strong>14:30 CEST<span class="match-meta__subtext">Onsdag 8 april</span></strong></div>
-        <div class="match-meta__item">2026-facit<strong>9-7 mot 1-1</strong></div>
-      </div><article class="match-block match-block--primary"><p class="match-block__label">Odds</p><table class="odds-table"><thead><tr><th>Källa</th><th>Cobolli</th><th>Blockx</th></tr></thead><tbody><tr><td>Svenska Spel</td><td>1.50</td><td>2.55</td></tr><tr><td>Tennis Abstract</td><td>1.43 (+5%)</td><td>3.33 (-23%)</td></tr><tr><td>Vitel</td><td>1.38 (+6%)</td><td>3.07 (-7%)</td></tr></tbody></table><p class="odds-callout"><strong>Spelidé:</strong> Cobolli till favoritpris. Modellen ger den sidan större kontroll än marknaden gör.</p></article>
-      <div class="match-body">
-        <div class="match-copy">
-          <article class="match-block"><p class="match-block__label">Spelbild</p><p>Flavio Cobolli lever på att överleva presspoäng och vända tajta game. Alexander Blockx är som mest bekväm när han får bygga poängen metodiskt från baslinjen, vilket gör första två slagen och kontrollen över backhand-diagonalen extra viktiga i just den här matchen.</p></article>
-          <article class="match-block"><p class="match-block__label">Form och historik</p><p>Flavio Cobolli öppnade veckan i Monte-Carlo med seger mot Francisco Comesana. Alexander Blockx har redan tre raka Monte-Carlo-segrar via kvalet och huvudturneringen. ATP-databasen lutar också åt Flavio Cobolli på grus, med grus-ELO 1967 mot 1752 och faktor 65 mot 75.</p></article>
-          <article class="match-block"><p class="match-block__label">Head-to-head</p><p>Inga tidigare tourmöten finns i ATP-databasen, så spelbilden får i stället vila på profil, form och underlag.</p></article>
-          <article class="match-block"><p class="match-block__label">Dagsläge</p><p>ATP Tours order of play publicerad den 7 april 2026 placerar matchen på Court des Princes. ATP Tour rapporterade den 6 april 2026 att Blockx tog sin första seger i Monte-Carlos huvudturnering.</p></article>
-        </div>
-        <aside class="match-side">
-          
-          <article class="match-block"><p class="match-block__label">Marknad och modell</p><p>Vitel är tydligt hårdare på Flavio Cobolli än Svenska Spel är. Det betyder att den sidan fortfarande kan vara spelbar trots att priset redan är kort.</p></article>
-          <article class="match-block"><p class="match-block__label">Det avgör</p><p>Om Flavio får spela första slaget och hålla duellerna i sitt tempo blir det svårt för Alexander att vinna tillräckligt många neutrala poäng. Underdogens väg går genom att störa rytmen tidigt och dra matchen in i fler andra-serve-lägen.</p></article>
-        </aside>
-      </div>
-    </section>
+  <h2 class="match-section__title"><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(https://tennis.egelberg.se/api/flags/FRA.svg);"></span><span class="match-title__name">Arthur Fils <span class="match-title__country">(FRA)</span> <span class="match-title__rank">#11</span></span></span><span class="match-title__separator">vs</span><span class="match-title__side"><span class="match-title__flag" aria-hidden="true" style="background-image:url(https://tennis.egelberg.se/api/flags/USA.svg);"></span><span class="match-title__name">Ben Shelton <span class="match-title__country">(USA)</span> <span class="match-title__rank">#16</span></span></span></h2>
+  <p class="match-section__summary">Andra sektionen visar samma system men med lite mindre tabellinnehåll, så vi ser att rytmen håller även när en matchtext är rakare och mer narrativ.</p>
+  <div class="match-meta">
+    <div class="match-meta__item">Tid<strong>19:00 CEST<span class="match-meta__subtext">Kvällspass</span></strong></div>
+    <div class="match-meta__item">2026-facit<strong>21-8 mot 17-9</strong></div>
+    <div class="match-meta__item">Hardprofil<strong>71 / 74<span class="match-meta__subtext">ELO-rank 2019 / 2068</span></strong></div>
+  </div>
+  <article class="match-block match-block--primary">
+    <p class="match-block__label">Odds</p>
+    <table class="odds-table">
+      <thead><tr><th>Källa</th><th>Fils</th><th>Shelton</th></tr></thead>
+      <tbody>
+        <tr><td>Svenska Spel</td><td>2.02</td><td>1.76</td></tr>
+        <tr><td>Tennis Abstract</td><td>1.91 (+3%)</td><td>1.94 (-3%)</td></tr>
+      </tbody>
+    </table>
+    <p class="odds-callout"><strong>Spelidé:</strong> Ingen stark sida. Blocket ska ändå behålla sin visuella tyngd även när slutsatsen är mer neutral.</p>
+  </article>
+  <div class="match-body">
+    <div class="match-copy">
+      <article class="match-block">
+        <p class="match-block__label">Spelbild</p>
+        <p>Previewn visar här hur ett kortare analysstycke fortfarande ska kännas som huvudläsning. Fils vill få matchen ur den rena förstaserve-axeln, medan Shelton helst bygger på direkt tryck och färre övergångar.</p>
+      </article>
+      <article class="match-block">
+        <p class="match-block__label">Form och historik</p>
+        <p>Fils kommer in med lite bättre veckostabilitet, Shelton med den snabbare toppnivån. Det här är ett bra exempel på hur serifbrödtexten kan bära resonemang utan att allt behöver bli långt.</p>
+      </article>
+    </div>
+    <aside class="match-side">
+      <article class="match-block">
+        <p class="match-block__label">Marknad och modell</p>
+        <p>Sidoblocket summerar läget i kompaktare form. Här får vi en tydlig skillnad mellan huvudläsning och redaktionell marginalnot.</p>
+      </article>
+      <article class="match-block">
+        <p class="match-block__label">Det avgör</p>
+        <p>Andraserven och vem som först tar mittzonen i duellen.</p>
+      </article>
+    </aside>
+  </div>
+</section>
       </main>
 
-      <p class="footer-note">Källor: Svenska Spel-kortet och ATP-databasen via tennis.egelberg.se samt ATP Tour-rapportering publicerad 26 september 2025 samt 10 mars, 19 mars, 5 april, 6 april och 7 april 2026. Alla matcher i denna edition är planerade ATP-singlar i Monte-Carlo på grus.</p>
+      <p class="footer-note">Previewn använder exempeldata för att visa hur stora läsblock, mindre sidoblock och ett primärt oddsblock samspelar i den uppdaterade mallen.</p>
     </div>
   </body>
 </html>

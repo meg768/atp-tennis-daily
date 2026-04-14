@@ -28,7 +28,7 @@ usage() {
   cat <<'EOF'
 Usage: ./run.sh [--publish] [--daily HH:MM]
 
-  --publish       Copy editions/latest.html to the web root as index.html after each scan
+  --publish       Copy tennis-daily.html to the web root as index.html after each scan
   --daily HH:MM   Wait for the next daily run at HH:MM in Europe/Stockholm
 
 Defaults:
@@ -267,7 +267,6 @@ run_scan() {
   local token_usage=""
 
   mkdir -p "$REPO_DIR/.codex"
-  mkdir -p "$REPO_DIR/editions"
 
   set_last_run_tokens ""
   session_marker="$(mktemp "$REPO_DIR/.codex/codex-session-marker.XXXXXX")"
@@ -287,7 +286,7 @@ run_scan() {
 
   if [[ "$PUBLISH" == "true" ]]; then
     mkdir -p "$PUBLISH_DIR"
-    cp "$REPO_DIR/editions/latest.html" "$PUBLISH_DIR/index.html"
+    cp "$REPO_DIR/tennis-daily.html" "$PUBLISH_DIR/index.html"
   fi
 
   set_last_run_message "Tennis Daily klar. Publish: ${PUBLISH}.$(token_suffix "$token_usage")"

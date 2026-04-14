@@ -41,9 +41,8 @@ The edition should be built in this order:
 3. Enrich each match with ATP rankings, head-to-head, form, and model context from the hosted ATP service
 4. Check current web reporting for injuries, withdrawals, absences, or other material updates
 5. Write one HTML edition in Swedish
-6. Save it to both:
-   - `editions/YYYY-MM-DD.html`
-   - `editions/latest.html`
+6. Save it as:
+   - `tennis-daily.html`
 
 ## HTML Edition
 
@@ -52,8 +51,7 @@ The page is intentionally static:
 - `template.html` is the base layout file
 - `playground/preview.html` is a local design sandbox and is not required for runtime
 - `playground/` holds design experiments only and should stay off limits during normal scan runs
-- `editions/YYYY-MM-DD.html` stores the dated edition
-- `editions/latest.html` stores the current edition
+- `tennis-daily.html` stores the current local edition
 
 The design is meant to stay focused on the match list itself. It should still work well on both desktop and mobile.
 The generated HTML can also carry the dominant surface theme in a fully self-contained way and follow the viewer's light/dark system preference without needing any external app runtime.
@@ -63,8 +61,8 @@ Match titles should prefer ATP-service SVG flags rather than emoji flags.
 
 At publish time:
 
-- `editions/` remains local output only
-- `editions/latest.html` is copied to the public site root as `index.html`
+- `tennis-daily.html` remains local output only
+- `tennis-daily.html` is copied to the public site root as `index.html`
 
 ## Quick Prompts
 
@@ -77,7 +75,7 @@ Typical prompts in this workspace:
 
 Expected behavior:
 
-- `scan` or `generate today's edition` should update the local HTML edition files
+- `scan` or `generate today's edition` should update the local `tennis-daily.html` file
 - a normal scan should not create extra helper scripts or new project source files
 - `help` should explain how the match list is sourced and how the edition is assembled
 - this project uses one command model only; there is no separate user-mode versus developer-mode command split
@@ -133,20 +131,20 @@ The repo includes a `run.sh` runner for scans.
   Runs one scan and exits.
 
 - `./run.sh --publish`
-  Runs one scan, keeps `editions/` local, writes `editions/latest.html` to the web root as `index.html`, and exits.
+  Runs one scan, keeps `tennis-daily.html` local, writes it to the web root as `index.html`, and exits.
 
 - `./run.sh --daily 09:00`
   Waits for the next `09:00` in `Europe/Stockholm`, then runs once per day at that time.
 
 - `./run.sh --publish --daily 09:00`
-  Publishes after each daily run by copying `latest.html` to the site root as `index.html`, and keeps the process alive inside PM2.
+  Publishes after each daily run by copying `tennis-daily.html` to the site root as `index.html`, and keeps the process alive inside PM2.
 
 Internally, `run.sh` sends the short command `atp-tennis-daily-scan` to Codex. That means scan behavior should normally be changed in the project memory rather than by editing a long embedded shell prompt.
 `atp-tennis-daily-scan` is an internal Codex shortcut, not a terminal command installed in `PATH`.
 Do not run `atp-tennis-daily-scan` directly on your Mac or on `pi-kato`; use `./run.sh` or `./run.sh --publish` in the repo directory instead.
 `atp-tennis-daily-scan` is meant to execute the scan directly in the active Codex session. It must not call `run.sh` again or start a nested runner process.
-`editions/` is output-only and must never be used as scan input, fallback input, or layout source.
-`atp-tennis-daily-scan` should stay narrowly focused during a live scan: read `template.html`, fetch the current card and player context from `https://tennis.egelberg.se`, add current reporting for the specific matches on the card, then write the two edition files. It should avoid broad repo searching or wandering through unrelated historical files during a normal scan.
+`tennis-daily.html` is output-only and must never be used as scan input, fallback input, or layout source.
+`atp-tennis-daily-scan` should stay narrowly focused during a live scan: read `template.html`, fetch the current card and player context from `https://tennis.egelberg.se`, add current reporting for the specific matches on the card, then write `tennis-daily.html`. It should avoid broad repo searching or wandering through unrelated historical files during a normal scan.
 `atp-tennis-daily-scan` should also use the documented ATP service endpoints directly. It should not probe `https://tennis.egelberg.se/`, inspect the frontend app, or scrape bundled JavaScript assets just to rediscover endpoints that are already part of the project memory.
 During a normal scan, it should not inspect `run.sh`, broad repo history, or large unrelated files once the workflow is already known.
 During a normal scan, it should not read `README.md` again once `CONTEXT.md` and `CONTENTS.md` are already loaded.
@@ -167,7 +165,7 @@ When doing that, name the player directly in the sentence instead of only descri
 For matchup prices, use the documented live endpoints such as `/api/oddset`, `/api/oddset/odds`, `/api/odds`, and `/api/tennis-abstract/odds`. Do not guess undocumented paths such as `/api/players/odds` or `/api/players/head-to-head`.
 For head-to-head, recent form, and inactivity, prefer targeted `POST /api/query` reads over endpoint guessing, but validate the needed SQL columns against `GET /api/meta/schema.sql` first.
 If a per-match odds or model request returns `404`, `500`, times out, or otherwise fails for one matchup, treat that source row as unavailable and continue rendering the edition. A single bad model request must not abort the whole scan.
-Once the fresh dated edition and `latest.html` are written, the scan should stop immediately rather than continuing with extra endpoint or schema probing.
+Once `tennis-daily.html` is written, the scan should stop immediately rather than continuing with extra endpoint or schema probing.
 
 For the Pi runner, `run.sh` should use `codex exec --sandbox danger-full-access` rather than `--full-auto`. In practice, the narrower nested sandbox can block DNS or outbound HTTP for `tennis.egelberg.se` and Svenska Spel-backed feeds even when plain shell networking works on the machine.
 
