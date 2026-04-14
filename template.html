@@ -335,14 +335,17 @@
           }
         }
 
-        function buildRecentResultText(player, outcome, opponent, score) {
+        function normalizeRecentResultParts(player, outcome, opponent, score) {
           const name = String(player || '').trim();
           const foe = String(opponent || '').trim();
           const rawOutcome = String(outcome || '').trim().toUpperCase();
           const scoreText = String(score || '').trim();
-          const verb = rawOutcome === 'L' ? 'förlorade mot' : 'vann mot';
-          const base = [name, verb, foe].filter(Boolean).join(' ');
-          return scoreText ? `${base} ${scoreText}` : base;
+
+          if (rawOutcome === 'L') {
+            return { winner: foe, loser: name, result: scoreText };
+          }
+
+          return { winner: name, loser: foe, result: scoreText };
         }
 
         function isRecentResultsBlock(block, label) {
@@ -364,6 +367,7 @@
           if (block.classList.contains('match-block--status') || text === 'Skador och dagsläge') return 'status';
           if (block.classList.contains('match-block--ranking') || text === 'Ranking och yta') return 'ranking';
           if (block.classList.contains('match-block--recent-results') || text === 'Senaste resultat') return 'recent-results';
+          if (block.classList.contains('match-block--news') || text === 'Nyheter') return 'news';
           if (block.classList.contains('match-block--market') || text === 'Marknad och modell') return 'market';
           if (block.classList.contains('match-block--decider') || text === 'Det avgör') return 'decider';
 
@@ -379,12 +383,13 @@
             status: 'match-block--status',
             ranking: 'match-block--ranking',
             'recent-results': 'match-block--recent-results',
+            news: 'match-block--news',
             market: 'match-block--market',
             decider: 'match-block--decider'
           };
 
           const mainOrder = ['play', 'form', 'ranking', 'recent-results', 'head-to-head'];
-          const sideOrder = ['status', 'market', 'decider'];
+          const sideOrder = ['status', 'news', 'market', 'decider'];
 
           document.querySelectorAll('.match-section').forEach(section => {
             const blocks = Array.from(section.querySelectorAll('.match-block'));
@@ -475,12 +480,12 @@
 
             const headRow = table.querySelector('thead tr');
             if (headRow) {
-              headRow.innerHTML = '<th>Datum</th><th>Resultat</th>';
+              headRow.innerHTML = '<th>Datum</th><th>Vinnare</th><th>Förlorare</th><th>Resultat</th>';
             }
 
             table.querySelectorAll('tbody tr').forEach(row => {
               const cells = Array.from(row.querySelectorAll('td'));
-              if (cells.length === 2) {
+              if (cells.length === 4) {
                 cells[0].textContent = normalizeIsoDateValue(cells[0].textContent);
                 return;
               }
@@ -494,9 +499,9 @@
               const outcome = cells[2].textContent;
               const opponent = cells[3].textContent;
               const score = cells[4]?.textContent || '';
-              const result = buildRecentResultText(player, outcome, opponent, score);
+              const { winner, loser, result } = normalizeRecentResultParts(player, outcome, opponent, score);
 
-              row.innerHTML = `<td>${date}</td><td>${result}</td>`;
+              row.innerHTML = `<td>${date}</td><td>${winner}</td><td>${loser}</td><td>${result}</td>`;
             });
           });
         }
@@ -1025,6 +1030,7 @@ a {
 .match-block--play,
 .match-block--form,
 .match-block--status,
+.match-block--news,
 .match-block--market,
 .match-block--decider {
   isolation: isolate;
@@ -1124,14 +1130,23 @@ a {
 
 .mini-table--recent-results th:first-child,
 .mini-table--recent-results td:first-child {
-  width: 7.25rem;
+  width: 7.5rem;
+}
+
+.mini-table--recent-results th:nth-child(2),
+.mini-table--recent-results td:nth-child(2),
+.mini-table--recent-results th:nth-child(3),
+.mini-table--recent-results td:nth-child(3) {
+  width: 28%;
 }
 
 .mini-table--recent-results th:last-child,
 .mini-table--recent-results td:last-child {
-  width: auto;
+  width: 7.5rem;
 }
 
+.mini-table--recent-results td:nth-child(2),
+.mini-table--recent-results td:nth-child(3),
 .mini-table--recent-results td:last-child {
   overflow-wrap: break-word;
 }
@@ -1265,7 +1280,7 @@ a {
                 <article class="match-block match-block--ranking">...</article>
                 <article class="match-block match-block--recent-results">
                   <table class="mini-table mini-table--recent-results">
-                    <thead><tr><th>Datum</th><th>Resultat</th></tr></thead>
+                    <thead><tr><th>Datum</th><th>Vinnare</th><th>Förlorare</th><th>Resultat</th></tr></thead>
                   </table>
                 </article>
                 <article class="match-block match-block--head-to-head">
@@ -1276,6 +1291,7 @@ a {
               </div>
               <aside class="match-side">
                 <article class="match-block match-block--status">...</article>
+                <article class="match-block match-block--news">...</article>
                 <article class="match-block match-block--market">...</article>
                 <article class="match-block match-block--decider">...</article>
               </aside>
@@ -1313,6 +1329,7 @@ a {
             - status
             - ranking-table
             - recent-results
+            - news
             - market-model
             - decider
 
@@ -1323,7 +1340,7 @@ a {
           </h2>
           <p class="match-section__summary" data-slot="summary">{{Write a short editorial top summary of the matchup. Explain what the match is likely to hinge on and why the price may or may not tell the full story.}}</p>
           <div class="match-meta">
-            <div class="match-meta__item">Tid<strong data-slot="time">{{Show start time}}<span class="match-meta__subtext" data-slot="event">{{Show tournament and round}}</span></strong></div>
+            <div class="match-meta__item">Tid<strong data-slot="time">{{Show start date and time}}<span class="match-meta__subtext" data-slot="event">{{Show tournament and round}}</span></strong></div>
             <div class="match-meta__item">YTD<strong data-slot="record">{{Show season record for both players}}</strong></div>
             <div class="match-meta__item"><span data-slot="surface-label">{{Show surface profile label}}</span><strong data-slot="surface-value">{{Show surface-specific comparison}}<span class="match-meta__subtext" data-slot="surface-subtext">{{Show supporting rank or rating context}}</span></strong></div>
           </div>
@@ -1367,12 +1384,12 @@ a {
               <article class="match-block match-block--recent-results">
                 <p class="match-block__label">Senaste resultat</p>
                 <table class="mini-table mini-table--recent-results" data-slot="recent-results">
-                  <thead><tr><th>Datum</th><th>Resultat</th></tr></thead>
+                  <thead><tr><th>Datum</th><th>Vinnare</th><th>Förlorare</th><th>Resultat</th></tr></thead>
                   <tbody>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Write PlayerA or PlayerB won/lost against opponent, include score if available}}</td></tr>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Write PlayerA or PlayerB won/lost against opponent, include score if available}}</td></tr>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Write PlayerA or PlayerB won/lost against opponent, include score if available}}</td></tr>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Write PlayerA or PlayerB won/lost against opponent, include score if available}}</td></tr>
+                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner}}</td><td>{{Show loser}}</td><td>{{Show score}}</td></tr>
+                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner}}</td><td>{{Show loser}}</td><td>{{Show score}}</td></tr>
+                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner}}</td><td>{{Show loser}}</td><td>{{Show score}}</td></tr>
+                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner}}</td><td>{{Show loser}}</td><td>{{Show score}}</td></tr>
                   </tbody>
                 </table>
               </article>
@@ -1393,6 +1410,11 @@ a {
               <article class="match-block match-block--status">
                 <p class="match-block__label">Skador och dagsläge</p>
                 <p data-slot="status">{{Describe any verified injury, comeback, layoff, or current status note. Always name the player it applies to.}}</p>
+              </article>
+
+              <article class="match-block match-block--news">
+                <p class="match-block__label">Nyheter</p>
+                <p data-slot="news">{{If atptour.com has any recent news about any of the players - display them here - if not, skip this section}}</p>
               </article>
 
               <article class="match-block match-block--market">
