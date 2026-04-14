@@ -122,6 +122,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - `win-rate-table` belongs in the wide main column, not the narrow side column
 - `recent-results` belongs in the wide main column, not the narrow side column
 - `status` belongs in the narrow side column, not the wide main column
+- in `win-rate-table`, each time-period cell should include both overall win rate and win rate against better-ranked players for that same window
 - the page theme may follow the dominant surface on the card
 - support light and dark mode when practical, but do not let theme work destabilize the scan flow
 - prefer ATP SVG flags over emoji
