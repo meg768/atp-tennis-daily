@@ -69,6 +69,15 @@ Each match section should usually contain:
 - `Marknad och modell` when relevant
 - one short closing line
 
+Use one fixed block order and naming contract:
+
+- `match-block--odds` for the main full-width odds block
+- main column in this order:
+  `match-block--play`, `match-block--form`, `match-block--head-to-head`, `match-block--status`
+- side column in this order:
+  `match-block--ranking`, `match-block--recent-results`, `match-block--market`, `match-block--decider`
+- the generator should fill this structure with content rather than inventing alternative wrapper layouts per match
+
 ## Presentation Rules
 
 - the page should feel calm, readable, and match-focused
@@ -87,6 +96,9 @@ Each match section should usually contain:
 - render those flags as circular `background-image` slots
 - keep mobile readability strong
 - in `Head-to-head`, prefer the existing compact table style when there are actual previous meetings to show
+- in date columns such as `Head-to-head` and `Senaste resultat`, display dates as `YYYY-MM-DD`
+- in `Senaste resultat`, prefer `Datum` plus one natural-language `Resultat` column such as `Musetti vann mot Etcheverry`, rather than separate `W/L` and opponent columns
+- in `Senaste resultat`, keep the table structure fixed to exactly two columns: `Datum` and `Resultat`
 - in the `Odds` block, show `Svenska Spel`, `Tennis Abstract`, and `Vitel` when the data supports it
 - do not render a separate match-meta box such as `Svenska Spel / modell` above the `Odds` block; all price comparison belongs inside `Odds` and, when useful, in `Marknad och modell`
 - if one odds or model source is temporarily unavailable for a matchup, omit that row and keep rendering the rest of the match section

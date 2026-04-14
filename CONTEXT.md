@@ -111,12 +111,17 @@ Read this file first at the start of every new thread or restart. Then read the 
 - `playground/` contains local design sandboxes and experiments only; it is not part of scan input or runtime
 - generated editions must remain fully standalone HTML files
 - keep styling inline unless the user asks otherwise
+- generated match sections should follow the canonical named block structure defined in `template.html`; the scan should fill those blocks with data rather than inventing new wrapper patterns per matchup
 - the page theme may follow the dominant surface on the card
 - support light and dark mode when practical, but do not let theme work destabilize the scan flow
 - prefer ATP SVG flags over emoji
 - render match-title flags as circular slots using `background-image:url(...)`
+- keep the `match-title__flag` slot visually empty; never place visible country text inside the flag span itself
 - for inline flag styles, use `background-image:url(https://...)` without inner quote characters, so the HTML attribute stays valid and browsers do not drop the flag image
 - if a flag asset is missing, keep the same slot and rely on the backend fallback SVG
+- in `Senaste resultat`, render two columns only: `Datum` and a natural-language `Resultat` sentence such as `Musetti vann mot Etcheverry`
+- normalize visible date columns such as `Head-to-head` and `Senaste resultat` to `YYYY-MM-DD`
+- prefer explicit block classes such as `match-block--play`, `match-block--form`, `match-block--head-to-head`, `match-block--status`, `match-block--ranking`, `match-block--recent-results`, `match-block--market`, and `match-block--decider`
 - the `Odds` block may show `Svenska Spel`, `Tennis Abstract`, and `Vitel`
 - when edge is shown, append it inline after the odds in the same cell, for example `1.43 (-2%)`
 - round displayed edge to whole percentages with no decimals

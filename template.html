@@ -272,6 +272,193 @@
           applyTheme(`${mode} ${nextSurface}`, { persist: true, updateUrl: true });
         }
 
+        function normalizeIsoDateValue(value) {
+          const text = String(value || '').trim();
+          const match = text.match(/^(\d{4}-\d{2}-\d{2})(?:[T\s].*)?$/);
+          return match ? match[1] : text;
+        }
+
+        function buildRecentResultText(player, outcome, opponent, score) {
+          const name = String(player || '').trim();
+          const foe = String(opponent || '').trim();
+          const rawOutcome = String(outcome || '').trim().toUpperCase();
+          const scoreText = String(score || '').trim();
+          const verb = rawOutcome === 'L' ? 'förlorade mot' : 'vann mot';
+          const base = [name, verb, foe].filter(Boolean).join(' ');
+          return scoreText ? `${base} ${scoreText}` : base;
+        }
+
+        function isRecentResultsBlock(block, label) {
+          if (block.classList.contains('match-block--recent-results')) {
+            return true;
+          }
+
+          return label?.textContent.trim() === 'Senaste resultat';
+        }
+
+        function getBlockRole(block) {
+          const label = block.querySelector('.match-block__label');
+          const text = label?.textContent.trim() || '';
+
+          if (block.classList.contains('match-block--odds') || text === 'Odds') return 'odds';
+          if (block.classList.contains('match-block--play') || text === 'Spelbild') return 'play';
+          if (block.classList.contains('match-block--form') || text === 'Form och historik') return 'form';
+          if (block.classList.contains('match-block--head-to-head') || text === 'Head-to-head') return 'head-to-head';
+          if (block.classList.contains('match-block--status') || text === 'Skador och dagsläge') return 'status';
+          if (block.classList.contains('match-block--ranking') || text === 'Ranking och yta') return 'ranking';
+          if (block.classList.contains('match-block--recent-results') || text === 'Senaste resultat') return 'recent-results';
+          if (block.classList.contains('match-block--market') || text === 'Marknad och modell') return 'market';
+          if (block.classList.contains('match-block--decider') || text === 'Det avgör') return 'decider';
+
+          return null;
+        }
+
+        function ensureMatchSectionStructure() {
+          const roleClassMap = {
+            odds: 'match-block--odds',
+            play: 'match-block--play',
+            form: 'match-block--form',
+            'head-to-head': 'match-block--head-to-head',
+            status: 'match-block--status',
+            ranking: 'match-block--ranking',
+            'recent-results': 'match-block--recent-results',
+            market: 'match-block--market',
+            decider: 'match-block--decider'
+          };
+
+          const mainOrder = ['play', 'form', 'head-to-head', 'status'];
+          const sideOrder = ['ranking', 'recent-results', 'market', 'decider'];
+
+          document.querySelectorAll('.match-section').forEach(section => {
+            const blocks = Array.from(section.querySelectorAll('.match-block'));
+            if (!blocks.length) {
+              return;
+            }
+
+            const existingBody = Array.from(section.children).find(child => child.classList?.contains('match-body')) || null;
+            const primaryOdds = [];
+            const roleBuckets = new Map();
+            const extras = [];
+
+            blocks.forEach(block => {
+              const role = getBlockRole(block);
+              if (role && roleClassMap[role]) {
+                block.classList.add(roleClassMap[role]);
+              }
+
+              if (role === 'odds') {
+                block.classList.add('match-block--primary', 'match-block--odds');
+                primaryOdds.push(block);
+                return;
+              }
+
+              if (role) {
+                if (!roleBuckets.has(role)) {
+                  roleBuckets.set(role, []);
+                }
+                roleBuckets.get(role).push(block);
+                return;
+              }
+
+              extras.push(block);
+            });
+
+            const body = document.createElement('div');
+            body.className = 'match-body';
+
+            const main = document.createElement('div');
+            main.className = 'match-copy';
+
+            const side = document.createElement('aside');
+            side.className = 'match-side';
+
+            mainOrder.forEach(role => {
+              (roleBuckets.get(role) || []).forEach(block => main.appendChild(block));
+            });
+
+            extras.forEach(block => main.appendChild(block));
+
+            sideOrder.forEach(role => {
+              (roleBuckets.get(role) || []).forEach(block => side.appendChild(block));
+            });
+
+            body.append(main, side);
+
+            if (existingBody) {
+              existingBody.replaceWith(body);
+            } else {
+              const insertAfter = primaryOdds.at(-1)
+                || Array.from(section.children).find(child => child.classList?.contains('match-meta'))
+                || Array.from(section.children).find(child => child.classList?.contains('match-section__summary'));
+
+              if (insertAfter?.parentNode === section) {
+                insertAfter.insertAdjacentElement('afterend', body);
+              } else {
+                section.appendChild(body);
+              }
+            }
+          });
+        }
+
+        function normalizeRecentResultsTables() {
+          document.querySelectorAll('.match-block').forEach(block => {
+            const label = block.querySelector('.match-block__label');
+            const table = block.querySelector('.mini-table');
+
+            if (!label || !table) {
+              return;
+            }
+
+            if (!isRecentResultsBlock(block, label)) {
+              return;
+            }
+
+            block.classList.add('match-block--recent-results');
+            table.classList.add('mini-table--recent-results');
+
+            const headRow = table.querySelector('thead tr');
+            if (headRow) {
+              headRow.innerHTML = '<th>Datum</th><th>Resultat</th>';
+            }
+
+            table.querySelectorAll('tbody tr').forEach(row => {
+              const cells = Array.from(row.querySelectorAll('td'));
+              if (cells.length === 2) {
+                cells[0].textContent = normalizeIsoDateValue(cells[0].textContent);
+                return;
+              }
+
+              if (cells.length < 4) {
+                return;
+              }
+
+              const date = normalizeIsoDateValue(cells[0].textContent);
+              const player = cells[1].textContent;
+              const outcome = cells[2].textContent;
+              const opponent = cells[3].textContent;
+              const score = cells[4]?.textContent || '';
+              const result = buildRecentResultText(player, outcome, opponent, score);
+
+              row.innerHTML = `<td>${date}</td><td>${result}</td>`;
+            });
+          });
+        }
+
+        function normalizeRenderedContent() {
+          ensureMatchSectionStructure();
+
+          document.querySelectorAll('.match-title__flag').forEach(flag => {
+            flag.textContent = '';
+            flag.setAttribute('aria-hidden', 'true');
+          });
+
+          document.querySelectorAll('.mini-table tbody tr td:first-child').forEach(cell => {
+            cell.textContent = normalizeIsoDateValue(cell.textContent);
+          });
+
+          normalizeRecentResultsTables();
+        }
+
         const initialTheme = getUrlTheme() || getStoredTheme();
         root.dataset.themeValue = initialTheme || getDefaultTheme();
 
@@ -305,6 +492,8 @@
             toggleMode();
           }
         });
+
+        document.addEventListener('DOMContentLoaded', normalizeRenderedContent);
       })();
     </script>
     <style>
@@ -647,6 +836,8 @@ a {
   letter-spacing: 0.04em;
   line-height: 1;
   text-transform: uppercase;
+  text-indent: 120%;
+  white-space: nowrap;
 }
 
 .match-title__name {
@@ -742,6 +933,12 @@ a {
 .match-side {
   display: grid;
   gap: 0.85rem;
+  min-width: 0;
+  align-content: start;
+}
+
+.match-body > * {
+  min-width: 0;
 }
 
 .match-block--primary {
@@ -754,6 +951,7 @@ a {
   background: var(--block-surface);
   border: 1px solid var(--rule);
   border-radius: 0.35rem;
+  min-width: 0;
 }
 
 .match-copy .match-block {
@@ -762,6 +960,22 @@ a {
 
 .match-side .match-block {
   padding: var(--block-padding-side);
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.match-block--play,
+.match-block--form,
+.match-block--status,
+.match-block--market,
+.match-block--decider {
+  isolation: isolate;
+}
+
+.match-block--head-to-head .mini-table,
+.match-block--ranking .mini-table,
+.match-block--recent-results .mini-table {
+  width: 100%;
 }
 
 .match-block__label {
@@ -814,7 +1028,9 @@ a {
 
 .mini-table {
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
   font-size: var(--type-table-size);
   line-height: 1.45;
 }
@@ -825,6 +1041,9 @@ a {
   border-bottom: 1px solid var(--rule);
   text-align: left;
   vertical-align: top;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  hyphens: auto;
 }
 
 .mini-table td,
@@ -845,9 +1064,24 @@ a {
   border-bottom: 0;
 }
 
+.mini-table--recent-results th:first-child,
+.mini-table--recent-results td:first-child {
+  width: 7.25rem;
+}
+
+.mini-table--recent-results th:last-child,
+.mini-table--recent-results td:last-child {
+  width: auto;
+}
+
+.mini-table--recent-results td:last-child {
+  overflow-wrap: break-word;
+}
+
 .odds-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
   font-size: var(--type-table-size);
   line-height: 1.45;
 }
@@ -858,6 +1092,7 @@ a {
   border-bottom: 1px solid var(--rule);
   text-align: left;
   vertical-align: top;
+  overflow-wrap: anywhere;
 }
 
 .odds-table th:first-child,
@@ -956,6 +1191,41 @@ a {
       </header>
 
       <main class="match-list">
+        <!--
+          Canonical per-match render contract.
+          Each generated match section should follow this named structure rather than inventing ad-hoc wrappers:
+
+          <section class="match-section">
+            <h2 class="match-section__title">...</h2>
+            <p class="match-section__summary">...</p>
+            <div class="match-meta">...</div>
+            <article class="match-block match-block--primary match-block--odds">...</article>
+            <div class="match-body">
+              <div class="match-copy">
+                <article class="match-block match-block--play">...</article>
+                <article class="match-block match-block--form">...</article>
+                <article class="match-block match-block--head-to-head">
+                  <table class="mini-table">
+                    <thead><tr><th>Datum</th><th>Turnering</th><th>Underlag</th><th>Resultat</th></tr></thead>
+                  </table>
+                </article>
+                <article class="match-block match-block--status">...</article>
+              </div>
+              <aside class="match-side">
+                <article class="match-block match-block--ranking">...</article>
+                <article class="match-block match-block--recent-results">
+                  <table class="mini-table mini-table--recent-results">
+                    <thead><tr><th>Datum</th><th>Resultat</th></tr></thead>
+                  </table>
+                </article>
+                <article class="match-block match-block--market">...</article>
+                <article class="match-block match-block--decider">...</article>
+              </aside>
+            </div>
+          </section>
+
+          The generator should provide data inside this structure, not invent alternative block layouts.
+        -->
         {{matchSections}}
       </main>
 
