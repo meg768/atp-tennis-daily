@@ -73,9 +73,9 @@ Use one fixed block order and naming contract:
 
 - `match-block--odds` for the main full-width odds block
 - main column in this order:
-  `match-block--play`, `match-block--form`, `match-block--head-to-head`, `match-block--status`
+  `match-block--play`, `match-block--form`, `match-block--ranking`, `match-block--recent-results`, `match-block--head-to-head`
 - side column in this order:
-  `match-block--ranking`, `match-block--recent-results`, `match-block--market`, `match-block--decider`
+  `match-block--status`, `match-block--market`, `match-block--decider`
 - the generator should fill this structure with content rather than inventing alternative wrapper layouts per match
 - the hidden fixed match scaffold in `template.html` should be treated as the source template for every generated match section
 - fill the placeholders inside that scaffold with match-specific content instead of writing new section HTML from scratch
