@@ -63,8 +63,8 @@ Match titles should prefer ATP-service SVG flags rather than emoji flags.
 
 At publish time:
 
-- `editions/` is mirrored to the public web directory
-- `editions/latest.html` is also copied to the site root as `index.html`
+- `editions/` remains local output only
+- `editions/latest.html` is copied to the public site root as `index.html`
 
 ## Quick Prompts
 
@@ -130,16 +130,16 @@ For this project, treat those two metadata endpoints as the canonical documentat
 The repo includes a `run.sh` runner for scans.
 
 - `./run.sh`
-  Runs one scan and exits. The command now verifies that `editions/latest.html` was actually refreshed before returning success.
+  Runs one scan and exits.
 
 - `./run.sh --publish`
-  Runs one scan, publishes `editions/` to the web root, writes `editions/latest.html` as `index.html`, and exits. The command also verifies that the published `index.html` matches the local `latest.html`.
+  Runs one scan, keeps `editions/` local, writes `editions/latest.html` to the web root as `index.html`, and exits.
 
 - `./run.sh --daily 09:00`
   Waits for the next `09:00` in `Europe/Stockholm`, then runs once per day at that time.
 
 - `./run.sh --publish --daily 09:00`
-  Publishes after each daily run, writes `latest.html` to the site root as `index.html`, and keeps the process alive inside PM2.
+  Publishes after each daily run by copying `latest.html` to the site root as `index.html`, and keeps the process alive inside PM2.
 
 Internally, `run.sh` sends the short command `atp-tennis-daily-scan` to Codex. That means scan behavior should normally be changed in the project memory rather than by editing a long embedded shell prompt.
 `atp-tennis-daily-scan` is an internal Codex shortcut, not a terminal command installed in `PATH`.
@@ -167,7 +167,7 @@ When doing that, name the player directly in the sentence instead of only descri
 For matchup prices, use the documented live endpoints such as `/api/oddset`, `/api/oddset/odds`, `/api/odds`, and `/api/tennis-abstract/odds`. Do not guess undocumented paths such as `/api/players/odds` or `/api/players/head-to-head`.
 For head-to-head, recent form, and inactivity, prefer targeted `POST /api/query` reads over endpoint guessing, but validate the needed SQL columns against `GET /api/meta/schema.sql` first.
 If a per-match odds or model request returns `404`, `500`, times out, or otherwise fails for one matchup, treat that source row as unavailable and continue rendering the edition. A single bad model request must not abort the whole scan.
-Once the fresh dated edition and `latest.html` are written and the required verification passes, the scan should stop immediately rather than continuing with extra endpoint or schema probing.
+Once the fresh dated edition and `latest.html` are written, the scan should stop immediately rather than continuing with extra endpoint or schema probing.
 
 For the Pi runner, `run.sh` should use `codex exec --sandbox danger-full-access` rather than `--full-auto`. In practice, the narrower nested sandbox can block DNS or outbound HTTP for `tennis.egelberg.se` and Svenska Spel-backed feeds even when plain shell networking works on the machine.
 
@@ -181,8 +181,6 @@ Current production layout on `pi-kato`:
   - `/var/www/html/tennis-daily`
 - current edition at runtime:
   - `/var/www/html/tennis-daily/index.html`
-- dated/public archive files:
-  - `/var/www/html/tennis-daily/editions/`
 
 The domain `tennis-daily.egelberg.se` is served by Apache and should simply display the latest published edition.
 

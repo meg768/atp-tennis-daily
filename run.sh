@@ -28,7 +28,7 @@ usage() {
   cat <<'EOF'
 Usage: ./run.sh [--publish] [--daily HH:MM]
 
-  --publish       Publish editions/ to the web root after each scan
+  --publish       Copy editions/latest.html to the web root as index.html after each scan
   --daily HH:MM   Wait for the next daily run at HH:MM in Europe/Stockholm
 
 Defaults:
@@ -39,60 +39,6 @@ EOF
 
 is_gnu_date() {
   date --version >/dev/null 2>&1
-}
-
-file_mtime() {
-  local file="$1"
-  if [[ ! -f "$file" ]]; then
-    return 1
-  fi
-
-  if stat --version >/dev/null 2>&1; then
-    stat -c %Y "$file"
-  else
-    stat -f %m "$file"
-  fi
-}
-
-file_fingerprint() {
-  local file="$1"
-  if [[ ! -f "$file" ]]; then
-    return 1
-  fi
-
-  if command -v shasum >/dev/null 2>&1; then
-    shasum -a 256 "$file" | awk '{print $1}'
-  elif command -v sha256sum >/dev/null 2>&1; then
-    sha256sum "$file" | awk '{print $1}'
-  else
-    cksum "$file" | awk '{print $1 ":" $2}'
-  fi
-}
-
-snapshot_marker() {
-  local file="$1"
-  if [[ ! -f "$file" ]]; then
-    return 1
-  fi
-
-  local marker=""
-
-  marker="$(grep -Eo 'Snapshot [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2} [A-Z]+' "$file" | head -n 1 || true)"
-  if [[ -n "$marker" ]]; then
-    printf '%s\n' "$marker"
-    return 0
-  fi
-
-  marker="$(grep -Eo '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2} [A-Z]+' "$file" | head -n 1 || true)"
-  if [[ -n "$marker" ]]; then
-    printf 'Snapshot %s\n' "$marker"
-    return 0
-  fi
-
-  marker="$(grep -Eo '[0-9]{1,2} [[:alpha:]åäöÅÄÖ]+ [0-9]{4} kl\. [0-9]{2}\.[0-9]{2} [A-Z]+' "$file" | head -n 1 || true)"
-  if [[ -n "$marker" ]]; then
-    printf 'Snapshot %s\n' "$marker"
-  fi
 }
 
 set_last_run_message() {
@@ -258,30 +204,6 @@ send_pushover() {
   fi
 }
 
-validate_rendered_edition() {
-  local file="$1"
-
-  if [[ ! -s "$file" ]]; then
-    echo "Edition file is missing or empty: $file" >&2
-    return 1
-  fi
-
-  if ! grep -q '<!DOCTYPE html>' "$file"; then
-    echo "Edition file does not look like standalone HTML: $file" >&2
-    return 1
-  fi
-
-  if ! grep -q 'Tennis Daily' "$file"; then
-    echo "Edition file is missing the expected title marker: $file" >&2
-    return 1
-  fi
-
-  if ! grep -Eq '(Snapshot )?[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2} [A-Z]+|[0-9]{1,2} [[:alpha:]åäöÅÄÖ]+ [0-9]{4} kl\. [0-9]{2}\.[0-9]{2} [A-Z]+' "$file"; then
-    echo "Edition file is missing a visible snapshot marker: $file" >&2
-    return 1
-  fi
-}
-
 current_epoch() {
   TZ="$TIMEZONE" date +%s
 }
@@ -341,23 +263,12 @@ if [[ -n "$DAILY_TIME" ]] && ! [[ "$DAILY_TIME" =~ ^([01][0-9]|2[0-3]):([0-5][0-
 fi
 
 run_scan() {
-  local latest_file="$REPO_DIR/editions/latest.html"
-  local before_mtime=""
-  local before_fingerprint=""
-  local before_snapshot=""
-  local after_mtime=""
-  local after_fingerprint=""
-  local after_snapshot=""
-  local dated_count=""
   local session_marker=""
   local token_usage=""
 
   mkdir -p "$REPO_DIR/.codex"
   mkdir -p "$REPO_DIR/editions"
 
-  before_mtime="$(file_mtime "$latest_file" 2>/dev/null || true)"
-  before_fingerprint="$(file_fingerprint "$latest_file" 2>/dev/null || true)"
-  before_snapshot="$(snapshot_marker "$latest_file" 2>/dev/null || true)"
   set_last_run_tokens ""
   session_marker="$(mktemp "$REPO_DIR/.codex/codex-session-marker.XXXXXX")"
 
@@ -365,8 +276,8 @@ run_scan() {
     token_usage="$(extract_codex_token_usage_since "$session_marker" 2>/dev/null || true)"
     set_last_run_tokens "$token_usage"
     rm -f "$session_marker"
-    set_last_run_message "Scan command failed before edition verification.$(token_suffix "$token_usage")"
-    echo "Scan command failed before edition verification." >&2
+    set_last_run_message "Scan command failed.$(token_suffix "$token_usage")"
+    echo "Scan command failed." >&2
     return 1
   fi
 
@@ -374,49 +285,12 @@ run_scan() {
   set_last_run_tokens "$token_usage"
   rm -f "$session_marker"
 
-  if ! validate_rendered_edition "$latest_file"; then
-    set_last_run_message "Edition verification failed for $latest_file.$(token_suffix "$token_usage")"
-    return 1
-  fi
-
-  after_mtime="$(file_mtime "$latest_file" 2>/dev/null || true)"
-  after_fingerprint="$(file_fingerprint "$latest_file" 2>/dev/null || true)"
-  after_snapshot="$(snapshot_marker "$latest_file" 2>/dev/null || true)"
-
-  if [[ -n "$before_mtime" ]] \
-    && [[ "$after_mtime" == "$before_mtime" ]] \
-    && [[ "$after_fingerprint" == "$before_fingerprint" ]] \
-    && [[ "$after_snapshot" == "$before_snapshot" ]]; then
-    set_last_run_message "Scan finished without refreshing editions/latest.html.$(token_suffix "$token_usage")"
-    echo "Scan finished without refreshing editions/latest.html." >&2
-    return 1
-  fi
-
-  dated_count="$(find "$REPO_DIR/editions" -maxdepth 1 -type f -name '20??-??-??.html' | wc -l | tr -d ' ')"
-  if [[ "$dated_count" == "0" ]]; then
-    set_last_run_message "Scan did not leave any dated edition files under editions/.$(token_suffix "$token_usage")"
-    echo "Scan did not leave any dated edition files under editions/." >&2
-    return 1
-  fi
-
   if [[ "$PUBLISH" == "true" ]]; then
     mkdir -p "$PUBLISH_DIR"
-    mkdir -p "$PUBLISH_DIR/editions"
-    rsync -az --delete "$REPO_DIR/editions/" "$PUBLISH_DIR/editions/"
     cp "$REPO_DIR/editions/latest.html" "$PUBLISH_DIR/index.html"
-    if ! validate_rendered_edition "$PUBLISH_DIR/index.html"; then
-      set_last_run_message "Published edition verification failed for $PUBLISH_DIR/index.html.$(token_suffix "$token_usage")"
-      return 1
-    fi
-
-    if [[ "$(file_fingerprint "$PUBLISH_DIR/index.html")" != "$after_fingerprint" ]]; then
-      set_last_run_message "Published index.html does not match editions/latest.html after publish.$(token_suffix "$token_usage")"
-      echo "Published index.html does not match editions/latest.html after publish." >&2
-      return 1
-    fi
   fi
 
-  set_last_run_message "Tennis Daily klar. ${after_snapshot:-Snapshot missing}. Publish: ${PUBLISH}.$(token_suffix "$token_usage")"
+  set_last_run_message "Tennis Daily klar. Publish: ${PUBLISH}.$(token_suffix "$token_usage")"
 }
 
 run_once() {

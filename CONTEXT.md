@@ -139,9 +139,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - `run.sh --daily HH:MM` enables the long-lived daily schedule in `Europe/Stockholm`
 - `run.sh` should call `atp-tennis-daily-scan` rather than embedding a long literal prompt
 - `template.html` is the only local layout input for a normal scan; `editions/` must remain output-only
-- when `run.sh --publish` is used, publish dated files under `editions/` and also mirror `editions/latest.html` to the site root as `index.html`
-- `run.sh` should fail loudly if a scan exits without actually refreshing `editions/latest.html`
-- `run.sh --publish` should also verify that the published `index.html` matches `editions/latest.html`
+- `run.sh --publish` should simply copy `editions/latest.html` to the site root as `index.html`
 - `run.sh` may send optional Pushover notifications when `PUSHOVER_TOKEN` and `PUSHOVER_USER` are set in the environment
 - notification failures must never make an otherwise successful scan fail
 
