@@ -86,6 +86,12 @@ snapshot_marker() {
   marker="$(grep -Eo '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2} [A-Z]+' "$file" | head -n 1 || true)"
   if [[ -n "$marker" ]]; then
     printf 'Snapshot %s\n' "$marker"
+    return 0
+  fi
+
+  marker="$(grep -Eo '[0-9]{1,2} [[:alpha:]åäöÅÄÖ]+ [0-9]{4} kl\. [0-9]{2}\.[0-9]{2} [A-Z]+' "$file" | head -n 1 || true)"
+  if [[ -n "$marker" ]]; then
+    printf 'Snapshot %s\n' "$marker"
   fi
 }
 
@@ -270,7 +276,7 @@ validate_rendered_edition() {
     return 1
   fi
 
-  if ! grep -Eq '(Snapshot )?[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2} [A-Z]+' "$file"; then
+  if ! grep -Eq '(Snapshot )?[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2} [A-Z]+|[0-9]{1,2} [[:alpha:]åäöÅÄÖ]+ [0-9]{4} kl\. [0-9]{2}\.[0-9]{2} [A-Z]+' "$file"; then
     echo "Edition file is missing a visible snapshot marker: $file" >&2
     return 1
   fi
