@@ -352,6 +352,21 @@
           return [String(winner || '').trim(), String(loser || '').trim()].filter(Boolean).join(' vs ');
         }
 
+        function parseHeadToHeadResultText(value) {
+          const text = String(value || '').trim();
+          const match = text.match(/^(.*?)\s+(?:slog|besegrade|def\.?|defeated|beat)\s+(.*?)\s+([0-9].*)$/i);
+
+          if (!match) {
+            return { players: '', result: text };
+          }
+
+          const [, winner, loser, result] = match;
+          return {
+            players: formatRecentPlayersCell(winner, loser),
+            result: String(result || '').trim()
+          };
+        }
+
         function isRecentResultsBlock(block, label) {
           if (block.classList.contains('match-block--recent-results')) {
             return true;
@@ -520,6 +535,46 @@
           });
         }
 
+        function normalizeHeadToHeadTables() {
+          document.querySelectorAll('.match-block').forEach(block => {
+            const label = block.querySelector('.match-block__label');
+            const table = block.querySelector('.mini-table');
+
+            if (!label || !table) {
+              return;
+            }
+
+            if (label.textContent.trim() !== 'Head-to-head') {
+              return;
+            }
+
+            table.classList.add('mini-table--head-to-head');
+
+            const headRow = table.querySelector('thead tr');
+            if (headRow) {
+              headRow.innerHTML = '<th>Datum</th><th>Spelare</th><th>Resultat</th>';
+            }
+
+            table.querySelectorAll('tbody tr').forEach(row => {
+              const cells = Array.from(row.querySelectorAll('td'));
+              if (cells.length === 3) {
+                cells[0].textContent = normalizeIsoDateValue(cells[0].textContent);
+                return;
+              }
+
+              if (cells.length < 4) {
+                return;
+              }
+
+              const date = normalizeIsoDateValue(cells[0].textContent);
+              const rawResult = cells[3].textContent;
+              const { players, result } = parseHeadToHeadResultText(rawResult);
+
+              row.innerHTML = `<td>${date}</td><td>${players}</td><td>${result}</td>`;
+            });
+          });
+        }
+
         function normalizeRenderedContent() {
           hydrateEditablePreview();
           ensureMatchSectionStructure();
@@ -534,6 +589,7 @@
           });
 
           normalizeRecentResultsTables();
+          normalizeHeadToHeadTables();
         }
 
         const initialTheme = getUrlTheme() || getStoredTheme();
@@ -1055,6 +1111,26 @@ a {
   width: 100%;
 }
 
+.mini-table--head-to-head th:first-child,
+.mini-table--head-to-head td:first-child {
+  width: 7.5rem;
+}
+
+.mini-table--head-to-head th:nth-child(2),
+.mini-table--head-to-head td:nth-child(2) {
+  width: auto;
+}
+
+.mini-table--head-to-head th:last-child,
+.mini-table--head-to-head td:last-child {
+  width: 9rem;
+}
+
+.mini-table--head-to-head td:nth-child(2),
+.mini-table--head-to-head td:last-child {
+  overflow-wrap: break-word;
+}
+
 .match-block__label {
   margin: 0 0 0.45rem;
   color: var(--theme-base);
@@ -1295,7 +1371,7 @@ a {
                 </article>
                 <article class="match-block match-block--head-to-head">
                   <table class="mini-table">
-                    <thead><tr><th>Datum</th><th>Turnering</th><th>Underlag</th><th>Resultat</th></tr></thead>
+                    <thead><tr><th>Datum</th><th>Spelare</th><th>Resultat</th></tr></thead>
                   </table>
                 </article>
               </div>
@@ -1404,11 +1480,11 @@ a {
 
               <article class="match-block match-block--head-to-head">
                 <p class="match-block__label">Head-to-head</p>
-                <table class="mini-table" data-slot="head-to-head">
-                  <thead><tr><th>Datum</th><th>Turnering</th><th>Underlag</th><th>Resultat</th></tr></thead>
+                <table class="mini-table mini-table--head-to-head" data-slot="head-to-head">
+                  <thead><tr><th>Datum</th><th>Spelare</th><th>Resultat</th></tr></thead>
                   <tbody>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show tournament}}</td><td>{{Show surface}}</td><td>{{Write readable result with winner and score}}</td></tr>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show tournament}}</td><td>{{Show surface}}</td><td>{{Write readable result with winner and score}}</td></tr>
+                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
+                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
                   </tbody>
                 </table>
               </article>

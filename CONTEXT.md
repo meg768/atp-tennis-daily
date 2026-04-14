@@ -49,6 +49,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - fetch the current match card and Svenska Spel prices from `https://tennis.egelberg.se/api/oddset`
 - use ATP and reliable current reporting only as enrichment
 - use bookmaker odds only for matches that have not started yet
+- skip matches whose live-card `state` shows that they are already in progress or otherwise live
 - `tennis-daily.html` is output only during scans
 - do not read from `tennis-daily.html` as scan input, layout source, fallback source, or regeneration template
 - every scan run must generate a fresh edition from live sources
@@ -131,6 +132,9 @@ Read this file first at the start of every new thread or restart. Then read the 
 - in the `Spelare` column, show winner first in the form `winner vs looser`
 - in the `Resultat` column, show the winner's score line
 - normalize visible date columns such as `Head-to-head` and `Senaste resultat` to `YYYY-MM-DD`
+- in `Head-to-head`, render three columns: `Datum`, `Spelare`, and `Resultat`
+- in the `Spelare` column, show the winner first in the form `winner vs looser`
+- in the `Resultat` column, show the winner's score line
 - prefer explicit block classes such as `match-block--play`, `match-block--form`, `match-block--head-to-head`, `match-block--status`, `match-block--ranking`, `match-block--recent-results`, `match-block--market`, and `match-block--decider`
 - the `Odds` block may show `Svenska Spel`, `Tennis Abstract`, and `Vitel`
 - when edge is shown, append it inline after the odds in the same cell, for example `1.43 (-2%)`

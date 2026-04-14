@@ -6,7 +6,7 @@ The project produces one daily HTML edition focused on the current ATP singles c
 
 - `https://tennis-daily.egelberg.se`
 
-The goal is not to build a generic tennis news page or a pure odds screen. The workflow starts from the live match card, then enriches each matchup with ATP database history, head-to-head context, form, overall level, event-surface context, and current reporting such as injuries or recent withdrawals.
+The goal is not to build a generic tennis news page or a pure odds screen. The workflow starts from the live match card, then enriches each matchup with ATP database history, head-to-head context, form, overall level, event-surface context, and current reporting such as injuries or recent withdrawals. Matches that are already in progress should be skipped rather than written up as edition sections.
 
 ## Public Identity
 

@@ -16,6 +16,7 @@ This file stores the editorial brief for what the edition should contain, how it
 ## Coverage Rules
 
 - include all ATP singles matches on the current card from `https://tennis.egelberg.se/api/oddset`
+- skip matches that are already in progress or otherwise live
 - do not add matches that are not on the card
 - do not use live matches to drive the odds analysis
 - when multiple tournaments are active, include them all but keep the page easy to scan
@@ -99,7 +100,9 @@ Use one fixed block order and naming contract:
 - prefer ATP SVG flags over emoji
 - render those flags as circular `background-image` slots
 - keep mobile readability strong
-- in `Head-to-head`, prefer the existing compact table style when there are actual previous meetings to show
+- in `Head-to-head`, keep a compact table but use exactly three columns: `Datum`, `Spelare`, `Resultat`
+- in `Spelare`, show the winner first in the form `winner vs looser`
+- in `Resultat`, show the winner's score line
 - in date columns such as `Head-to-head` and `Senaste resultat`, display dates as `YYYY-MM-DD`
 - in `Senaste resultat`, keep the table structure fixed to exactly three columns: `Datum`, `Spelare`, `Resultat`
 - in `Spelare`, show the winner first in the form `winner vs looser`
