@@ -77,6 +77,10 @@ Use one fixed block order and naming contract:
 - side column in this order:
   `match-block--ranking`, `match-block--recent-results`, `match-block--market`, `match-block--decider`
 - the generator should fill this structure with content rather than inventing alternative wrapper layouts per match
+- the hidden fixed match scaffold in `template.html` should be treated as the source template for every generated match section
+- fill the placeholders inside that scaffold with match-specific content instead of writing new section HTML from scratch
+- the official slot names for one match are:
+  `title`, `summary`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `ranking-table`, `recent-results`, `market-model`, `decider`
 
 ## Presentation Rules
 
