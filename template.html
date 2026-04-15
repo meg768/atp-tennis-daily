@@ -1508,8 +1508,8 @@ a {
               <thead><tr><th>Källa</th><th>{{Show PlayerA surname}}</th><th>{{Show PlayerB surname}}</th></tr></thead>
               <tbody>
                 <tr><td>Svenska Spel</td><td>{{Show Swedish book price for PlayerA}}</td><td>{{Show Swedish book price for PlayerB}}</td></tr>
-                <tr><td>Tennis Abstract</td><td>{{Show Tennis Abstract price and optional edge for PlayerA}}</td><td>{{Show Tennis Abstract price and optional edge for PlayerB}}</td></tr>
-                <tr><td>Vitel</td><td>{{Show Vitel price and optional edge for PlayerA}}</td><td>{{Show Vitel price and optional edge for PlayerB}}</td></tr>
+                <tr><td>Tennis Abstract</td><td>{{Show Tennis Abstract price and optional positive edge for PlayerA using the same implied-probability formula as vitel: ((1 / model_odds) - (1 / bookmaker_odds)) * 100, rounded to whole percent, and omit the edge label when the result is zero or negative}}</td><td>{{Show Tennis Abstract price and optional positive edge for PlayerB using the same implied-probability formula as vitel: ((1 / model_odds) - (1 / bookmaker_odds)) * 100, rounded to whole percent, and omit the edge label when the result is zero or negative}}</td></tr>
+                <tr><td>Vitel</td><td>{{Show Vitel price and optional positive edge for PlayerA using the same implied-probability formula as vitel: ((1 / model_odds) - (1 / bookmaker_odds)) * 100, rounded to whole percent, and omit the edge label when the result is zero or negative}}</td><td>{{Show Vitel price and optional positive edge for PlayerB using the same implied-probability formula as vitel: ((1 / model_odds) - (1 / bookmaker_odds)) * 100, rounded to whole percent, and omit the edge label when the result is zero or negative}}</td></tr>
               </tbody>
             </table>
             <p class="odds-callout" data-slot="betting-idea"><strong>Spelidé:</strong> {{Write one short betting or pricing takeaway in clear Swedish. Keep it concise and editorial.}}</p>

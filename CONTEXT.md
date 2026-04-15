@@ -141,8 +141,10 @@ Read this file first at the start of every new thread or restart. Then read the 
 - in the `Resultat` column, show the winner's score line
 - prefer explicit block classes such as `match-block--play`, `match-block--form`, `match-block--head-to-head`, `match-block--status`, `match-block--ranking`, `match-block--recent-results`, `match-block--market`, and `match-block--decider`
 - the `Odds` block may show `Svenska Spel`, `Tennis Abstract`, and `Vitel`
-- when edge is shown, append it inline after the odds in the same cell, for example `1.43 (-2%)`
+- when edge is shown, append it inline after the odds in the same cell using the same rule as `vitel`
+- define edge as implied-probability difference: `((1 / model_odds) - (1 / bookmaker_odds)) * 100`
 - round displayed edge to whole percentages with no decimals
+- show only positive edge values; omit negative edge labels entirely
 - do not render separate `Tennis Abstract edge` or `Vitel edge` rows
 - when present, the main price block should sit full-width in the match flow rather than being squeezed into the narrow side column
 - never abbreviate `Tennis Abstract` to `TA` in user-facing HTML
