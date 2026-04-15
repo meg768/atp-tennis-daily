@@ -100,6 +100,7 @@ Use one fixed block order and naming contract:
 - prefer ATP SVG flags over emoji
 - render those flags as circular `background-image` slots
 - keep mobile readability strong
+- in tables, avoid line breaks when they are not necessary; prefer keeping dates, scorelines, and short comparative rows on one line when space allows
 - in `Head-to-head`, keep a compact table but use exactly three columns: `Datum`, `Spelare`, `Resultat`
 - in `Spelare`, show the winner first in the form `winner vs looser`
 - in `Resultat`, show the winner's score line

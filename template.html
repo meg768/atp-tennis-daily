@@ -1131,7 +1131,7 @@ a {
 
 .mini-table--head-to-head td:nth-child(2),
 .mini-table--head-to-head td:last-child {
-  overflow-wrap: break-word;
+  overflow-wrap: normal;
 }
 
 .match-block__label {
@@ -1186,7 +1186,7 @@ a {
   width: 100%;
   max-width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
+  table-layout: auto;
   font-size: var(--type-table-size);
   line-height: 1.45;
 }
@@ -1197,14 +1197,21 @@ a {
   border-bottom: 1px solid var(--rule);
   text-align: left;
   vertical-align: top;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
   word-break: normal;
-  hyphens: auto;
+  hyphens: none;
 }
 
 .mini-table td,
 .odds-table td {
   font-family: var(--font-serif);
+}
+
+.mini-table th:first-child,
+.mini-table td:first-child,
+.odds-table th:first-child,
+.odds-table td:first-child {
+  white-space: nowrap;
 }
 
 .mini-table th {
@@ -1250,13 +1257,18 @@ a {
 
 .mini-table--recent-results td:nth-child(2),
 .mini-table--recent-results td:last-child {
-  overflow-wrap: break-word;
+  overflow-wrap: normal;
+}
+
+.mini-table--head-to-head td:last-child,
+.mini-table--recent-results td:last-child {
+  white-space: nowrap;
 }
 
 .odds-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
+  table-layout: auto;
   font-size: var(--type-table-size);
   line-height: 1.45;
 }
@@ -1267,7 +1279,7 @@ a {
   border-bottom: 1px solid var(--rule);
   text-align: left;
   vertical-align: top;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
 }
 
 .odds-table th:first-child,
