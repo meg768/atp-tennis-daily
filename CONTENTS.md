@@ -105,6 +105,7 @@ Use one fixed block order and naming contract:
 - in `Spelare`, show the winner first in the form `winner vs looser`
 - in `Resultat`, show the winner's score line
 - in date columns such as `Head-to-head` and `Senaste resultat`, display dates as `YYYY-MM-DD`
+- never show raw ISO timestamps such as `2026-04-12T22:00:00.000Z`
 - add a `Vinstprocent` table with columns `Spelare`, `3 mån`, `6 mån`, `12 mån`
 - in each time-period column, show both the overall win rate and the win rate against better-ranked players over the same period, using percentages only
 - add a short explanatory note under `Vinstprocent` that clarifies the format as `overall win rate / win rate against better-ranked players`

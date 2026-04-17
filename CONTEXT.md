@@ -135,6 +135,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - in the `Spelare` column, show winner first in the form `winner vs looser`
 - in the `Resultat` column, show the winner's score line
 - normalize visible date columns such as `Head-to-head` and `Senaste resultat` to `YYYY-MM-DD`
+- never show raw ISO timestamps such as `2026-04-12T22:00:00.000Z` in user-facing output
 - in tables, prefer layouts that avoid unnecessary wrapping; keep dates and scorelines on one line whenever practical
 - in `Head-to-head`, render three columns: `Datum`, `Spelare`, and `Resultat`
 - in the `Spelare` column, show the winner first in the form `winner vs looser`
