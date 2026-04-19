@@ -1539,11 +1539,11 @@ a {
                 <table class="mini-table" data-slot="win-rate-table">
                   <thead><tr><th>Spelare</th><th>3 mån</th><th>6 mån</th><th>12 mån</th></tr></thead>
                   <tbody>
-                    <tr><td>{{Show PlayerA surname}}</td><td>{{@ThreeMonthWinPercent}}</td><td>{{@SixMonthWinPercent}}</td><td>{{Show 12 month win rate and the win rate over better ranked players over the same period. Show percentage only}}</td></tr>
-                    <tr><td>{{Show PlayerB surname}}</td><td>{{Show 3 month win rate and the win rate over better ranked players over the same period. Show percentage only}}</td><td>{{Show 6 month win rate and the win rate over better ranked players over the same period. Show percentage only}}</td><td>{{Show 12 month win rate and the win rate over better ranked players over the same period. Show percentage only}}</td></tr>
+                    <tr><td>{{@WinRatePlayerAName}}</td><td>{{@WinRatePlayerA3m}}</td><td>{{@WinRatePlayerA6m}}</td><td>{{@WinRatePlayerA12m}}</td></tr>
+                    <tr><td>{{@WinRatePlayerBName}}</td><td>{{@WinRatePlayerB3m}}</td><td>{{@WinRatePlayerB6m}}</td><td>{{@WinRatePlayerB12m}}</td></tr>
                   </tbody>
                 </table>
-                <p class="table-note" data-slot="win-rate-note">{{Explain that each cell shows overall win rate / win rate against better-ranked players for the same period}}</p>
+                <p class="table-note" data-slot="win-rate-note">{{@WinRateNote}}</p>
               </article>
 
               <article class="match-block match-block--recent-results">

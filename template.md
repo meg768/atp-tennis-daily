@@ -164,9 +164,17 @@ Should do:
 
 Variables
 
-| ThreeMonthWinPercent | Show 3 month win rate and the win rate over better ranked players over the same period. Show percentage only |
-| -------------------- | ------------------------------------------------------------ |
-| SixMonthWinPercent   | Just display "XYZ"                                           |
+| Variable | Meaning |
+| -------- | ------- |
+| `@WinRatePlayerAName` | Show Player A surname in the win-rate table |
+| `@WinRatePlayerBName` | Show Player B surname in the win-rate table |
+| `@WinRatePlayerA3m` | Show Player A 3 month win rate and win rate against better-ranked players over the same period, percentage only |
+| `@WinRatePlayerA6m` | Show Player A 6 month win rate and win rate against better-ranked players over the same period, percentage only |
+| `@WinRatePlayerA12m` | Show Player A 12 month win rate and win rate against better-ranked players over the same period, percentage only |
+| `@WinRatePlayerB3m` | Show Player B 3 month win rate and win rate against better-ranked players over the same period, percentage only |
+| `@WinRatePlayerB6m` | Show Player B 6 month win rate and win rate against better-ranked players over the same period, percentage only |
+| `@WinRatePlayerB12m` | Show Player B 12 month win rate and win rate against better-ranked players over the same period, percentage only |
+| `@WinRateNote` | Explain briefly that each cell shows overall win rate / win rate against better-ranked players for the same period |
 
 Purpose:
 - show consistency over different windows
