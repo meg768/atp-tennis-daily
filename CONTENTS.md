@@ -81,7 +81,7 @@ Use one fixed block order and naming contract:
 - the hidden fixed match scaffold in `template.html` should be treated as the source template for every generated match section
 - fill the placeholders inside that scaffold with match-specific content instead of writing new section HTML from scratch
 - the official slot names for one match are:
-  `title`, `summary`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `ranking-table`, `win-rate-table`, `win-rate-note`, `recent-results`, `market-model`, `decider`
+  `title`, `summary`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `ranking-table`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
 
 ## Presentation Rules
 
@@ -109,7 +109,9 @@ Use one fixed block order and naming contract:
 - add a `Vinstprocent` table with columns `Spelare`, `3 mån`, `6 mån`, `12 mån`
 - in each time-period column, show both the overall win rate and the win rate against better-ranked players over the same period, using percentages only
 - add a short explanatory note under `Vinstprocent` that clarifies the format as `overall win rate / win rate against better-ranked players`
-- in `Senaste resultat`, keep the table structure fixed to exactly three columns: `Datum`, `Spelare`, `Resultat`
+- in `Senaste resultat`, split the block into two undersektioner: one for Player A and one for Player B
+- use the player surname as each undersektions rubrik
+- keep each `Senaste resultat` table fixed to exactly three columns: `Datum`, `Spelare`, `Resultat`
 - in `Spelare`, show the winner first in the form `winner vs looser`
 - in `Resultat`, show the winner's score line
 - in the `Odds` block, show `Svenska Spel`, `Tennis Abstract`, and `Vitel` when the data supports it

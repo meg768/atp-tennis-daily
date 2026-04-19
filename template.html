@@ -484,9 +484,9 @@
         function normalizeRecentResultsTables() {
           document.querySelectorAll('.match-block').forEach(block => {
             const label = block.querySelector('.match-block__label');
-            const table = block.querySelector('.mini-table');
+            const tables = Array.from(block.querySelectorAll('.mini-table'));
 
-            if (!label || !table) {
+            if (!label || !tables.length) {
               return;
             }
 
@@ -495,44 +495,46 @@
             }
 
             block.classList.add('match-block--recent-results');
-            table.classList.add('mini-table--recent-results');
+            tables.forEach(table => {
+              table.classList.add('mini-table--recent-results');
 
-            const headRow = table.querySelector('thead tr');
-            if (headRow) {
-              headRow.innerHTML = '<th>Datum</th><th>Spelare</th><th>Resultat</th>';
-            }
-
-            table.querySelectorAll('tbody tr').forEach(row => {
-              const cells = Array.from(row.querySelectorAll('td'));
-              if (cells.length === 3) {
-                cells[0].textContent = normalizeIsoDateValue(cells[0].textContent);
-                return;
+              const headRow = table.querySelector('thead tr');
+              if (headRow) {
+                headRow.innerHTML = '<th>Datum</th><th>Spelare</th><th>Resultat</th>';
               }
 
-              if (cells.length === 4) {
+              table.querySelectorAll('tbody tr').forEach(row => {
+                const cells = Array.from(row.querySelectorAll('td'));
+                if (cells.length === 3) {
+                  cells[0].textContent = normalizeIsoDateValue(cells[0].textContent);
+                  return;
+                }
+
+                if (cells.length === 4) {
+                  const date = normalizeIsoDateValue(cells[0].textContent);
+                  const winner = cells[1].textContent;
+                  const loser = cells[2].textContent;
+                  const result = cells[3].textContent;
+                  const players = formatRecentPlayersCell(winner, loser);
+
+                  row.innerHTML = `<td>${date}</td><td>${players}</td><td>${result}</td>`;
+                  return;
+                }
+
+                if (cells.length < 5) {
+                  return;
+                }
+
                 const date = normalizeIsoDateValue(cells[0].textContent);
-                const winner = cells[1].textContent;
-                const loser = cells[2].textContent;
-                const result = cells[3].textContent;
+                const player = cells[1].textContent;
+                const outcome = cells[2].textContent;
+                const opponent = cells[3].textContent;
+                const score = cells[4]?.textContent || '';
+                const { winner, loser, result } = normalizeRecentResultParts(player, outcome, opponent, score);
                 const players = formatRecentPlayersCell(winner, loser);
 
                 row.innerHTML = `<td>${date}</td><td>${players}</td><td>${result}</td>`;
-                return;
-              }
-
-              if (cells.length < 5) {
-                return;
-              }
-
-              const date = normalizeIsoDateValue(cells[0].textContent);
-              const player = cells[1].textContent;
-              const outcome = cells[2].textContent;
-              const opponent = cells[3].textContent;
-              const score = cells[4]?.textContent || '';
-              const { winner, loser, result } = normalizeRecentResultParts(player, outcome, opponent, score);
-              const players = formatRecentPlayersCell(winner, loser);
-
-              row.innerHTML = `<td>${date}</td><td>${players}</td><td>${result}</td>`;
+              });
             });
           });
         }
@@ -1275,6 +1277,20 @@ a {
   font-weight: 900;
 }
 
+.match-subsection__title {
+  margin: 0.8rem 0 0.4rem;
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.match-subsection__title:first-of-type {
+  margin-top: 0.15rem;
+}
+
 .mini-table tr:last-child td {
   border-bottom: 0;
 }
@@ -1486,7 +1502,10 @@ a {
             - status
             - ranking-table
             - win-rate-table
-            - recent-results
+            - recent-results-player-a-title
+            - recent-results-player-a
+            - recent-results-player-b-title
+            - recent-results-player-b
             - market-model
             - decider
 
@@ -1552,11 +1571,18 @@ a {
 
               <article class="match-block match-block--recent-results">
                 <p class="match-block__label">Senaste resultat</p>
-                <table class="mini-table mini-table--recent-results" data-slot="recent-results">
+                <p class="match-subsection__title" data-slot="recent-results-player-a-title">{{Show PlayerA surname}}</p>
+                <table class="mini-table mini-table--recent-results" data-slot="recent-results-player-a">
                   <thead><tr><th>Datum</th><th>Spelare</th><th>Resultat</th></tr></thead>
                   <tbody>
                     <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
                     <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
+                  </tbody>
+                </table>
+                <p class="match-subsection__title" data-slot="recent-results-player-b-title">{{Show PlayerB surname}}</p>
+                <table class="mini-table mini-table--recent-results" data-slot="recent-results-player-b">
+                  <thead><tr><th>Datum</th><th>Spelare</th><th>Resultat</th></tr></thead>
+                  <tbody>
                     <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
                     <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
                   </tbody>

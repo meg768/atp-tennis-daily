@@ -116,7 +116,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - treat the hidden `<template id="fixed-match-section-template">` inside `template.html` as the literal per-match scaffold during scans
 - when rendering a match, replace the scaffold fields with data and text; do not output free-form alternative wrappers or differently ordered sections
 - the official per-match slots are:
-  `title`, `summary`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `ranking-table`, `win-rate-table`, `win-rate-note`, `recent-results`, `market-model`, `decider`
+  `title`, `summary`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `ranking-table`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
 - do not invent extra slot names or omit these boxes unless the user explicitly changes the template contract
 - `ranking-table` belongs in the wide main column, not the narrow side column
 - `win-rate-table` belongs in the wide main column, not the narrow side column
@@ -131,7 +131,9 @@ Read this file first at the start of every new thread or restart. Then read the 
 - keep the `match-title__flag` slot visually empty; never place visible country text inside the flag span itself
 - for inline flag styles, use `background-image:url(https://...)` without inner quote characters, so the HTML attribute stays valid and browsers do not drop the flag image
 - if a flag asset is missing, keep the same slot and rely on the backend fallback SVG
-- in `Senaste resultat`, render three columns: `Datum`, `Spelare`, and `Resultat`
+- in `Senaste resultat`, render two undersektioner: one for Player A and one for Player B
+- each undersektion should use the player surname as its subsection title
+- each undersektion should render three columns: `Datum`, `Spelare`, and `Resultat`
 - in the `Spelare` column, show winner first in the form `winner vs looser`
 - in the `Resultat` column, show the winner's score line
 - normalize visible date columns such as `Head-to-head` and `Senaste resultat` to `YYYY-MM-DD`
