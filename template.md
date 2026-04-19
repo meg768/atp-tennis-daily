@@ -91,6 +91,20 @@ Should show:
 
 ## Odds
 
+Variables
+
+| Variable | Meaning |
+| -------- | ------- |
+| `@OddsPlayerAHeader` | Show Player A surname in the odds table header |
+| `@OddsPlayerBHeader` | Show Player B surname in the odds table header |
+| `@OddsSvenskaSpelA` | Show Svenska Spel odds for Player A |
+| `@OddsSvenskaSpelB` | Show Svenska Spel odds for Player B |
+| `@OddsTennisAbstractA` | Show Tennis Abstract odds for Player A with positive edge inline when available |
+| `@OddsTennisAbstractB` | Show Tennis Abstract odds for Player B with positive edge inline when available |
+| `@OddsVitelA` | Show Vitel odds for Player A with positive edge inline when available |
+| `@OddsVitelB` | Show Vitel odds for Player B with positive edge inline when available |
+| `@OddsIdea` | Write one short Swedish pricing takeaway for the match |
+
 Purpose:
 - show the price picture clearly in one place
 
@@ -103,12 +117,6 @@ Should show:
 - player surnames in the table headers
 - odds for both players
 - positive edge inline after model odds when available
-
-Edge Rule:
-- use implied-probability difference
-- round to whole percentages
-- show only positive edge
-- never show separate edge rows
 
 Spelidé:
 - one short Swedish takeaway

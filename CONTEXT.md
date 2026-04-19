@@ -156,20 +156,9 @@ Read this file first at the start of every new thread or restart. Then read `tem
 - in the `Spelare` column, show the winner first in the form `winner vs looser`
 - in the `Resultat` column, show the winner's score line
 - prefer explicit block classes such as `match-block--play`, `match-block--form`, `match-block--head-to-head`, `match-block--status`, `match-block--ranking`, `match-block--recent-results`, `match-block--market`, and `match-block--decider`
-- the `Odds` block may show `Svenska Spel`, `Tennis Abstract`, and `Vitel`
-- when edge is shown, append it inline after the odds in the same cell using the same rule as `vitel`
-- define edge as implied-probability difference: `((1 / model_odds) - (1 / bookmaker_odds)) * 100`
-- round displayed edge to whole percentages with no decimals
-- show only positive edge values; omit negative edge labels entirely
-- do not render separate `Tennis Abstract edge` or `Vitel edge` rows
 - when present, the main price block should sit full-width in the match flow
-- never abbreviate `Tennis Abstract` to `TA` in user-facing HTML
-- let `Spelidé` follow the inline `Tennis Abstract` edge first when that data is available
-- keep `Vitel` as a secondary experimental signal, but it must not control `Spelidé` when `Tennis Abstract` is also visible
-- any odds, edge, or signal values used in `Spelidé` logic must be normalized to numeric values before comparison
+- keep odds presentation rules in `template.md`; this file should only carry technical render constraints
 - if a `Tennis Abstract` or `Vitel` signal is missing, empty, or non-numeric, skip that signal rather than aborting the whole render
-- do not use the bare suffix `pp` in user-facing output
-- do not show a `Codex` odds row in the edition
 - keep full player names in the main match title
 - use player surnames rather than first names in odds-table headers and in `Spelidé`
 
