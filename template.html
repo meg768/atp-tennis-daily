@@ -407,8 +407,7 @@
             decider: 'match-block--decider'
           };
 
-          const mainOrder = ['play', 'form', 'ranking', 'win-rate', 'recent-results', 'head-to-head'];
-          const sideOrder = ['status', 'market', 'decider'];
+          const mainOrder = ['play', 'form', 'ranking', 'win-rate', 'recent-results', 'head-to-head', 'status', 'market', 'decider'];
 
           document.querySelectorAll('.match-section').forEach(section => {
             const blocks = Array.from(section.querySelectorAll('.match-block'));
@@ -450,20 +449,12 @@
             const main = document.createElement('div');
             main.className = 'match-copy';
 
-            const side = document.createElement('aside');
-            side.className = 'match-side';
-
             mainOrder.forEach(role => {
               (roleBuckets.get(role) || []).forEach(block => main.appendChild(block));
             });
 
             extras.forEach(block => main.appendChild(block));
-
-            sideOrder.forEach(role => {
-              (roleBuckets.get(role) || []).forEach(block => side.appendChild(block));
-            });
-
-            body.append(main, side);
+            body.append(main);
 
             if (existingBody) {
               existingBody.replaceWith(body);
@@ -1100,13 +1091,12 @@ a {
 
 .match-body {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.75fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
   margin-top: 1rem;
 }
 
-.match-copy,
-.match-side {
+.match-copy {
   display: grid;
   gap: 0.85rem;
   min-width: 0;
@@ -1132,12 +1122,6 @@ a {
 
 .match-copy .match-block {
   padding: var(--block-padding-main);
-}
-
-.match-side .match-block {
-  padding: var(--block-padding-side);
-  max-width: 100%;
-  overflow: hidden;
 }
 
 .match-block--play,
@@ -1190,14 +1174,6 @@ a {
   color: var(--copy);
 }
 
-.match-side .match-block p:not(.match-block__label) {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: var(--type-side-size);
-  line-height: var(--leading-side);
-  color: var(--copy);
-}
-
 .match-block ul {
   margin: 0;
   padding-left: 1.1rem;
@@ -1208,14 +1184,6 @@ a {
   font-family: var(--font-serif);
   font-size: 1rem;
   line-height: var(--leading-body);
-  color: var(--copy);
-}
-
-.match-side .match-block li {
-  margin-bottom: 0.45rem;
-  font-family: var(--font-serif);
-  font-size: var(--type-side-size);
-  line-height: var(--leading-side);
   color: var(--copy);
 }
 
@@ -1266,7 +1234,7 @@ a {
 
 .table-note,
 .match-copy .match-block p.table-note,
-.match-side .match-block p.table-note {
+.match-body .match-block p.table-note {
   margin: 0.55rem 0 0;
   color: var(--muted);
   font-family: var(--font-sans);
@@ -1277,11 +1245,13 @@ a {
   font-weight: 900;
 }
 
-.match-subsection__title {
+.match-subsection__title,
+.match-copy .match-block p.match-subsection__title,
+.match-body .match-block p.match-subsection__title {
   margin: 0.8rem 0 0.4rem;
   color: var(--muted);
   font-family: var(--font-sans);
-  font-size: 0.62rem;
+  font-size: 0.74rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 900;
@@ -1289,6 +1259,12 @@ a {
 
 .match-subsection__title:first-of-type {
   margin-top: 0.15rem;
+}
+
+.match-subsections--stacked {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.25rem;
 }
 
 .mini-table tr:last-child td {
@@ -1462,15 +1438,15 @@ a {
                     <thead><tr><th>Datum</th><th>Spelare</th><th>Resultat</th></tr></thead>
                   </table>
                 </article>
-              </div>
-              <aside class="match-side">
                 <article class="match-block match-block--status">...</article>
                 <article class="match-block match-block--market">...</article>
                 <article class="match-block match-block--decider">...</article>
-              </aside>
+              </div>
             </div>
           </section>
 
+          template.md is the source of truth for visible edition content.
+          template.html should implement that spec in rendered HTML.
           The generator should provide data inside this structure, not invent alternative block layouts.
         -->
         {{matchSections}}
@@ -1484,6 +1460,7 @@ a {
             Editable example match scaffold.
             Adjust wording, hierarchy, table density, and tone here.
             The scan should mirror this structure and replace the content slots with live data.
+            If you want to change what the edition visibly says or does, update template.md first and then sync this scaffold.
 
             Official per-match slots:
             - title
@@ -1562,7 +1539,7 @@ a {
                 <table class="mini-table" data-slot="win-rate-table">
                   <thead><tr><th>Spelare</th><th>3 mån</th><th>6 mån</th><th>12 mån</th></tr></thead>
                   <tbody>
-                    <tr><td>{{Show PlayerA surname}}</td><td>{{Show 3 month win rate and the win rate over better ranked players over the same period. Show percentage only}}</td><td>{{Show 6 month win rate and the win rate over better ranked players over the same period. Show percentage only}}</td><td>{{Show 12 month win rate and the win rate over better ranked players over the same period. Show percentage only}}</td></tr>
+                    <tr><td>{{Show PlayerA surname}}</td><td>{{@ThreeMonthWinPercent}}</td><td>{{@SixMonthWinPercent}}</td><td>{{Show 12 month win rate and the win rate over better ranked players over the same period. Show percentage only}}</td></tr>
                     <tr><td>{{Show PlayerB surname}}</td><td>{{Show 3 month win rate and the win rate over better ranked players over the same period. Show percentage only}}</td><td>{{Show 6 month win rate and the win rate over better ranked players over the same period. Show percentage only}}</td><td>{{Show 12 month win rate and the win rate over better ranked players over the same period. Show percentage only}}</td></tr>
                   </tbody>
                 </table>
@@ -1571,22 +1548,24 @@ a {
 
               <article class="match-block match-block--recent-results">
                 <p class="match-block__label">Senaste resultat</p>
-                <p class="match-subsection__title" data-slot="recent-results-player-a-title">{{Show PlayerA surname}}</p>
-                <table class="mini-table mini-table--recent-results" data-slot="recent-results-player-a">
-                  <thead><tr><th>Datum</th><th>Spelare</th><th>Resultat</th></tr></thead>
-                  <tbody>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
-                  </tbody>
-                </table>
-                <p class="match-subsection__title" data-slot="recent-results-player-b-title">{{Show PlayerB surname}}</p>
-                <table class="mini-table mini-table--recent-results" data-slot="recent-results-player-b">
-                  <thead><tr><th>Datum</th><th>Spelare</th><th>Resultat</th></tr></thead>
-                  <tbody>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
-                  </tbody>
-                </table>
+                <div class="match-subsections match-subsections--stacked">
+                  <p class="match-subsection__title" data-slot="recent-results-player-a-title">{{Show PlayerA full name}}</p>
+                  <table class="mini-table mini-table--recent-results" data-slot="recent-results-player-a">
+                    <thead><tr><th>Datum</th><th>Spelare</th><th>Resultat</th></tr></thead>
+                    <tbody>
+                      <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner surname}} #{{Show winner rank}} vs {{Show loser surname}} #{{Show loser rank}}</td><td>{{Show winner score}}</td></tr>
+                      <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner surname}} #{{Show winner rank}} vs {{Show loser surname}} #{{Show loser rank}}</td><td>{{Show winner score}}</td></tr>
+                    </tbody>
+                  </table>
+                  <p class="match-subsection__title" data-slot="recent-results-player-b-title">{{Show PlayerB full name}}</p>
+                  <table class="mini-table mini-table--recent-results" data-slot="recent-results-player-b">
+                    <thead><tr><th>Datum</th><th>Spelare</th><th>Resultat</th></tr></thead>
+                    <tbody>
+                      <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner surname}} #{{Show winner rank}} vs {{Show loser surname}} #{{Show loser rank}}</td><td>{{Show winner score}}</td></tr>
+                      <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner surname}} #{{Show winner rank}} vs {{Show loser surname}} #{{Show loser rank}}</td><td>{{Show winner score}}</td></tr>
+                    </tbody>
+                  </table>
+                </div>
               </article>
 
               <article class="match-block match-block--head-to-head">
@@ -1594,14 +1573,11 @@ a {
                 <table class="mini-table mini-table--head-to-head" data-slot="head-to-head">
                   <thead><tr><th>Datum</th><th>Spelare</th><th>Resultat</th></tr></thead>
                   <tbody>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
-                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner vs looser}}</td><td>{{Show winner score}}</td></tr>
+                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner surname}} #{{Show winner rank}} vs {{Show loser surname}} #{{Show loser rank}}</td><td>{{Show winner score}}</td></tr>
+                    <tr><td>{{YYYY-MM-DD}}</td><td>{{Show winner surname}} #{{Show winner rank}} vs {{Show loser surname}} #{{Show loser rank}}</td><td>{{Show winner score}}</td></tr>
                   </tbody>
                 </table>
               </article>
-            </div>
-
-            <aside class="match-side">
               <article class="match-block match-block--status">
                 <p class="match-block__label">Skador och dagsläge</p>
                 <p data-slot="status">{{Describe any verified injury, comeback, layoff, or current status note. Always name the player it applies to.}}</p>
@@ -1616,7 +1592,7 @@ a {
                 <p class="match-block__label">Det avgör</p>
                 <p data-slot="decider">{{Write one short closing line on what is most likely to decide the match.}}</p>
               </article>
-            </aside>
+            </div>
           </div>
         </section>
       </template>

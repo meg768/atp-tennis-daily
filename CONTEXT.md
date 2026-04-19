@@ -4,20 +4,24 @@
 
 This file stores workflow, operating rules, restart behavior, and maintenance instructions for this workspace.
 
-Read this file first at the start of every new thread or restart. Then read the editorial memory.
+Read this file first at the start of every new thread or restart. Then read `template.md`.
 
 ## Memory Split
 
 - this file is the workflow and operations source of truth
-- `CONTENTS.md` is the editorial, source, and presentation source of truth
+- `template.md` is the visible content and presentation source of truth
+- `template.html` is the render/layout implementation of `template.md`
+- `CONTENTS.md` is secondary editorial notes only, not the visible content contract
 - keep project documentation in English
 - update this file when workflow, automation, runtime behavior, or developer conventions change
-- update `CONTENTS.md` when coverage, writing style, source priorities, or page structure change
+- update `CONTENTS.md` only for secondary editorial notes when they are still useful
+- update `template.md` when section purpose, wording intent, visible content rules, or box-by-box guidance change
+- update `template.html` when the rendered structure, labels, placeholders, slot wiring, or layout implementation change
 - mirror user-facing workflow changes in `README.md`
 
 ## Startup Rule
 
-- at the start of every new thread or restart, read this file first and then `CONTENTS.md` before replying or running commands
+- at the start of every new thread or restart, read this file first and then `template.md` before replying or running commands
 - this rule applies even to short or casual prompts
 
 ## Working Rules
@@ -108,7 +112,11 @@ Read this file first at the start of every new thread or restart. Then read the 
 
 ## Rendering Rules
 
+- `template.md` is the main human-editable content spec for the edition
 - `template.html` is the main editable layout file
+- the scan should follow `template.md` for what gets shown, in what order, and with what intent
+- the scan should follow `template.html` for the actual rendered structure, slot placement, and layout wiring
+- do not rely on `README.md` or `CONTENTS.md` to invent visible sections, labels, or placeholder meaning
 - `playground/` contains local design sandboxes and experiments only; it is not part of scan input or runtime
 - generated editions must remain fully standalone HTML files
 - keep styling inline unless the user asks otherwise
@@ -118,10 +126,13 @@ Read this file first at the start of every new thread or restart. Then read the 
 - the official per-match slots are:
   `title`, `summary`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `ranking-table`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
 - do not invent extra slot names or omit these boxes unless the user explicitly changes the template contract
-- `ranking-table` belongs in the wide main column, not the narrow side column
-- `win-rate-table` belongs in the wide main column, not the narrow side column
-- `recent-results` belongs in the wide main column, not the narrow side column
-- `status` belongs in the narrow side column, not the wide main column
+- all match blocks now belong in a single wide column; do not render a separate narrow side column
+- `ranking-table` belongs in that main column
+- `win-rate-table` belongs in that main column
+- `recent-results` belongs in that main column
+- `status` belongs in that main column
+- `market` belongs in that main column
+- `decider` belongs in that main column
 - in `win-rate-table`, each time-period cell should include both overall win rate and win rate against better-ranked players for that same window, using percentages only
 - add a short note under `win-rate-table` that explains the format as `overall win rate / win rate against better-ranked players`
 - the page theme may follow the dominant surface on the card
@@ -132,7 +143,9 @@ Read this file first at the start of every new thread or restart. Then read the 
 - for inline flag styles, use `background-image:url(https://...)` without inner quote characters, so the HTML attribute stays valid and browsers do not drop the flag image
 - if a flag asset is missing, keep the same slot and rely on the backend fallback SVG
 - in `Senaste resultat`, render two undersektioner: one for Player A and one for Player B
-- each undersektion should use the player surname as its subsection title
+- each undersektion should use the full player name as its subsection title
+- those subsection titles should stay in sans serif, not serif body styling
+- those two undersektioner should be stacked vertically inside one broad `Senaste resultat` block, not rendered as side-by-side columns
 - each undersektion should render three columns: `Datum`, `Spelare`, and `Resultat`
 - in the `Spelare` column, show winner first in the form `winner vs looser`
 - in the `Resultat` column, show the winner's score line
@@ -149,7 +162,7 @@ Read this file first at the start of every new thread or restart. Then read the 
 - round displayed edge to whole percentages with no decimals
 - show only positive edge values; omit negative edge labels entirely
 - do not render separate `Tennis Abstract edge` or `Vitel edge` rows
-- when present, the main price block should sit full-width in the match flow rather than being squeezed into the narrow side column
+- when present, the main price block should sit full-width in the match flow
 - never abbreviate `Tennis Abstract` to `TA` in user-facing HTML
 - let `Spelidé` follow the inline `Tennis Abstract` edge first when that data is available
 - keep `Vitel` as a secondary experimental signal, but it must not control `Spelidé` when `Tennis Abstract` is also visible
@@ -167,6 +180,8 @@ Read this file first at the start of every new thread or restart. Then read the 
 - `run.sh --daily HH:MM` enables the long-lived daily schedule in `Europe/Stockholm`
 - `run.sh` should call `atp-tennis-daily-scan` rather than embedding a long literal prompt
 - `template.html` is the only local layout input for a normal scan; `tennis-daily.html` must remain output-only
+- during a normal scan, visible content intent should be taken from `template.md`
+- during a normal scan, rendered structure should be taken from `template.html`
 - `run.sh --publish` should simply copy `tennis-daily.html` to the site root as `index.html`
 - `run.sh` may send optional Pushover notifications when `PUSHOVER_TOKEN` and `PUSHOVER_USER` are set in the environment
 - notification failures must never make an otherwise successful scan fail

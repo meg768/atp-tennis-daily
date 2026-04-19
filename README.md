@@ -48,12 +48,14 @@ The edition should be built in this order:
 
 The page is intentionally static:
 
-- `template.html` is the base layout file
+- `template.md` is the human-readable content contract
+- `template.html` is the base layout and render file
 - `playground/preview.html` is a local design sandbox and is not required for runtime
 - `playground/` holds design experiments only and should stay off limits during normal scan runs
 - `tennis-daily.html` stores the current local edition
 
 The design is meant to stay focused on the match list itself. It should still work well on both desktop and mobile.
+For anything the reader can actually see on the page, `template.md` should be treated as the source of truth for content and section intent, while `template.html` should be treated as the render implementation. The project memory should support workflow, sources, and technical guardrails rather than duplicate the visible contract.
 The generated HTML can also carry the dominant surface theme in a fully self-contained way and follow the viewer's light/dark system preference without needing any external app runtime.
 When opened from `vitel`, the page can also accept a `theme=` query parameter such as `dark clay` or `light hard` to mirror the frontend's current mode and surface selection.
 The standalone page also supports keyboard theme shortcuts: `F3` cycles surface (`hard`, `grass`, `clay`) and `F6` toggles `light/dark`, with the latest local choice persisted in `localStorage`.
@@ -144,10 +146,10 @@ Internally, `run.sh` sends the short command `atp-tennis-daily-scan` to Codex. T
 Do not run `atp-tennis-daily-scan` directly on your Mac or on `pi-kato`; use `./run.sh` or `./run.sh --publish` in the repo directory instead.
 `atp-tennis-daily-scan` is meant to execute the scan directly in the active Codex session. It must not call `run.sh` again or start a nested runner process.
 `tennis-daily.html` is output-only and must never be used as scan input, fallback input, or layout source.
-`atp-tennis-daily-scan` should stay narrowly focused during a live scan: read `template.html`, fetch the current card and player context from `https://tennis.egelberg.se`, add current reporting for the specific matches on the card, then write `tennis-daily.html`. It should avoid broad repo searching or wandering through unrelated historical files during a normal scan.
+`atp-tennis-daily-scan` should stay narrowly focused during a live scan: read `template.md` for content intent, read `template.html` for rendered structure, fetch the current card and player context from `https://tennis.egelberg.se`, add current reporting for the specific matches on the card, then write `tennis-daily.html`. It should avoid broad repo searching or wandering through unrelated historical files during a normal scan.
 `atp-tennis-daily-scan` should also use the documented ATP service endpoints directly. It should not probe `https://tennis.egelberg.se/`, inspect the frontend app, or scrape bundled JavaScript assets just to rediscover endpoints that are already part of the project memory.
 During a normal scan, it should not inspect `run.sh`, broad repo history, or large unrelated files once the workflow is already known.
-During a normal scan, it should not read `README.md` again once `CONTEXT.md` and `CONTENTS.md` are already loaded.
+During a normal scan, it should not read `README.md` again once `CONTEXT.md` and `template.md` are already loaded.
 To keep Pi scans stable, `atp-tennis-daily-scan` should keep tool output compact. It should prefer filtered endpoint reads and small excerpts over dumping full HTML, full JSON payloads, or large schema responses into the session.
 When the scan needs SQL, it should verify table and column names against `GET /api/meta/schema.sql` and read only the narrow excerpt it needs rather than guessing column names.
 The rendered edition should be written in Swedish with proper Swedish characters, including `å`, `ä`, and `ö`, rather than ASCII fallback spellings.
@@ -158,8 +160,8 @@ In the `Odds` block, `atp-tennis-daily-scan` should show `Tennis Abstract` rathe
 For flag slots in inline HTML, write the style as `background-image:url(https://...)` without nested quote characters inside `url(...)`. That keeps the HTML attribute valid and avoids browsers dropping the flag image.
 When `Spelidé` compares model signals, normalize the values to numeric types first. If a `Tennis Abstract` or `Vitel` signal is missing, empty, or non-numeric, skip that source rather than aborting the whole render.
 In the `Head-to-head` block, `atp-tennis-daily-scan` should prefer the existing compact table style when previous meetings exist. Show date, tournament, surface, and a readable result line with winner and score. Fall back to a short prose note only when there are no relevant previous meetings.
-Use the named block structure from `template.html` consistently rather than inventing ad-hoc wrappers per match. The intended order is a full-width `match-block--odds`, then `match-block--play`, `match-block--form`, `match-block--head-to-head`, `match-block--status` in the main column, and `match-block--ranking`, `match-block--recent-results`, `match-block--market`, `match-block--decider` in the side column.
-In `Senaste resultat`, split the block into two subsections, one per player, and let each subsection use the same compact three-column table shape: `Datum`, `Spelare`, `Resultat`. In `Spelare`, show the winner first in the form `winner vs looser`, and in `Resultat`, show the winner's score line. In visible date columns such as `Head-to-head` and `Senaste resultat`, render `YYYY-MM-DD` rather than full ISO timestamps.
+Use the named block structure from `template.html` consistently rather than inventing ad-hoc wrappers per match. The intended order is a full-width `match-block--odds`, then one single broad column with `match-block--play`, `match-block--form`, `match-block--ranking`, `match-block--win-rate`, `match-block--recent-results`, `match-block--head-to-head`, `match-block--status`, `match-block--market`, `match-block--decider`.
+In `Senaste resultat`, split the block into two subsections, one per player, and let each subsection use the full player name as its sans-serif subsection title above the same compact three-column table shape: `Datum`, `Spelare`, `Resultat`. Keep those two subsections stacked vertically inside one broad `Senaste resultat` block rather than rendering them side by side. In `Spelare`, show the winner first in the form `winner vs looser`, and in `Resultat`, show the winner's score line. In visible date columns such as `Head-to-head` and `Senaste resultat`, render `YYYY-MM-DD` rather than full ISO timestamps.
 When building inline Python during a scan, avoid brittle nested f-string quoting such as `f"{row["winner"]}"` or `f"{BASE}/api/player/search?term={urllib.parse.quote(player["name"])}"`. Prefer small intermediate variables like `winner`, `loser`, `score`, `player_name`, and `quoted_name`, then build the final text or URL from those variables.
 Before sorting rows in inline Python, normalize nullable values first so the sort key never compares `None` with strings or numbers. Prefer keys such as `(row.get("start") or "", row.get("tournament") or "", row.get("playerA", {}).get("name") or "")` instead of sorting directly on raw nullable fields.
 In `Skador och dagsläge`, the scan may also call out a meaningful recent inactivity period, comeback, or long layoff when it helps explain why the current ranking may undersell the player's real level.

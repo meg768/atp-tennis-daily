@@ -2,7 +2,9 @@
 
 ## Purpose
 
-This file stores the editorial brief for what the edition should contain, how it should be written, which sources matter, and how the page should look.
+This file stores secondary editorial notes for how the edition may be written, which sources matter, and what kind of coverage the page should prioritize.
+
+Visible page structure, box names, placeholders, labels, section order, and section intent should be taken from `template.md` and `template.html`, not from this file.
 
 ## Editorial Intent
 
@@ -43,45 +45,12 @@ For each match, include as much of this as the sources support:
 3. ATP Tour and tournament pages for official context
 4. reliable current reporting for injuries and recent developments
 
-## Page Structure
+## Page Contract
 
-Use this order:
-
-1. `Tennis Daily`
-2. date line
-3. one section per match
-
-Do not use separate front-page style sections such as `Front Page`, `I Blickfånget`, or `Dagsläget`.
-
-## Match Section Template
-
-Each match section should usually contain:
-
-- heading: flag slot, player name, optional country code, ranking, `vs`, then the same for the opponent
-- one short matchup summary
-- `Spelbild`
-- `Form och historik`
-- `Head-to-head` when relevant
-- when previous meetings exist, `Head-to-head` should prefer a compact results table with date, tournament, surface, and score rather than only a prose summary
-- `Odds` as a full-width primary block rather than a cramped side-column block
-- `Skador och dagsläge` when relevant
-  This may also cover recent inactivity or a return after a long break when that helps explain a player's current ranking versus likely level.
-  When mentioning inactivity or a layoff, explicitly name which player it applies to.
-- `Marknad och modell` when relevant
-- one short closing line
-
-Use one fixed block order and naming contract:
-
-- `match-block--odds` for the main full-width odds block
-- main column in this order:
-  `match-block--play`, `match-block--form`, `match-block--ranking`, `match-block--win-rate`, `match-block--recent-results`, `match-block--head-to-head`
-- side column in this order:
-  `match-block--status`, `match-block--market`, `match-block--decider`
-- the generator should fill this structure with content rather than inventing alternative wrapper layouts per match
-- the hidden fixed match scaffold in `template.html` should be treated as the source template for every generated match section
-- fill the placeholders inside that scaffold with match-specific content instead of writing new section HTML from scratch
-- the official slot names for one match are:
-  `title`, `summary`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `ranking-table`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
+- `template.md` defines the visible content contract in human language
+- `template.html` implements that contract in rendered HTML
+- if the user wants to change a visible heading, box, placeholder, section order, table shape, or label, update `template.md` first and then sync `template.html`
+- do not introduce front-page style sections such as `Front Page`, `I Blickfånget`, or `Dagsläget` unless the template files are changed to ask for them
 
 ## Presentation Rules
 
@@ -100,20 +69,6 @@ Use one fixed block order and naming contract:
 - prefer ATP SVG flags over emoji
 - render those flags as circular `background-image` slots
 - keep mobile readability strong
-- in tables, avoid line breaks when they are not necessary; prefer keeping dates, scorelines, and short comparative rows on one line when space allows
-- in `Head-to-head`, keep a compact table but use exactly three columns: `Datum`, `Spelare`, `Resultat`
-- in `Spelare`, show the winner first in the form `winner vs looser`
-- in `Resultat`, show the winner's score line
-- in date columns such as `Head-to-head` and `Senaste resultat`, display dates as `YYYY-MM-DD`
-- never show raw ISO timestamps such as `2026-04-12T22:00:00.000Z`
-- add a `Vinstprocent` table with columns `Spelare`, `3 mån`, `6 mån`, `12 mån`
-- in each time-period column, show both the overall win rate and the win rate against better-ranked players over the same period, using percentages only
-- add a short explanatory note under `Vinstprocent` that clarifies the format as `overall win rate / win rate against better-ranked players`
-- in `Senaste resultat`, split the block into two undersektioner: one for Player A and one for Player B
-- use the player surname as each undersektions rubrik
-- keep each `Senaste resultat` table fixed to exactly three columns: `Datum`, `Spelare`, `Resultat`
-- in `Spelare`, show the winner first in the form `winner vs looser`
-- in `Resultat`, show the winner's score line
 - in the `Odds` block, show `Svenska Spel`, `Tennis Abstract`, and `Vitel` when the data supports it
 - do not render a separate match-meta box such as `Svenska Spel / modell` above the `Odds` block; all price comparison belongs inside `Odds` and, when useful, in `Marknad och modell`
 - if one odds or model source is temporarily unavailable for a matchup, omit that row and keep rendering the rest of the match section
@@ -133,6 +88,9 @@ Use one fixed block order and naming contract:
 - use player surnames rather than first names in odds-table headers and in `Spelidé`
 - avoid anonymous layoff phrasing such as only giving a date gap; say which player has been inactive
 - do not abort the whole page just because one matchup is missing one model row
+- prefer dates normalized to `YYYY-MM-DD` and avoid leaking raw ISO timestamps into visible copy
+- in tables, avoid unnecessary line breaks; keep dates, scorelines, and short comparative rows on one line when space allows
+- if the template asks for a specific visible table format, subsection split, label, or wording pattern, follow the template version over any older prose here
 
 ## What To Avoid
 
