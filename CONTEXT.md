@@ -189,10 +189,9 @@ For each match, include as much of this as the sources support:
 - treat the hidden `<template id="fixed-match-section-template">` inside `template.html` as the literal per-match scaffold during scans
 - when rendering a match, replace the scaffold fields with data and text; do not output free-form alternative wrappers or differently ordered sections
 - the official per-match slots are:
-  `title`, `summary`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `ranking-table`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
+  `title`, `summary`, `snapshot`, `match-profile`, `risk-flag`, `time`, `event`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
 - do not invent extra slot names or omit these boxes unless the user explicitly changes the template contract
 - all match blocks now belong in a single wide column; do not render a separate narrow side column
-- `ranking-table` belongs in that main column
 - `win-rate-table` belongs in that main column
 - `recent-results` belongs in that main column
 - `status` belongs in that main column
@@ -259,6 +258,26 @@ Should avoid:
 - generic filler
 - long stat dumps
 - repeating the same wording as later sections
+
+### Match Overview
+
+Purpose:
+- orient the reader before the deeper blocks begin
+
+Should show:
+- one compact `Snabbkoll` line with the market and model read
+- one short `Matchprofil` phrase in plain language
+- one brief `Dagsläge` note with the most relevant current-status signal
+
+Should do:
+- stay compact
+- help skimming
+- avoid repeating full later sections word for word
+
+Should avoid:
+- long prose
+- duplicate table data
+- generic labels without an actual takeaway
 
 ### Match Meta
 
@@ -330,20 +349,6 @@ Should include:
 Preferred style:
 - specific and compact
 - more match-relevant than encyclopedic
-
-### Ranking Och Yta
-
-Purpose:
-- give a compact strength snapshot for the surface
-
-Columns:
-- `Spelare`
-- `Rank`
-- `Yt-ELO`
-- `Ytfaktor`
-
-Should do:
-- make the surface-specific relationship easy to compare at a glance
 
 ### Vinstprocent
 

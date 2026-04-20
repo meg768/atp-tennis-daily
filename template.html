@@ -374,7 +374,6 @@
 			    if (block.classList.contains('match-block--form') || text === 'Form och historik') return 'form';
 			    if (block.classList.contains('match-block--head-to-head') || text === 'Head-to-head') return 'head-to-head';
 			    if (block.classList.contains('match-block--status') || text === 'Skador och dagsläge') return 'status';
-			    if (block.classList.contains('match-block--ranking') || text === 'Ranking och yta') return 'ranking';
 			    if (block.classList.contains('match-block--win-rate') || text === 'Vinstprocent') return 'win-rate';
 			    if (block.classList.contains('match-block--recent-results') || text === 'Senaste resultat') return 'recent-results';
 			    if (block.classList.contains('match-block--market') || text === 'Marknad och modell') return 'market';
@@ -390,14 +389,13 @@
 			      form: 'match-block--form',
 			      'head-to-head': 'match-block--head-to-head',
 			      status: 'match-block--status',
-			      ranking: 'match-block--ranking',
 			      'win-rate': 'match-block--win-rate',
 			      'recent-results': 'match-block--recent-results',
 			      market: 'match-block--market',
 			      decider: 'match-block--decider'
 			    };
 
-			    const mainOrder = ['play', 'form', 'ranking', 'win-rate', 'recent-results', 'head-to-head', 'status', 'market', 'decider'];
+			    const mainOrder = ['play', 'form', 'win-rate', 'recent-results', 'head-to-head', 'status', 'market', 'decider'];
 
 			    document.querySelectorAll('.match-section').forEach(section => {
 			      const blocks = Array.from(section.querySelectorAll('.match-block'));
@@ -1110,6 +1108,42 @@
 			  color: var(--copy-soft);
 			}
 
+			.match-overview {
+			  display: grid;
+			  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+			  gap: 0.75rem;
+			  margin-top: 0.95rem;
+			}
+
+			.match-overview__item {
+			  padding: 0.82rem;
+			  background: color-mix(in srgb, var(--panel-surface) 82%, var(--paper) 18%);
+			  border: 1px solid var(--rule);
+			  border-radius: 0.35rem;
+			  min-width: 0;
+			}
+
+			.match-overview__label {
+			  display: block;
+			  color: var(--theme-base);
+			  font-family: var(--font-sans);
+			  font-size: var(--type-label-size);
+			  font-weight: 700;
+			  letter-spacing: 0.08em;
+			  text-transform: uppercase;
+			}
+
+			.match-overview__item strong {
+			  display: block;
+			  margin-top: 0.36rem;
+			  color: var(--ink);
+			  font-family: var(--font-serif);
+			  font-size: var(--type-meta-size);
+			  line-height: 1.35;
+			  font-weight: 400;
+			  letter-spacing: 0;
+			}
+
 			.match-meta {
 			  display: grid;
 			  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -1193,7 +1227,6 @@
 			}
 
 			.match-block--head-to-head .mini-table,
-			.match-block--ranking .mini-table,
 			.match-block--win-rate .mini-table,
 			.match-block--recent-results .mini-table {
 			  width: 100%;
@@ -1473,7 +1506,7 @@
 				<h1 class="masthead__title">{{title}}</h1>
 				<p class="masthead__date">{{dateLine}}</p>
 				<p class="masthead__deck">
-					Ett dagligt ATP-nyhetsblad med kommande singelmatcher, match för match, med ranking, ELO, form, inbördes möten, odds och verifierat dagsläge i fokus.
+					Ett dagligt ATP-nyhetsblad med kommande singelmatcher, match för match, med spelbild, form, inbördes möten, odds och verifierat dagsläge i fokus.
 				</p>
 			</header>
 
@@ -1497,6 +1530,20 @@
 						{{Write a short editorial top summary of the matchup. Explain what the match is likely to hinge on and why the price may or may not tell the full
 						story.}}
 					</p>
+					<div class="match-overview">
+						<div class="match-overview__item">
+							<span class="match-overview__label">Snabbkoll</span>
+							<strong data-slot="snapshot">{{Short market and model read for the match}}</strong>
+						</div>
+						<div class="match-overview__item">
+							<span class="match-overview__label">Matchprofil</span>
+							<strong data-slot="match-profile">{{2 to 5 words on the likely matchup pattern}}</strong>
+						</div>
+						<div class="match-overview__item">
+							<span class="match-overview__label">Dagsläge</span>
+							<strong data-slot="risk-flag">{{Short current-status note or main uncertainty}}</strong>
+						</div>
+					</div>
 					<div class="match-meta">
 						<div class="match-meta__item">
 							Tid<strong data-slot="time"
@@ -1518,9 +1565,9 @@
 						<p class="match-block__label">Odds</p>
 						<div class="template-spec">
 							<p>
-								Show Svenska Spel, Tennis Abstract, and Vitel in one simple table. When Tennis Abstract or Vitel shows a positive edge, write it
-								directly after the odds in the same cell, for example 2.34 (+6%). Never show negative edge labels, and end with one short Swedish
-								pricing takeaway.
+								Show Svenska Spel, Tennis Abstract, and Vitel in one simple table. Keep the cell content compact. For Tennis Abstract and Vitel,
+								append positive edge inline after the odds in the same cell, for example 2.34 (+6%). Never show negative edge labels, and end with
+								one short Swedish pricing takeaway.
 							</p>
 						</div>
 						<table class="odds-table" data-slot="odds-table">
@@ -1539,13 +1586,13 @@
 								</tr>
 								<tr>
 									<td>Tennis Abstract</td>
-									<td>{{Show Tennis Abstract price, then inline positive edge like (+6%) for PlayerA when positive}}</td>
-									<td>{{Show Tennis Abstract price, then inline positive edge like (+6%) for PlayerB when positive}}</td>
+									<td>{{TA price for PlayerA, plus positive edge if any}}</td>
+									<td>{{TA price for PlayerB, plus positive edge if any}}</td>
 								</tr>
 								<tr>
 									<td>Vitel</td>
-									<td>{{Show Vitel price, then inline positive edge like (+6%) for PlayerA when positive}}</td>
-									<td>{{Show Vitel price, then inline positive edge like (+6%) for PlayerB when positive}}</td>
+									<td>{{Vitel price for PlayerA, plus positive edge if any}}</td>
+									<td>{{Vitel price for PlayerB, plus positive edge if any}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -1567,40 +1614,6 @@
 									{{Describe both players' recent form and broader context. Prefer concrete record language such as wins and losses over the last
 									6 months or last 5 matches.}}
 								</p>
-							</article>
-
-							<article class="match-block match-block--ranking">
-								<p class="match-block__label">Ranking och yta</p>
-								<div class="template-spec">
-									<p>
-										Keep this as a compact comparison table for rank, surface ELO, and surface factor. It should read at a glance. Show
-										players with full names.
-									</p>
-								</div>
-								<table class="mini-table" data-slot="ranking-table">
-									<thead>
-										<tr>
-											<th>Spelare</th>
-											<th>Rank</th>
-											<th>Yt-ELO</th>
-											<th>Ytfaktor</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>{{Show PlayerA}}</td>
-											<td>{{Show rank}}</td>
-											<td>{{Show surface ELO}}</td>
-											<td>{{Show surface factor}}</td>
-										</tr>
-										<tr>
-											<td>{{Show PlayerB}}</td>
-											<td>{{Show rank}}</td>
-											<td>{{Show surface ELO}}</td>
-											<td>{{Show surface factor}}</td>
-										</tr>
-									</tbody>
-								</table>
 							</article>
 
 							<article class="match-block match-block--win-rate">
