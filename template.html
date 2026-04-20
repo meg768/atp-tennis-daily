@@ -950,6 +950,23 @@
 			  display: block;
 			}
 
+			.match-kicker {
+			  display: flex;
+			  flex-wrap: wrap;
+			  gap: 0.28rem;
+			  margin: 0 0 0.45rem;
+			  color: var(--theme-base);
+			  font-family: var(--font-sans);
+			  font-size: 0.72rem;
+			  font-weight: 900;
+			  letter-spacing: 0.08em;
+			  text-transform: uppercase;
+			}
+
+			.match-kicker__sep {
+			  opacity: 0.7;
+			}
+
 			.template-spec__title {
 			  margin: 0 0 0.3rem;
 			  color: var(--theme-base);
@@ -1519,7 +1536,13 @@
 
 			<template id="fixed-match-section-template">
 				<section class="match-section">
-					<p class="template-preview-label">{{Show start time}} · {{Show tournament}} · {{Show round}}</p>
+					<p class="match-kicker">
+						<span data-slot="time">{{Show start time}}</span>
+						<span class="match-kicker__sep">·</span>
+						<span data-slot="venue">{{Show place}}</span>
+						<span class="match-kicker__sep">·</span>
+						<span data-slot="event">{{Show tournament and round}}</span>
+					</p>
 					<div class="template-spec">
 						<p>
                             Show flag, full name, country, and ranking for each player, and keep both sides visually aligned.
