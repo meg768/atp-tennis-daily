@@ -1516,7 +1516,7 @@
 
 			<template id="fixed-match-section-template">
 				<section class="match-section">
-					<p class="template-preview-label">Match title</p>
+					<p class="template-preview-label">{{Show start time}} · {{Show tournament}} · {{Show round}}</p>
 					<div class="template-spec">
 						<p>
                             Show flag, full name, country, and ranking for each player, and keep both sides visually aligned.
@@ -1545,11 +1545,7 @@
 						</div>
 					</div>
 					<div class="match-meta">
-						<div class="match-meta__item">
-							Tid<strong data-slot="time"
-								>{{Show start date and time}}<span class="match-meta__subtext" data-slot="event">{{Show tournament and round}}</span></strong
-							>
-						</div>
+						<div class="match-meta__item">Nyckelfråga<strong data-slot="key-question">{{Write one short question that frames the hinge of the match}}</strong></div>
 						<div class="match-meta__item">YTD<strong data-slot="record">{{Show season record for both players}}</strong></div>
 						<div class="match-meta__item">
 							<span data-slot="surface-label">{{Show surface profile label}}</span
