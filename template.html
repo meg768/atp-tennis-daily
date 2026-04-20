@@ -1156,9 +1156,12 @@
 			  background: var(--panel-surface);
 			  border: 1px solid var(--rule);
 			  border-radius: 0.35rem;
-			  color: var(--muted);
+			  color: var(--theme-base);
+			  font-family: var(--font-sans);
 			  font-size: var(--type-label-size);
 			  font-weight: 700;
+			  letter-spacing: 0.08em;
+			  text-transform: uppercase;
 			}
 
 			.match-meta__item strong {
@@ -1616,8 +1619,8 @@
 								<p class="match-block__label">Vinstprocent</p>
 								<div class="template-spec">
 									<p>
-										Each period cell should show total win rate and win rate against better-ranked players for the same span, using
-										percentages only. Show players with full names in the left column and keep the table easy to read at a glance.
+										Show full player names in the left column. Each period cell should use the compact format overall / vs better-ranked,
+										percentages only, for example 64% / 29%.
 									</p>
 								</div>
 								<table class="mini-table" data-slot="win-rate-table">
@@ -1632,33 +1635,15 @@
 									<tbody>
 										<tr>
 											<td>{{Show PlayerA}}</td>
-											<td>
-												{{Show 3 month win rate and the win rate over better ranked players over the same period. Show
-												percentage only}}
-											</td>
-											<td>
-												{{Show 6 month win rate and the win rate over better ranked players over the same period. Show
-												percentage only}}
-											</td>
-											<td>
-												{{Show 12 month win rate and the win rate over better ranked players over the same period. Show
-												percentage only}}
-											</td>
+											<td>{{3 month rates for PlayerA}}</td>
+											<td>{{6 month rates for PlayerA}}</td>
+											<td>{{12 month rates for PlayerA}}</td>
 										</tr>
 										<tr>
 											<td>{{Show PlayerB}}</td>
-											<td>
-												{{Show 3 month win rate and the win rate over better ranked players over the same period. Show
-												percentage only}}
-											</td>
-											<td>
-												{{Show 6 month win rate and the win rate over better ranked players over the same period. Show
-												percentage only}}
-											</td>
-											<td>
-												{{Show 12 month win rate and the win rate over better ranked players over the same period. Show
-												percentage only}}
-											</td>
+											<td>{{3 month rates for PlayerB}}</td>
+											<td>{{6 month rates for PlayerB}}</td>
+											<td>{{12 month rates for PlayerB}}</td>
 										</tr>
 									</tbody>
 								</table>
