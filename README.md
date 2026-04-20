@@ -48,14 +48,14 @@ The edition should be built in this order:
 
 The page is intentionally static:
 
-- `template.md` is the human-readable content contract
+- `CONTEXT.md` is the human-readable project memory and content contract
 - `template.html` is the base layout and render file
 - `playground/preview.html` is a local design sandbox and is not required for runtime
 - `playground/` holds design experiments only and should stay off limits during normal scan runs
 - `tennis-daily.html` stores the current local edition
 
 The design is meant to stay focused on the match list itself. It should still work well on both desktop and mobile.
-For anything the reader can actually see on the page, `template.md` should be treated as the source of truth for content and section intent, while `template.html` should be treated as the render implementation. The project memory should support workflow, sources, and technical guardrails rather than duplicate the visible contract.
+For anything the reader can actually see on the page, `CONTEXT.md` should be treated as the source of truth for content and section intent, while `template.html` should be treated as the render implementation.
 The generated HTML can also carry the dominant surface theme in a fully self-contained way and follow the viewer's light/dark system preference without needing any external app runtime.
 When opened from `vitel`, the page can also accept a `theme=` query parameter such as `dark clay` or `light hard` to mirror the frontend's current mode and surface selection.
 The standalone page also supports keyboard theme shortcuts: `F3` cycles surface (`hard`, `grass`, `clay`) and `F6` toggles `light/dark`, with the latest local choice persisted in `localStorage`.
@@ -146,10 +146,10 @@ Internally, `run.sh` sends the short command `atp-tennis-daily-scan` to Codex. T
 Do not run `atp-tennis-daily-scan` directly on your Mac or on `pi-kato`; use `./run.sh` or `./run.sh --publish` in the repo directory instead.
 `atp-tennis-daily-scan` is meant to execute the scan directly in the active Codex session. It must not call `run.sh` again or start a nested runner process.
 `tennis-daily.html` is output-only and must never be used as scan input, fallback input, or layout source.
-`atp-tennis-daily-scan` should stay narrowly focused during a live scan: read `template.md` for content intent, read `template.html` for rendered structure, fetch the current card and player context from `https://tennis.egelberg.se`, add current reporting for the specific matches on the card, then write `tennis-daily.html`. It should avoid broad repo searching or wandering through unrelated historical files during a normal scan.
+`atp-tennis-daily-scan` should stay narrowly focused during a live scan: read `CONTEXT.md` for content intent, read `template.html` for rendered structure, fetch the current card and player context from `https://tennis.egelberg.se`, add current reporting for the specific matches on the card, then write `tennis-daily.html`. It should avoid broad repo searching or wandering through unrelated historical files during a normal scan.
 `atp-tennis-daily-scan` should also use the documented ATP service endpoints directly. It should not probe `https://tennis.egelberg.se/`, inspect the frontend app, or scrape bundled JavaScript assets just to rediscover endpoints that are already part of the project memory.
 During a normal scan, it should not inspect `run.sh`, broad repo history, or large unrelated files once the workflow is already known.
-During a normal scan, it should not read `README.md` again once `CONTEXT.md` and `template.md` are already loaded.
+During a normal scan, it should not read `README.md` again once `CONTEXT.md` is already loaded.
 To keep Pi scans stable, `atp-tennis-daily-scan` should keep tool output compact. It should prefer filtered endpoint reads and small excerpts over dumping full HTML, full JSON payloads, or large schema responses into the session.
 When the scan needs SQL, it should verify table and column names against `GET /api/meta/schema.sql` and read only the narrow excerpt it needs rather than guessing column names.
 The rendered edition should be written in Swedish with proper Swedish characters, including `å`, `ä`, and `ö`, rather than ASCII fallback spellings.

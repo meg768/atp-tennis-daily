@@ -2,26 +2,23 @@
 
 ## Purpose
 
-This file stores workflow, operating rules, restart behavior, and maintenance instructions for this workspace.
+This file is the single project memory and source of truth for this workspace.
+It stores workflow, operating rules, content intent, rendering rules, restart behavior, and maintenance instructions.
 
-Read this file first at the start of every new thread or restart. Then read `template.md`.
+Read this file first at the start of every new thread or restart.
 
-## Memory Split
+## Source Of Truth
 
-- this file is the workflow and operations source of truth
-- `template.md` is the visible content and presentation source of truth
-- `template.html` is the render/layout implementation of `template.md`
-- `CONTENTS.md` is secondary editorial notes only, not the visible content contract
+- this file is the only project memory file
+- `template.html` is the render and layout implementation of this file
 - keep project documentation in English
-- update this file when workflow, automation, runtime behavior, or developer conventions change
-- update `CONTENTS.md` only for secondary editorial notes when they are still useful
-- update `template.md` when section purpose, wording intent, visible content rules, or box-by-box guidance change
+- update this file when workflow, visible content rules, section intent, automation, or developer conventions change
 - update `template.html` when the rendered structure, labels, placeholders, slot wiring, or layout implementation change
 - mirror user-facing workflow changes in `README.md`
 
 ## Startup Rule
 
-- at the start of every new thread or restart, read this file first and then `template.md` before replying or running commands
+- at the start of every new thread or restart, read this file before replying or running commands
 - this rule applies even to short or casual prompts
 
 ## Working Rules
@@ -42,7 +39,6 @@ Read this file first at the start of every new thread or restart. Then read `tem
 - never call `run.sh` from inside `atp-tennis-daily-scan`
 - never spawn a nested runner from `atp-tennis-daily-scan`
 - a normal scan should not inspect `run.sh`, broad repo history, or large unrelated files once the workflow is already known
-- a normal scan should not read `README.md` once `CONTEXT.md` and `CONTENTS.md` are already loaded
 - a normal scan should not reread the full schema or endpoint docs unless a needed endpoint contract is genuinely unclear
 - a normal scan should never read files under `playground/`; that directory is design-only and off limits in scan mode
 - when a scan needs to write targeted SQL, it should verify table and column names against `GET /api/meta/schema.sql` rather than guessing
@@ -110,13 +106,82 @@ Read this file first at the start of every new thread or restart. Then read `tem
 - before sorting rows in inline Python, normalize nullable fields so the sort key never mixes `None` with strings or numbers
 - use explicit safe sort keys such as `(row.get("start") or "", row.get("tournament") or "", row.get("playerA", {}).get("name") or "")` rather than comparing raw nullable values
 
+## Editorial Intent
+
+- publish a daily HTML page called `Tennis Daily`
+- cover all ATP singles matches currently listed on the Svenska Spel card exposed by `https://tennis.egelberg.se/api/oddset`
+- exclude doubles, WTA, and Challenger
+- use `https://tennis.egelberg.se` as the statistical backbone
+- enrich with current reporting when it adds real value, especially for injuries, withdrawals, and recent developments
+- write the edition in Swedish, using normal Swedish spelling with `å`, `ä`, and `ö`
+
+## Coverage Rules
+
+- include all ATP singles matches on the current card from `https://tennis.egelberg.se/api/oddset`
+- skip matches that are already in progress or otherwise live
+- do not add matches that are not on the card
+- do not use live matches to drive the odds analysis
+- when multiple tournaments are active, include them all but keep the page easy to scan
+
+## Match Analysis Rules
+
+For each match, include as much of this as the sources support:
+
+- tournament, surface, and start time when known
+- player ranking and nationality
+- overall and surface-specific ELO or rating context when useful
+- player strengths, tactical identity, and likely match pattern
+- recent form
+- recent inactivity, layoffs, or long breaks from the tour when they meaningfully affect the matchup context
+- head-to-head when relevant
+- odds context from Svenska Spel, Tennis Abstract, and Vitel
+- injuries, withdrawals, or fitness questions when they are currently and credibly reported
+- a short closing judgement on what is most likely to decide the match
+
+## Source Order
+
+1. `https://tennis.egelberg.se/api/oddset` for the card and bookmaker prices
+2. `https://tennis.egelberg.se` for rankings, odds, history, and model context
+3. ATP Tour and tournament pages for official context
+4. reliable current reporting for injuries and recent developments
+
+## Page-Level Intent
+
+- the page should feel like a calm, intelligent tennis daily edition
+- the writing should be in Swedish
+- the tone should be editorial rather than robotic
+- every match should follow the same visible structure
+- the page should favor clarity over cleverness
+
+## Presentation Rules
+
+- the page should feel calm, readable, and match-focused
+- keep the masthead in a restrained broadsheet direction rather than an oversized poster look
+- the current preferred title treatment is `Libre Baskerville`, with the masthead and running text in serif while labels, rails, and small structural headings stay in sans serif
+- do not make any single surface the master narrative of the whole page
+- let the current event surface act as matchup context
+- keep labels plain rather than decorative
+- prefer flat box colors over visible gradients inside cards
+- use proper Swedish characters in all rendered copy instead of ASCII fallback spellings
+- use surface themes:
+  - clay = warm red/terracotta
+  - grass = green
+  - hard court = blue
+- prefer ATP SVG flags over emoji
+- render those flags as circular `background-image` slots
+- keep mobile readability strong
+- if one odds or model source is temporarily unavailable for a matchup, omit that row and keep rendering the rest of the match section
+- avoid anonymous layoff phrasing such as only giving a date gap; say which player has been inactive
+- do not abort the whole page just because one matchup is missing one model row
+- prefer dates normalized to `YYYY-MM-DD` and avoid leaking raw ISO timestamps into visible copy
+- in tables, avoid unnecessary line breaks; keep dates, scorelines, and short comparative rows on one line when space allows
+
 ## Rendering Rules
 
-- `template.md` is the main human-editable content spec for the edition
 - `template.html` is the main editable layout file
-- the scan should follow `template.md` for what gets shown, in what order, and with what intent
+- the scan should follow this file for what gets shown, in what order, and with what intent
 - the scan should follow `template.html` for the actual rendered structure, slot placement, and layout wiring
-- do not rely on `README.md` or `CONTENTS.md` to invent visible sections, labels, or placeholder meaning
+- do not rely on `README.md` to invent visible sections, labels, or placeholder meaning
 - `playground/` contains local design sandboxes and experiments only; it is not part of scan input or runtime
 - generated editions must remain fully standalone HTML files
 - keep styling inline unless the user asks otherwise
@@ -137,30 +202,265 @@ Read this file first at the start of every new thread or restart. Then read `tem
 - add a short note under `win-rate-table` that explains the format as `overall win rate / win rate against better-ranked players`
 - the page theme may follow the dominant surface on the card
 - support light and dark mode when practical, but do not let theme work destabilize the scan flow
-- prefer ATP SVG flags over emoji
 - render match-title flags as circular slots using `background-image:url(...)`
 - keep the `match-title__flag` slot visually empty; never place visible country text inside the flag span itself
 - for inline flag styles, use `background-image:url(https://...)` without inner quote characters, so the HTML attribute stays valid and browsers do not drop the flag image
 - if a flag asset is missing, keep the same slot and rely on the backend fallback SVG
-- in `Senaste resultat`, render two undersektioner: one for Player A and one for Player B
-- each undersektion should use the full player name as its subsection title
-- those subsection titles should stay in sans serif, not serif body styling
-- those two undersektioner should be stacked vertically inside one broad `Senaste resultat` block, not rendered as side-by-side columns
-- each undersektion should render three columns: `Datum`, `Spelare`, and `Resultat`
-- in the `Spelare` column, show winner first in the form `winner vs looser`
-- in the `Resultat` column, show the winner's score line
-- normalize visible date columns such as `Head-to-head` and `Senaste resultat` to `YYYY-MM-DD`
-- never show raw ISO timestamps such as `2026-04-12T22:00:00.000Z` in user-facing output
-- in tables, prefer layouts that avoid unnecessary wrapping; keep dates and scorelines on one line whenever practical
-- in `Head-to-head`, render three columns: `Datum`, `Spelare`, and `Resultat`
-- in the `Spelare` column, show the winner first in the form `winner vs looser`
-- in the `Resultat` column, show the winner's score line
-- prefer explicit block classes such as `match-block--play`, `match-block--form`, `match-block--head-to-head`, `match-block--status`, `match-block--ranking`, `match-block--recent-results`, `match-block--market`, and `match-block--decider`
-- when present, the main price block should sit full-width in the match flow
-- keep odds presentation rules in `template.md`; this file should only carry technical render constraints
-- if a `Tennis Abstract` or `Vitel` signal is missing, empty, or non-numeric, skip that signal rather than aborting the whole render
-- keep full player names in the main match title
-- use player surnames rather than first names in odds-table headers and in `Spelidé`
+- when a `Tennis Abstract` or `Vitel` signal is missing, empty, or non-numeric, skip that signal rather than aborting the whole render
+
+## Section Contract
+
+### Masthead
+
+Purpose:
+- frame the page as `Tennis Daily`
+- show that the page is a daily ATP-focused edition
+- show when it was updated
+
+Should show:
+- `Tennis Daily`
+- a centered ATP label in the top rail
+- update time
+- long-form date under the masthead title
+
+Should feel:
+- broadsheet
+- restrained
+- serif-led in the main title, sans serif in structural labels
+
+### Match Title
+
+Purpose:
+- identify the matchup immediately and unambiguously
+
+Should show:
+- flag for Player A
+- full name for Player A
+- country code for Player A when used in the template
+- ranking for Player A
+- `vs`
+- the same pattern for Player B
+
+Important:
+- keep full player names here
+- keep the title visually aligned and easy to scan
+
+### Match Summary
+
+Purpose:
+- give one short top-line read of the matchup
+
+Should do:
+- explain what the match likely hinges on
+- say why the odds may or may not tell the full story
+- stay short and editorial
+
+Should avoid:
+- generic filler
+- long stat dumps
+- repeating the same wording as later sections
+
+### Match Meta
+
+#### Tid
+
+Should show:
+- start date and time
+- tournament and round as subtext
+
+#### YTD
+
+Should show:
+- season record for both players in compact form
+
+#### Surface Profile
+
+Should show:
+- one short label for the surface view
+- one compact surface-specific comparison
+- one small supporting line with rank or rating context
+
+### Odds
+
+Purpose:
+- show the price picture clearly in one place
+
+Rows:
+- `Svenska Spel`
+- `Tennis Abstract`
+- `Vitel`
+
+Should show:
+- player surnames in the table headers
+- odds for both players
+- positive edge inline after model odds when available
+
+Spelidé:
+- one short Swedish takeaway
+- grounded in the visible prices
+- `Tennis Abstract` should lead when available
+- `Vitel` can support, but should stay secondary
+
+### Spelbild
+
+Purpose:
+- describe how the match is likely to be played
+
+Should include:
+- tactical pattern
+- stylistic contrast
+- what each player wants to do
+- where the matchup probably turns
+
+Should avoid:
+- biography
+- generic filler
+
+### Form Och Historik
+
+Purpose:
+- explain recent form and broader context
+
+Should include:
+- concrete record language when possible
+- recent wins and losses
+- short-term form
+- medium-term context when relevant
+
+Preferred style:
+- specific and compact
+- more match-relevant than encyclopedic
+
+### Ranking Och Yta
+
+Purpose:
+- give a compact strength snapshot for the surface
+
+Columns:
+- `Spelare`
+- `Rank`
+- `Yt-ELO`
+- `Ytfaktor`
+
+Should do:
+- make the surface-specific relationship easy to compare at a glance
+
+### Vinstprocent
+
+Purpose:
+- show consistency over different windows
+
+Columns:
+- `Spelare`
+- `3 mån`
+- `6 mån`
+- `12 mån`
+
+Each period cell should show:
+- total win rate
+- win rate against better-ranked players in the same period
+
+Display rule:
+- percentages only
+- use a short note under the table to explain the format
+
+### Senaste Resultat
+
+Purpose:
+- show what each player has actually been doing lately
+
+Structure:
+- one subsection for Player A
+- one subsection for Player B
+- stacked vertically, not side by side
+
+Subsection title:
+- full player name
+- sans serif
+
+Table columns:
+- `Datum`
+- `Spelare`
+- `Resultat`
+
+Display rule:
+- keep dates as `YYYY-MM-DD`
+- show winner first in the `Spelare` column
+- include ranking in the player line when the template asks for it
+- show the score from the winner's perspective
+
+### Head-to-Head
+
+Purpose:
+- show previous meetings between these two players only
+
+Table columns:
+- `Datum`
+- `Spelare`
+- `Resultat`
+
+Display rule:
+- keep dates as `YYYY-MM-DD`
+- show winner first
+- keep the table compact and readable
+
+### Skador Och Dagsläge
+
+Purpose:
+- capture verified current-status context that changes how the match should be read
+
+May include:
+- injuries
+- comeback situations
+- long layoffs
+- meaningful inactivity
+- other verified availability context
+
+Important:
+- always name the player the note applies to
+- avoid vague anonymous wording
+- do not invent injury claims
+
+### Marknad Och Modell
+
+Purpose:
+- explain how the market and the models relate
+
+Should do:
+- stay short
+- stay plain
+- stay in Swedish
+- explain the relationship rather than repeat the raw numbers
+
+### Det Avgör
+
+Purpose:
+- end the matchup with one clean closing thought
+
+Should do:
+- be one short line
+- focus on the single most likely deciding factor
+
+Should avoid:
+- hedging with three different possibilities
+- repeating the summary word for word
+
+## General Output Rules
+
+- use Swedish characters correctly: `å`, `ä`, `ö`
+- prefer readable, compact sentences
+- do not leak raw ISO timestamps into visible output
+- keep tables from wrapping unnecessarily when space allows
+- keep labels plain and structural
+- prefer consistency across all matches
+
+## What To Avoid
+
+- generic filler
+- unsupported injury claims
+- long stat dumps without interpretation
+- repeated biography text
+- turning the page into a pure betting sheet
 
 ## Scheduling And Run Script
 
@@ -169,7 +469,6 @@ Read this file first at the start of every new thread or restart. Then read `tem
 - `run.sh --daily HH:MM` enables the long-lived daily schedule in `Europe/Stockholm`
 - `run.sh` should call `atp-tennis-daily-scan` rather than embedding a long literal prompt
 - `template.html` is the only local layout input for a normal scan; `tennis-daily.html` must remain output-only
-- during a normal scan, visible content intent should be taken from `template.md`
 - during a normal scan, rendered structure should be taken from `template.html`
 - `run.sh --publish` should simply copy `tennis-daily.html` to the site root as `index.html`
 - `run.sh` may send optional Pushover notifications when `PUSHOVER_TOKEN` and `PUSHOVER_USER` are set in the environment
@@ -177,6 +476,6 @@ Read this file first at the start of every new thread or restart. Then read `tem
 
 ## Restart Reliability
 
-- keep `AGENTS.md`, this file, and `CONTENTS.md` in the project root
-- if either memory file is renamed, update `AGENTS.md`
-- prefer updating the memory files over hard-coding workflow rules elsewhere
+- keep `AGENTS.md` and this file in the project root
+- if this file is renamed, update `AGENTS.md`
+- prefer updating this file over hard-coding workflow rules elsewhere
