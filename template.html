@@ -1476,7 +1476,10 @@
 				<section class="match-section">
 					<p class="template-preview-label">Match title</p>
 					<div class="template-spec">
-						<p>Show flag, full name, country, and ranking for each player, and keep both sides visually aligned.</p>
+						<p>
+                            Show flag, full name, country, and ranking for each player, and keep both sides visually aligned.
+                            Make sure to have some space between the two sides and a clear separator. 
+                        </p>
 					</div>
 					<h2 class="match-section__title" data-slot="title">
 						<span class="match-title__name">{{Show PlayerA vs PlayerB}}</span>
@@ -1505,7 +1508,10 @@
 					<article class="match-block match-block--primary match-block--odds">
 						<p class="match-block__label">Odds</p>
 						<div class="template-spec">
-							<p>Show Svenska Spel, Tennis Abstract, and Vitel in one simple table. Keep positive edge inline, skip negative edge labels, and end with one short Swedish pricing takeaway.</p>
+							<p>
+								Show Svenska Spel, Tennis Abstract, and Vitel in one simple table. Keep positive edge inline, skip negative edge labels, and end with
+								one short Swedish pricing takeaway.
+							</p>
 						</div>
 						<table class="odds-table" data-slot="odds-table">
 							<thead>
@@ -1556,7 +1562,10 @@
 							<article class="match-block match-block--ranking">
 								<p class="match-block__label">Ranking och yta</p>
 								<div class="template-spec">
-									<p>Keep this as a compact comparison table for rank, surface ELO, and surface factor. It should read at a glance.</p>
+									<p>
+										Keep this as a compact comparison table for rank, surface ELO, and surface factor. It should read at a glance. Show
+										players with full names.
+									</p>
 								</div>
 								<table class="mini-table" data-slot="ranking-table">
 									<thead>
@@ -1587,7 +1596,10 @@
 							<article class="match-block match-block--win-rate">
 								<p class="match-block__label">Vinstprocent</p>
 								<div class="template-spec">
-									<p>Each period cell should show total win rate and win rate against better-ranked players for the same span, using percentages only.</p>
+									<p>
+										Each period cell should show total win rate and win rate against better-ranked players for the same span, using
+										percentages only. Show players with full names in the left column and keep the table easy to read at a glance.
+									</p>
 								</div>
 								<table class="mini-table" data-slot="win-rate-table">
 									<thead>
@@ -1639,10 +1651,13 @@
 							<article class="match-block match-block--recent-results">
 								<p class="match-block__label">Senaste resultat</p>
 								<div class="template-spec">
-									<p>Render two stacked subsections, one per player. Use full player names as subsection titles and keep the table columns as Datum, Spelare, Resultat.</p>
+									<p>
+										Render two stacked subsections, one per player. Use full player names and keep the table columns as
+										Datum, Spelare, Resultat. 
+									</p>
 								</div>
 								<div class="match-subsections match-subsections--stacked">
-									<p class="match-subsection__title" data-slot="recent-results-player-a-title">{{Show PlayerA full name}}</p>
+									<p class="match-subsection__title" data-slot="recent-results-player-a-title">{{Show PlayerA}}</p>
 									<table class="mini-table mini-table--recent-results" data-slot="recent-results-player-a">
 										<thead>
 											<tr>
@@ -1664,7 +1679,7 @@
 											</tr>
 										</tbody>
 									</table>
-									<p class="match-subsection__title" data-slot="recent-results-player-b-title">{{Show PlayerB full name}}</p>
+									<p class="match-subsection__title" data-slot="recent-results-player-b-title">{{Show PlayerB}}</p>
 									<table class="mini-table mini-table--recent-results" data-slot="recent-results-player-b">
 										<thead>
 											<tr>
