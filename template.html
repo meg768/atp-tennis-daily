@@ -370,7 +370,6 @@
 			    const text = label?.textContent.trim() || '';
 
 			    if (block.classList.contains('match-block--odds') || text === 'Odds') return 'odds';
-			    if (block.classList.contains('match-block--kelly') || text === 'Kelly') return 'kelly';
 			    if (block.classList.contains('match-block--play') || text === 'Spelbild') return 'play';
 			    if (block.classList.contains('match-block--form') || text === 'Form och historik') return 'form';
 			    if (block.classList.contains('match-block--head-to-head') || text === 'Head-to-head') return 'head-to-head';
@@ -386,7 +385,6 @@
 			  function ensureMatchSectionStructure() {
 			    const roleClassMap = {
 			      odds: 'match-block--odds',
-			      kelly: 'match-block--kelly',
 			      play: 'match-block--play',
 			      form: 'match-block--form',
 			      'head-to-head': 'match-block--head-to-head',
@@ -397,7 +395,7 @@
 			      decider: 'match-block--decider'
 			    };
 
-			    const mainOrder = ['kelly', 'play', 'form', 'win-rate', 'recent-results', 'head-to-head', 'status', 'market', 'decider'];
+			    const mainOrder = ['play', 'form', 'win-rate', 'recent-results', 'head-to-head', 'status', 'market', 'decider'];
 
 			    document.querySelectorAll('.match-section').forEach(section => {
 			      const blocks = Array.from(section.querySelectorAll('.match-block'));
@@ -459,41 +457,6 @@
 			          section.appendChild(body);
 			        }
 			      }
-			    });
-			  }
-
-			  function normalizeMatchOverviewCards() {
-			    const fallbackLabels = ['Snabbkoll', 'Matchprofil', 'Dagsläge'];
-
-			    document.querySelectorAll('.match-overview').forEach(overview => {
-			      Array.from(overview.children).forEach((item, index) => {
-			        item.classList.add('match-overview__item');
-
-			        if (item.querySelector(':scope > .match-overview__label')) {
-			          return;
-			        }
-
-			        const value = item.querySelector(':scope > strong');
-			        const labelParts = [];
-
-			        Array.from(item.childNodes).forEach(node => {
-			          if (node === value) {
-			            return;
-			          }
-
-			          const text = node.textContent?.trim();
-			          if (text) {
-			            labelParts.push(text);
-			          }
-
-			          node.remove();
-			        });
-
-			        const label = document.createElement('span');
-			        label.className = 'match-overview__label';
-			        label.textContent = labelParts.join(' ') || fallbackLabels[index] || 'Notis';
-			        item.insertBefore(label, value || item.firstChild);
-			      });
 			    });
 			  }
 
@@ -598,7 +561,6 @@
 			  function normalizeRenderedContent() {
 			    hydrateEditablePreview();
 			    ensureMatchSectionStructure();
-			    normalizeMatchOverviewCards();
 
 			    document.querySelectorAll('.match-title__flag').forEach(flag => {
 			      flag.textContent = '';
@@ -1170,8 +1132,7 @@
 			  margin-top: 0.95rem;
 			}
 
-			.match-overview__item,
-			.match-overview > div {
+			.match-overview__item {
 			  padding: 0.82rem;
 			  background: color-mix(in srgb, var(--panel-surface) 82%, var(--paper) 18%);
 			  border: 1px solid var(--rule);
@@ -1189,8 +1150,7 @@
 			  text-transform: uppercase;
 			}
 
-			.match-overview__item strong,
-			.match-overview > div strong {
+			.match-overview__item strong {
 			  display: block;
 			  margin-top: 0.36rem;
 			  color: var(--ink);
@@ -1397,17 +1357,6 @@
 			  font-weight: 900;
 			}
 
-			.match-block__intro,
-			.match-copy .match-block p.match-block__intro,
-			.match-body .match-block p.match-block__intro {
-			  margin: 0 0 0.65rem;
-			  color: var(--copy);
-			  font-family: var(--font-serif);
-			  font-size: var(--type-body-size);
-			  line-height: var(--leading-body);
-			  font-weight: 700;
-			}
-
 			.match-subsection__title,
 			.match-copy .match-block p.match-subsection__title,
 			.match-body .match-block p.match-subsection__title {
@@ -1456,11 +1405,6 @@
 
 			.mini-table--head-to-head td:last-child,
 			.mini-table--recent-results td:last-child {
-			  white-space: nowrap;
-			}
-
-			.mini-table--kelly th:nth-child(n + 3),
-			.mini-table--kelly td:nth-child(n + 3) {
 			  white-space: nowrap;
 			}
 
@@ -1629,8 +1573,7 @@
 							<p>
 								Show Svenska Spel, Tennis Abstract, and Vitel in one simple table. Keep the cell content compact. For Tennis Abstract and Vitel,
 								append positive edge inline after the odds in the same cell, for example 2.34 (+6%). Never show negative edge labels, and end with
-								one short Swedish pricing takeaway. Show full player names for clarity. Fill this existing table only; do not insert another table
-								inside this table slot.
+								one short Swedish pricing takeaway. Show full player names for clarity.
 							</p>
 						</div>
 						<table class="odds-table" data-slot="odds-table">
@@ -1661,52 +1604,6 @@
 						</table>
 						<p class="odds-callout" data-slot="betting-idea">
 							<strong>Spelidé:</strong> {{Write one short betting or pricing takeaway in clear Swedish. Keep it concise and editorial.}}
-						</p>
-					</article>
-
-					<article class="match-block match-block--kelly">
-						<p class="match-block__label">Kelly</p>
-						<div class="template-spec">
-							<p>
-								Assume a 1000 kr bankroll. Use Svenska Spel as the stakeable odds and model-implied probability from Tennis Abstract or Vitel.
-								For each positive Kelly signal, show suggested stakes for half Kelly, quarter Kelly, and eighth Kelly. In the Spel column, append
-								ROI after the odds, for example Ethan Quinn @ 2.25 (+8% ROI). Use whole kronor only. If there is no positive edge, show 0 kr or
-								omit that row. Fill this existing table only; do not insert another table inside this table slot.
-							</p>
-						</div>
-						<p class="match-block__intro" data-slot="kelly-intro">
-							Förslag på bets enligt Kelly-modellen. {{PlayerA}} mot {{PlayerB}}.
-						</p>
-						<table class="mini-table mini-table--kelly" data-slot="kelly-table">
-							<thead>
-								<tr>
-									<th>Källa</th>
-									<th>Spel (%ROI)</th>
-									<th>1/2</th>
-									<th>1/4</th>
-									<th>1/8</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Tennis Abstract</td>
-									<td>{{Player and Svenska Spel odds plus ROI with positive TA edge}}</td>
-									<td>{{Half Kelly stake in kr}}</td>
-									<td>{{Quarter Kelly stake in kr}}</td>
-									<td>{{Eighth Kelly stake in kr}}</td>
-								</tr>
-								<tr>
-									<td>Vitel</td>
-									<td>{{Player and Svenska Spel odds plus ROI with positive Vitel edge}}</td>
-									<td>{{Half Kelly stake in kr}}</td>
-									<td>{{Quarter Kelly stake in kr}}</td>
-									<td>{{Eighth Kelly stake in kr}}</td>
-								</tr>
-							</tbody>
-						</table>
-						<p class="table-note">
-							Förslagen utgår från en bankrulle på 1000 kr och jämför modellens sannolikhet med Svenska Spels odds. Kelly är aggressivt,
-							så 1/2, 1/4 och 1/8 visar nedskalade insatser för samma edge.
 						</p>
 					</article>
 

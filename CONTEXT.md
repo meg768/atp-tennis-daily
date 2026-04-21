@@ -188,15 +188,11 @@ For each match, include as much of this as the sources support:
 - generated match sections should follow the canonical named block structure defined in `template.html`; the scan should fill those blocks with data rather than inventing new wrapper patterns per matchup
 - treat the hidden `<template id="fixed-match-section-template">` inside `template.html` as the literal per-match scaffold during scans
 - when rendering a match, replace the scaffold fields with data and text; do not output free-form alternative wrappers or differently ordered sections
-- keep top overview cards as three `.match-overview__item` children with a `.match-overview__label` and a block value; do not collapse labels and values into plain inline text
-- for table slots, fill the existing table element with `thead` and `tbody` content; do not insert a complete nested `<table>` inside another table slot
-- for paragraph slots, replace only the paragraph content; do not append the original placeholder text after generated prose
 - the official per-match slots are:
-  `time`, `event`, `title`, `summary`, `snapshot`, `match-profile`, `risk-flag`, `key-answer`, `record`, `surface-label`, `surface-value`, `odds-table`, `betting-idea`, `kelly-intro`, `kelly-table`, `play-pattern`, `form-history`, `head-to-head`, `status`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
+  `time`, `event`, `title`, `summary`, `snapshot`, `match-profile`, `risk-flag`, `key-answer`, `record`, `surface-label`, `surface-value`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
 - do not invent extra slot names or omit these boxes unless the user explicitly changes the template contract
 - all match blocks now belong in a single wide column; do not render a separate narrow side column
 - `win-rate-table` belongs in that main column
-- `kelly-table` belongs directly after the odds block
 - `recent-results` belongs in that main column
 - `status` belongs in that main column
 - `market` belongs in that main column
@@ -335,30 +331,6 @@ Spelidé:
 - grounded in the visible prices
 - `Tennis Abstract` should lead when available
 - `Vitel` can support, but should stay secondary
-
-### Kelly
-
-Purpose:
-- translate positive model edges into practical stake sizes
-
-Should show:
-- one short intro line before the table: `Förslag på bets enligt Kelly-modellen. PlayerA mot PlayerB`
-- stake suggestions based on a fixed 1000 kr bankroll
-- one row per positive model signal from `Tennis Abstract` or `Vitel`
-- the stakeable player, Svenska Spel odds, and ROI for that signal in the `Spel (%ROI)` column, for example `Ethan Quinn @ 2.25 (+8% ROI)`
-- half Kelly, quarter Kelly, and eighth Kelly stakes in whole kronor
-
-Calculation:
-- use Svenska Spel as the stakeable bookmaker odds
-- use the model-implied probability from Tennis Abstract or Vitel
-- calculate ROI as `(bookmaker_odds * p - 1) * 100`, rounded to whole percentages, and show it inline after the odds
-- calculate Kelly fraction as `((odds - 1) * p - (1 - p)) / (odds - 1)`
-- multiply the Kelly fraction by 1000 to get the full Kelly base, then show only 1/2, 1/4, and 1/8 Kelly stakes
-
-Should avoid:
-- suggesting a stake when the Kelly fraction is zero or negative
-- using model odds as stakeable bookmaker odds
-- showing decimal kronor
 
 ### Spelbild
 
