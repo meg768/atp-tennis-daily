@@ -188,6 +188,8 @@ For each match, include as much of this as the sources support:
 - generated match sections should follow the canonical named block structure defined in `template.html`; the scan should fill those blocks with data rather than inventing new wrapper patterns per matchup
 - treat the hidden `<template id="fixed-match-section-template">` inside `template.html` as the literal per-match scaffold during scans
 - when rendering a match, replace the scaffold fields with data and text; do not output free-form alternative wrappers or differently ordered sections
+- for table slots, fill the existing table element with `thead` and `tbody` content; do not insert a complete nested `<table>` inside another table slot
+- for paragraph slots, replace only the paragraph content; do not append the original placeholder text after generated prose
 - the official per-match slots are:
   `time`, `event`, `title`, `summary`, `snapshot`, `match-profile`, `risk-flag`, `key-answer`, `record`, `surface-label`, `surface-value`, `odds-table`, `betting-idea`, `kelly-table`, `play-pattern`, `form-history`, `head-to-head`, `status`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
 - do not invent extra slot names or omit these boxes unless the user explicitly changes the template contract
@@ -341,12 +343,13 @@ Purpose:
 Should show:
 - stake suggestions based on a fixed 1000 kr bankroll
 - one row per positive model signal from `Tennis Abstract` or `Vitel`
-- the stakeable player and Svenska Spel odds for that signal
+- the stakeable player, Svenska Spel odds, and ROI for that signal in the `Spel (%ROI)` column, for example `Ethan Quinn @ 2.25 (+8% ROI)`
 - half Kelly, quarter Kelly, and eighth Kelly stakes in whole kronor
 
 Calculation:
 - use Svenska Spel as the stakeable bookmaker odds
 - use the model-implied probability from Tennis Abstract or Vitel
+- calculate ROI as `(bookmaker_odds * p - 1) * 100`, rounded to whole percentages, and show it inline after the odds
 - calculate Kelly fraction as `((odds - 1) * p - (1 - p)) / (odds - 1)`
 - multiply the Kelly fraction by 1000 to get the full Kelly base, then show only 1/2, 1/4, and 1/8 Kelly stakes
 
