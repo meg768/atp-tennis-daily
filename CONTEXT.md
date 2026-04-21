@@ -189,7 +189,7 @@ For each match, include as much of this as the sources support:
 - treat the hidden `<template id="fixed-match-section-template">` inside `template.html` as the literal per-match scaffold during scans
 - when rendering a match, replace the scaffold fields with data and text; do not output free-form alternative wrappers or differently ordered sections
 - the official per-match slots are:
-  `time`, `event`, `title`, `summary`, `snapshot`, `match-profile`, `risk-flag`, `key-answer`, `record`, `surface-label`, `surface-value`, `odds-table`, `betting-idea`, `kelly-intro`, `kelly-table`, `play-pattern`, `form-history`, `head-to-head`, `status`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
+  `time`, `event`, `title`, `summary`, `snapshot`, `match-profile`, `risk-flag`, `key-answer`, `record`, `surface-label`, `surface-value`, `odds-table`, `betting-idea`, `kelly-intro`, `kelly-table`, `kelly-note`, `play-pattern`, `form-history`, `head-to-head`, `status`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
 - do not invent extra slot names or omit these boxes unless the user explicitly changes the template contract
 - all match blocks now belong in a single wide column; do not render a separate narrow side column
 - `kelly-table` belongs directly after the odds block
@@ -344,7 +344,7 @@ Should show:
 - one row per positive model signal from `Tennis Abstract` or `Vitel`
 - the stakeable player, Svenska Spel odds, and ROI for that signal in the `Spel (%ROI)` column, for example `Ethan Quinn @ 2.25 (+8% ROI)`
 - half Kelly, quarter Kelly, and eighth Kelly stakes in whole kronor
-- a short Swedish note explaining that the stakes use a 1000 kr bankroll and compare model probability with Svenska Spel odds
+- a short Swedish note under the table explaining that the stakes use a 1000 kr bankroll and compare model probability with Svenska Spel odds
 
 Calculation:
 - use Svenska Spel as the stakeable bookmaker odds

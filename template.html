@@ -1074,6 +1074,11 @@
 			  line-height: 1.02;
 			}
 
+			.match-title__name + .match-title__country,
+			.match-title__name + .match-title__detail {
+			  margin-left: 0.28rem;
+			}
+
 			.match-title__detail {
 			  display: inline-flex;
 			  align-items: center;
@@ -1103,6 +1108,10 @@
 			  letter-spacing: 0;
 			  white-space: nowrap;
 			  font-weight: 600;
+			}
+
+			.match-title__country + .match-title__rank {
+			  margin-left: 0.18rem;
 			}
 
 			.match-title__separator {
@@ -1623,7 +1632,8 @@
 										Assume a 1000 kr bankroll. Use Svenska Spel as the stakeable odds and model-implied probability from Tennis Abstract or
 										Vitel. For each positive Kelly signal, show suggested stakes for half Kelly, quarter Kelly, and eighth Kelly. In the Spel
 										column, append ROI after the odds, for example Ethan Quinn @ 2.25 (+8% ROI). Use whole kronor only. If there is no positive
-										edge, show 0 kr or omit that row. Fill this existing table only; do not insert another table inside this table slot.
+										edge, show 0 kr or omit that row. Always keep the Swedish bankroll note under the table. Fill this existing table only; do
+										not insert another table inside this table slot.
 									</p>
 								</div>
 								<p data-slot="kelly-intro">Förslag på bets enligt Kelly-modellen. {{PlayerA}} mot {{PlayerB}}.</p>
@@ -1654,7 +1664,7 @@
 										</tr>
 									</tbody>
 								</table>
-								<p class="table-note">
+								<p class="table-note" data-slot="kelly-note">
 									Förslagen utgår från en bankrulle på 1000 kr och jämför modellens sannolikhet med Svenska Spels odds. Kelly är aggressivt,
 									så 1/2, 1/4 och 1/8 visar nedskalade insatser för samma edge.
 								</p>
