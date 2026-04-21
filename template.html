@@ -462,6 +462,41 @@
 			    });
 			  }
 
+			  function normalizeMatchOverviewCards() {
+			    const fallbackLabels = ['Snabbkoll', 'Matchprofil', 'Dagsläge'];
+
+			    document.querySelectorAll('.match-overview').forEach(overview => {
+			      Array.from(overview.children).forEach((item, index) => {
+			        item.classList.add('match-overview__item');
+
+			        if (item.querySelector(':scope > .match-overview__label')) {
+			          return;
+			        }
+
+			        const value = item.querySelector(':scope > strong');
+			        const labelParts = [];
+
+			        Array.from(item.childNodes).forEach(node => {
+			          if (node === value) {
+			            return;
+			          }
+
+			          const text = node.textContent?.trim();
+			          if (text) {
+			            labelParts.push(text);
+			          }
+
+			          node.remove();
+			        });
+
+			        const label = document.createElement('span');
+			        label.className = 'match-overview__label';
+			        label.textContent = labelParts.join(' ') || fallbackLabels[index] || 'Notis';
+			        item.insertBefore(label, value || item.firstChild);
+			      });
+			    });
+			  }
+
 			  function normalizeRecentResultsTables() {
 			    document.querySelectorAll('.match-block').forEach(block => {
 			      const label = block.querySelector('.match-block__label');
@@ -563,6 +598,7 @@
 			  function normalizeRenderedContent() {
 			    hydrateEditablePreview();
 			    ensureMatchSectionStructure();
+			    normalizeMatchOverviewCards();
 
 			    document.querySelectorAll('.match-title__flag').forEach(flag => {
 			      flag.textContent = '';
@@ -1134,7 +1170,8 @@
 			  margin-top: 0.95rem;
 			}
 
-			.match-overview__item {
+			.match-overview__item,
+			.match-overview > div {
 			  padding: 0.82rem;
 			  background: color-mix(in srgb, var(--panel-surface) 82%, var(--paper) 18%);
 			  border: 1px solid var(--rule);
@@ -1152,7 +1189,8 @@
 			  text-transform: uppercase;
 			}
 
-			.match-overview__item strong {
+			.match-overview__item strong,
+			.match-overview > div strong {
 			  display: block;
 			  margin-top: 0.36rem;
 			  color: var(--ink);

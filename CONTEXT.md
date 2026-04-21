@@ -188,6 +188,7 @@ For each match, include as much of this as the sources support:
 - generated match sections should follow the canonical named block structure defined in `template.html`; the scan should fill those blocks with data rather than inventing new wrapper patterns per matchup
 - treat the hidden `<template id="fixed-match-section-template">` inside `template.html` as the literal per-match scaffold during scans
 - when rendering a match, replace the scaffold fields with data and text; do not output free-form alternative wrappers or differently ordered sections
+- keep top overview cards as three `.match-overview__item` children with a `.match-overview__label` and a block value; do not collapse labels and values into plain inline text
 - for table slots, fill the existing table element with `thead` and `tbody` content; do not insert a complete nested `<table>` inside another table slot
 - for paragraph slots, replace only the paragraph content; do not append the original placeholder text after generated prose
 - the official per-match slots are:
