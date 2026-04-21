@@ -370,6 +370,7 @@
 			    const text = label?.textContent.trim() || '';
 
 			    if (block.classList.contains('match-block--odds') || text === 'Odds') return 'odds';
+			    if (block.classList.contains('match-block--kelly') || text === 'Kelly') return 'kelly';
 			    if (block.classList.contains('match-block--play') || text === 'Spelbild') return 'play';
 			    if (block.classList.contains('match-block--form') || text === 'Form och historik') return 'form';
 			    if (block.classList.contains('match-block--head-to-head') || text === 'Head-to-head') return 'head-to-head';
@@ -385,6 +386,7 @@
 			  function ensureMatchSectionStructure() {
 			    const roleClassMap = {
 			      odds: 'match-block--odds',
+			      kelly: 'match-block--kelly',
 			      play: 'match-block--play',
 			      form: 'match-block--form',
 			      'head-to-head': 'match-block--head-to-head',
@@ -395,7 +397,7 @@
 			      decider: 'match-block--decider'
 			    };
 
-			    const mainOrder = ['play', 'form', 'win-rate', 'recent-results', 'head-to-head', 'status', 'market', 'decider'];
+			    const mainOrder = ['kelly', 'play', 'form', 'win-rate', 'recent-results', 'head-to-head', 'status', 'market', 'decider'];
 
 			    document.querySelectorAll('.match-section').forEach(section => {
 			      const blocks = Array.from(section.querySelectorAll('.match-block'));
@@ -1408,6 +1410,11 @@
 			  white-space: nowrap;
 			}
 
+			.mini-table--kelly th:nth-child(n + 3),
+			.mini-table--kelly td:nth-child(n + 3) {
+			  white-space: nowrap;
+			}
+
 			.odds-table {
 			  width: 100%;
 			  border-collapse: collapse;
@@ -1604,6 +1611,48 @@
 						</table>
 						<p class="odds-callout" data-slot="betting-idea">
 							<strong>Spelidé:</strong> {{Write one short betting or pricing takeaway in clear Swedish. Keep it concise and editorial.}}
+						</p>
+					</article>
+
+					<article class="match-block match-block--kelly">
+						<p class="match-block__label">Kelly</p>
+						<div class="template-spec">
+							<p>
+								Assume a 1000 kr bankroll. Use Svenska Spel as the stakeable odds and model-implied probability from Tennis Abstract or Vitel.
+								For each positive Kelly signal, show suggested stakes for half Kelly, quarter Kelly, and eighth Kelly. Use whole kronor only.
+								If there is no positive edge, show 0 kr or omit that row.
+							</p>
+						</div>
+						<table class="mini-table mini-table--kelly" data-slot="kelly-table">
+							<thead>
+								<tr>
+									<th>Källa</th>
+									<th>Spel</th>
+									<th>1/2</th>
+									<th>1/4</th>
+									<th>1/8</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Tennis Abstract</td>
+									<td>{{Player and Svenska Spel odds with positive TA edge}}</td>
+									<td>{{Half Kelly stake in kr}}</td>
+									<td>{{Quarter Kelly stake in kr}}</td>
+									<td>{{Eighth Kelly stake in kr}}</td>
+								</tr>
+								<tr>
+									<td>Vitel</td>
+									<td>{{Player and Svenska Spel odds with positive Vitel edge}}</td>
+									<td>{{Half Kelly stake in kr}}</td>
+									<td>{{Quarter Kelly stake in kr}}</td>
+									<td>{{Eighth Kelly stake in kr}}</td>
+								</tr>
+							</tbody>
+						</table>
+						<p class="table-note">
+							Förslagen utgår från en bankrulle på 1000 kr och jämför modellens sannolikhet med Svenska Spels odds. Kelly är aggressivt,
+							så 1/2, 1/4 och 1/8 visar nedskalade insatser för samma edge.
 						</p>
 					</article>
 
