@@ -1359,6 +1359,17 @@
 			  font-weight: 900;
 			}
 
+			.match-block__intro,
+			.match-copy .match-block p.match-block__intro,
+			.match-body .match-block p.match-block__intro {
+			  margin: 0 0 0.65rem;
+			  color: var(--copy);
+			  font-family: var(--font-serif);
+			  font-size: var(--type-body-size);
+			  line-height: var(--leading-body);
+			  font-weight: 700;
+			}
+
 			.match-subsection__title,
 			.match-copy .match-block p.match-subsection__title,
 			.match-body .match-block p.match-subsection__title {
@@ -1625,6 +1636,9 @@
 								omit that row. Fill this existing table only; do not insert another table inside this table slot.
 							</p>
 						</div>
+						<p class="match-block__intro" data-slot="kelly-intro">
+							Förslag på bets enligt Kelly-modellen. {{PlayerA}} mot {{PlayerB}}.
+						</p>
 						<table class="mini-table mini-table--kelly" data-slot="kelly-table">
 							<thead>
 								<tr>

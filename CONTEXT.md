@@ -191,7 +191,7 @@ For each match, include as much of this as the sources support:
 - for table slots, fill the existing table element with `thead` and `tbody` content; do not insert a complete nested `<table>` inside another table slot
 - for paragraph slots, replace only the paragraph content; do not append the original placeholder text after generated prose
 - the official per-match slots are:
-  `time`, `event`, `title`, `summary`, `snapshot`, `match-profile`, `risk-flag`, `key-answer`, `record`, `surface-label`, `surface-value`, `odds-table`, `betting-idea`, `kelly-table`, `play-pattern`, `form-history`, `head-to-head`, `status`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
+  `time`, `event`, `title`, `summary`, `snapshot`, `match-profile`, `risk-flag`, `key-answer`, `record`, `surface-label`, `surface-value`, `odds-table`, `betting-idea`, `kelly-intro`, `kelly-table`, `play-pattern`, `form-history`, `head-to-head`, `status`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
 - do not invent extra slot names or omit these boxes unless the user explicitly changes the template contract
 - all match blocks now belong in a single wide column; do not render a separate narrow side column
 - `win-rate-table` belongs in that main column
@@ -341,6 +341,7 @@ Purpose:
 - translate positive model edges into practical stake sizes
 
 Should show:
+- one short intro line before the table: `Förslag på bets enligt Kelly-modellen. PlayerA mot PlayerB`
 - stake suggestions based on a fixed 1000 kr bankroll
 - one row per positive model signal from `Tennis Abstract` or `Vitel`
 - the stakeable player, Svenska Spel odds, and ROI for that signal in the `Spel (%ROI)` column, for example `Ethan Quinn @ 2.25 (+8% ROI)`
