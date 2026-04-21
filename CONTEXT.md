@@ -189,7 +189,7 @@ For each match, include as much of this as the sources support:
 - treat the hidden `<template id="fixed-match-section-template">` inside `template.html` as the literal per-match scaffold during scans
 - when rendering a match, replace the scaffold fields with data and text; do not output free-form alternative wrappers or differently ordered sections
 - the official per-match slots are:
-  `time`, `venue`, `event`, `title`, `summary`, `snapshot`, `match-profile`, `risk-flag`, `key-question`, `record`, `surface-label`, `surface-value`, `surface-subtext`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
+  `time`, `event`, `title`, `summary`, `snapshot`, `match-profile`, `risk-flag`, `key-answer`, `record`, `surface-label`, `surface-value`, `odds-table`, `betting-idea`, `play-pattern`, `form-history`, `head-to-head`, `status`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
 - do not invent extra slot names or omit these boxes unless the user explicitly changes the template contract
 - all match blocks now belong in a single wide column; do not render a separate narrow side column
 - `win-rate-table` belongs in that main column
@@ -251,7 +251,6 @@ Purpose:
 
 Should show:
 - start time
-- place
 - tournament and round
 
 Should do:
@@ -296,10 +295,10 @@ Should avoid:
 
 ### Match Meta
 
-#### Nyckelfråga
+#### Nyckelsvar
 
 Should show:
-- one short question that frames what really decides the matchup
+- one short answer that states what really decides the matchup
 
 #### YTD
 
@@ -311,7 +310,6 @@ Should show:
 Should show:
 - one short label for the surface view
 - one compact surface-specific comparison
-- one small supporting line with rank or rating context
 
 ### Odds
 
