@@ -1570,12 +1570,14 @@
 					</p>
 					<div class="template-spec">
 						<p>
-                            Show flag, full name, country and ranking for each player. Keep both sides visually aligned.
-                            Make sure to have some space between each player's info and the vs separator. 
+                            Render the title on one single line in this exact pattern:
+                            [flag] Full Name (COUNTRY) #Rank vs [flag] Full Name (COUNTRY) #Rank.
+                            Use circular flags before each player, keep the country code in parentheses immediately after the name,
+                            then a space and the ranking. Keep everything inline, clearly spaced, and easy to scan.
                         </p>
 					</div>
 					<h2 class="match-section__title" data-slot="title">
-						<span class="match-title__name">{{Show PlayerA vs PlayerB}}</span>
+						<span class="match-title__name">{{Show [flag] Full Name (COUNTRY) #Rank vs [flag] Full Name (COUNTRY) #Rank}}</span>
 					</h2>
 					<p class="match-section__summary" data-slot="summary">
 						{{Write a short editorial top summary of the matchup. Explain what the match is likely to hinge on and why the price may or may not tell the full
