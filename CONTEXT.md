@@ -135,7 +135,7 @@ For each match, include as much of this as the sources support:
 - recent form
 - recent inactivity, layoffs, or long breaks from the tour when they meaningfully affect the matchup context
 - head-to-head when relevant
-- odds context from Svenska Spel, Tennis Abstract, and Vitel
+- odds context from Svenska Spel, Tennis Abstract, and Tennis Daily
 - injuries, withdrawals, or fitness questions when they are currently and credibly reported
 - a short closing judgement on what is most likely to decide the match
 
@@ -207,7 +207,7 @@ For each match, include as much of this as the sources support:
 - keep the `match-title__flag` slot visually empty; never place visible country text inside the flag span itself
 - for inline flag styles, use `background-image:url(https://...)` without inner quote characters, so the HTML attribute stays valid and browsers do not drop the flag image
 - if a flag asset is missing, keep the same slot and rely on the backend fallback SVG
-- when a `Tennis Abstract` or `Vitel` signal is missing, empty, or non-numeric, skip that signal rather than aborting the whole render
+- when a `Tennis Abstract` or `Tennis Daily` signal is missing, empty, or non-numeric, skip that signal rather than aborting the whole render
 
 ## Section Contract
 
@@ -321,7 +321,7 @@ Purpose:
 Rows:
 - `Svenska Spel`
 - `Tennis Abstract`
-- `Vitel`
+- `Tennis Daily`
 
 Should show:
 - player surnames in the table headers
@@ -332,7 +332,7 @@ Spelidé:
 - one short Swedish takeaway
 - grounded in the visible prices
 - `Tennis Abstract` should lead when available
-- `Vitel` can support, but should stay secondary
+- `Tennis Daily` can support, but should stay secondary
 
 ### Kelly
 
@@ -342,14 +342,14 @@ Purpose:
 Should show:
 - a short Swedish intro line before the table: `Förslag på bets enligt Kelly-modellen. PlayerA mot PlayerB.`
 - stake suggestions based on a fixed 1000 kr bankroll
-- one row per positive model signal from `Tennis Abstract` or `Vitel`
+- one row per positive model signal from `Tennis Abstract` or `Tennis Daily`
 - the stakeable player, Svenska Spel odds, and ROI for that signal in the `Spel (%ROI)` column, for example `Ethan Quinn @ 2.25 (+8% ROI)`
 - half Kelly, quarter Kelly, and eighth Kelly stakes in whole kronor
 - a short Swedish note under the table explaining that the stakes use a 1000 kr bankroll and compare model probability with Svenska Spel odds
 
 Calculation:
 - use Svenska Spel as the stakeable bookmaker odds
-- use the model-implied probability from Tennis Abstract or Vitel
+- use the model-implied probability from Tennis Abstract or Tennis Daily
 - calculate ROI as `(bookmaker_odds * p - 1) * 100`, rounded to whole percentages, and show it inline after the odds
 - calculate Kelly fraction as `((odds - 1) * p - (1 - p)) / (odds - 1)`
 - multiply the Kelly fraction by 1000 to get the full Kelly base, then show only 1/2, 1/4, and 1/8 Kelly stakes

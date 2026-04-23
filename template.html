@@ -1587,7 +1587,7 @@
 						<p class="match-block__label">Odds</p>
 						<div class="template-spec">
 							<p>
-								Show Svenska Spel, Tennis Abstract, and Vitel in one simple table. Keep the cell content compact. For Tennis Abstract and Vitel,
+								Show Svenska Spel, Tennis Abstract, and Tennis Daily in one simple table. Keep the cell content compact. For Tennis Abstract and Tennis Daily,
 								append positive edge inline after the odds in the same cell, for example 2.34 (+6%). Never show negative edge labels, and end with
 								one short Swedish pricing takeaway. Show full player names for clarity.
 							</p>
@@ -1612,9 +1612,9 @@
 									<td>{{TA price for PlayerB, plus positive edge if any}}</td>
 								</tr>
 								<tr>
-									<td>Vitel</td>
-									<td>{{Vitel price for PlayerA, plus positive edge if any}}</td>
-									<td>{{Vitel price for PlayerB, plus positive edge if any}}</td>
+									<td>Tennis Daily</td>
+									<td>{{Tennis Daily price for PlayerA, plus positive edge if any}}</td>
+									<td>{{Tennis Daily price for PlayerB, plus positive edge if any}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -1630,7 +1630,7 @@
 								<div class="template-spec">
 									<p>
 										Assume a 1000 kr bankroll. Use Svenska Spel as the stakeable odds and model-implied probability from Tennis Abstract or
-										Vitel. For each positive Kelly signal, show suggested stakes for half Kelly, quarter Kelly, and eighth Kelly. In the Spel
+										Tennis Daily. For each positive Kelly signal, show suggested stakes for half Kelly, quarter Kelly, and eighth Kelly. In the Spel
 										column, append ROI after the odds, for example Ethan Quinn @ 2.25 (+8% ROI). Use whole kronor only. If there is no positive
 										edge, show 0 kr or omit that row. Always keep the Swedish bankroll note under the table. Fill this existing table only; do
 										not insert another table inside this table slot.
@@ -1656,8 +1656,8 @@
 											<td>{{Eighth Kelly stake in kr}}</td>
 										</tr>
 										<tr>
-											<td>Vitel</td>
-											<td>{{Player and Svenska Spel odds plus ROI with positive Vitel edge}}</td>
+											<td>Tennis Daily</td>
+											<td>{{Player and Svenska Spel odds plus ROI with positive Tennis Daily edge}}</td>
 											<td>{{Half Kelly stake in kr}}</td>
 											<td>{{Quarter Kelly stake in kr}}</td>
 											<td>{{Eighth Kelly stake in kr}}</td>
