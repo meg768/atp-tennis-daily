@@ -12,6 +12,7 @@ Read this file first at the start of every new thread or restart.
 - this file is the only project memory file
 - `template.html` is the render and layout implementation of this file
 - keep project documentation in English
+- keep `README.md` short and public-facing; it must not duplicate this full project memory
 - update this file when workflow, visible content rules, section intent, automation, or developer conventions change
 - update `template.html` when the rendered structure, labels, placeholders, slot wiring, or layout implementation change
 - mirror user-facing workflow changes in `README.md`
