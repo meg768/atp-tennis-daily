@@ -189,6 +189,7 @@ For each match, include as much of this as the sources support:
 - generated match sections should follow the canonical named block structure defined in `template.html`; the scan should fill those blocks with data rather than inventing new wrapper patterns per matchup
 - treat the hidden `<template id="fixed-match-section-template">` inside `template.html` as the literal per-match scaffold during scans
 - when rendering a match, replace the scaffold fields with data and text; do not output free-form alternative wrappers or differently ordered sections
+- `Vitel` may still exist as an internal or backend concept, but it must never appear in visible rendered copy; use the visible source label `Tennis Daily` everywhere the reader sees that model line
 - the official per-match slots are:
   `time`, `event`, `title`, `summary`, `snapshot`, `match-profile`, `risk-flag`, `key-answer`, `record`, `surface-label`, `surface-value`, `odds-table`, `betting-idea`, `kelly-intro`, `kelly-table`, `kelly-note`, `play-pattern`, `form-history`, `head-to-head`, `status`, `win-rate-table`, `win-rate-note`, `recent-results-player-a-title`, `recent-results-player-a`, `recent-results-player-b-title`, `recent-results-player-b`, `market-model`, `decider`
 - do not invent extra slot names or omit these boxes unless the user explicitly changes the template contract
@@ -285,6 +286,9 @@ Should show:
 - one short `Matchprofil` phrase in plain language
 - one brief `Dagsläge` note with the most relevant current-status signal
 
+Naming rule:
+- if `Snabbkoll` mentions the secondary model line by name, call it `Tennis Daily`, never `Vitel`
+
 Should do:
 - stay compact
 - help skimming
@@ -328,11 +332,16 @@ Should show:
 - odds for both players
 - positive edge inline after model odds when available
 
+Naming rule:
+- use the visible row label `Tennis Daily`, never `Vitel`
+- if the scanner writes a full HTML table into `odds-table`, it must still use `Tennis Daily` in the rendered row label
+
 Spelidé:
 - one short Swedish takeaway
 - grounded in the visible prices
 - `Tennis Abstract` should lead when available
 - `Tennis Daily` can support, but should stay secondary
+- if `Spelidé` names the secondary model line explicitly, call it `Tennis Daily`, never `Vitel`
 
 ### Kelly
 
@@ -346,6 +355,10 @@ Should show:
 - the stakeable player, Svenska Spel odds, and ROI for that signal in the `Spel (%ROI)` column, for example `Ethan Quinn @ 2.25 (+8% ROI)`
 - half Kelly, quarter Kelly, and eighth Kelly stakes in whole kronor
 - a short Swedish note under the table explaining that the stakes use a 1000 kr bankroll and compare model probability with Svenska Spel odds
+
+Naming rule:
+- use the visible row label `Tennis Daily`, never `Vitel`
+- if the scanner writes a full HTML table into `kelly-table`, it must still use `Tennis Daily` in the rendered row label
 
 Calculation:
 - use Svenska Spel as the stakeable bookmaker odds

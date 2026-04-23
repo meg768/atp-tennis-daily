@@ -560,9 +560,30 @@
 			    });
 			  }
 
+			  function replaceVisibleModelLabel(rootNode) {
+			    if (!rootNode) {
+			      return;
+			    }
+
+			    const walker = document.createTreeWalker(rootNode, NodeFilter.SHOW_TEXT);
+			    let textNode = walker.nextNode();
+
+			    while (textNode) {
+			      textNode.textContent = textNode.textContent.replace(/\bVitel\b/g, 'Tennis Daily');
+			      textNode = walker.nextNode();
+			    }
+			  }
+
+			  function normalizeVisibleModelLabels() {
+			    document.querySelectorAll('.match-section, .footer-note').forEach(node => {
+			      replaceVisibleModelLabel(node);
+			    });
+			  }
+
 			  function normalizeRenderedContent() {
 			    hydrateEditablePreview();
 			    ensureMatchSectionStructure();
+			    normalizeVisibleModelLabels();
 
 			    document.querySelectorAll('.match-title__flag').forEach(flag => {
 			      flag.textContent = '';
@@ -1563,7 +1584,7 @@
 					<div class="match-overview">
 						<div class="match-overview__item">
 							<span class="match-overview__label">Snabbkoll</span>
-							<strong data-slot="snapshot">{{Short market and model read for the match}}</strong>
+							<strong data-slot="snapshot">{{Short market and model read for the match. If you name the secondary model line, call it Tennis Daily, never Vitel}}</strong>
 						</div>
 						<div class="match-overview__item">
 							<span class="match-overview__label">Matchprofil</span>
@@ -1589,7 +1610,8 @@
 							<p>
 								Show Svenska Spel, Tennis Abstract, and Tennis Daily in one simple table. Keep the cell content compact. For Tennis Abstract and Tennis Daily,
 								append positive edge inline after the odds in the same cell, for example 2.34 (+6%). Never show negative edge labels, and end with
-								one short Swedish pricing takeaway. Show full player names for clarity.
+								one short Swedish pricing takeaway. Show full player names for clarity. Never use the visible label Vitel anywhere in this rendered
+								block, even if that is the backend source name.
 							</p>
 						</div>
 						<table class="odds-table" data-slot="odds-table">
@@ -1619,7 +1641,7 @@
 							</tbody>
 						</table>
 						<p class="odds-callout" data-slot="betting-idea">
-							<strong>Spelidé:</strong> {{Write one short betting or pricing takeaway in clear Swedish. Keep it concise and editorial.}}
+							<strong>Spelidé:</strong> {{Write one short betting or pricing takeaway in clear Swedish. Keep it concise and editorial. If you name the secondary model line, call it Tennis Daily, never Vitel.}}
 						</p>
 					</article>
 
@@ -1633,7 +1655,7 @@
 										Tennis Daily. For each positive Kelly signal, show suggested stakes for half Kelly, quarter Kelly, and eighth Kelly. In the Spel
 										column, append ROI after the odds, for example Ethan Quinn @ 2.25 (+8% ROI). Use whole kronor only. If there is no positive
 										edge, show 0 kr or omit that row. Always keep the Swedish bankroll note under the table. Fill this existing table only; do
-										not insert another table inside this table slot.
+										not insert another table inside this table slot. Never use the visible row label Vitel anywhere in this rendered block.
 									</p>
 								</div>
 								<p data-slot="kelly-intro">Förslag på bets enligt Kelly-modellen. {{PlayerA}} mot {{PlayerB}}.</p>
